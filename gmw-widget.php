@@ -20,28 +20,33 @@ class GoogleMapsWidget extends WP_Widget {
                                     'thumb_width' => 250,
                                     'thumb_height' => 250,
                                     'thumb_type' => 'roadmap',
+                                    'thumb_zoom' => '13',
                                     'lightbox_width' => 550,
                                     'lightbox_height' => 550,
                                     'lightbox_type' => 'roadmap',
-                                    'footer' => '',
-                                    'zoom_thumb' => '13',
-                                    'zoom_big' => '14'));
+                                    'lightbox_zoom' => '14',
+                                    'footer' => ''));
     $title = $instance['title'];
     $footer = $instance['footer'];
     $address = $instance['address'];
     $thumb_width = $instance['thumb_width'];
     $thumb_height = $instance['thumb_height'];
     $thumb_type = $instance['thumb_type'];
+    $thumb_zoom = $instance['thumb_zoom'];
     $lightbox_width = $instance['lightbox_width'];
     $lightbox_height = $instance['lightbox_height'];
     $lightbox_type = $instance['lightbox_type'];
-    $zoom_thumb = $instance['zoom_thumb'];
-    $zoom_big = $instance['zoom_big'];
+    $lightbox_zoom = $instance['lightbox_zoom'];
 
-    $map_types = array(array('val' => 'roadmap', 'label' => 'Road map'),
-                       array('val' => 'satellite', 'label' => 'Satellite'),
-                       array('val' => 'terrain', 'label' => 'Terrain'),
-                       array('val' => 'hybrid', 'label' => 'Hybrid'));
+    $map_types_thumb = array(array('val' => 'roadmap', 'label' => 'Road map'),
+                             array('val' => 'satellite', 'label' => 'Satellite'),
+                             array('val' => 'terrain', 'label' => 'Terrain'),
+                             array('val' => 'hybrid', 'label' => 'Hybrid'));
+
+    $map_types_lightbox = array(array('val' => 'm', 'label' => 'Road map'),
+                                array('val' => 'k', 'label' => 'Satellite'),
+                                array('val' => 'p', 'label' => 'Terrain'),
+                                array('val' => 'h', 'label' => 'Hybrid'));
 
     $zoom_levels = array(array('val' => '0', 'label' => '0 - entire world'));
     for ($tmp = 1; $tmp <= 20; $tmp++) {
@@ -53,34 +58,34 @@ class GoogleMapsWidget extends WP_Widget {
     
     echo '<p><label for="' . $this->get_field_id('address') . '">Address:</label><input class="widefat" id="' . $this->get_field_id('address') . '" name="' . $this->get_field_name('address') . '" type="text" value="' . esc_attr($address) . '" /></p>';
     
-    echo '<p><label for="' . $this->get_field_id('thumb_width') . '">Thumbnail Size: </label>';
+    echo '<p><label for="' . $this->get_field_id('thumb_width') . '">Thumbnail Map Size: </label>';
     echo '<input class="small-text" id="' . $this->get_field_id('thumb_width') . '" name="' . $this->get_field_name('thumb_width') . '" type="text" value="' . esc_attr($thumb_width) . '" /> x ';
     echo '<input class="small-text" id="' . $this->get_field_id('thumb_height') . '" name="' . $this->get_field_name('thumb_height') . '" type="text" value="' . esc_attr($thumb_height) . '" />';
     echo '</p>';
 
-    echo '<p><label for="' . $this->get_field_id('lightbox_width') . '">Lightbox Size: </label>';
+    echo '<p><label for="' . $this->get_field_id('lightbox_width') . '">Lightbox Map Size: </label>';
     echo '<input class="small-text" id="' . $this->get_field_id('lightbox_width') . '" name="' . $this->get_field_name('lightbox_width') . '" type="text" value="' . esc_attr($lightbox_width) . '" /> x ';
     echo '<input class="small-text" id="' . $this->get_field_id('lightbox_height') . '" name="' . $this->get_field_name('lightbox_height') . '" type="text" value="' . esc_attr($lightbox_height) . '" />';
     echo '</p>';
     
-    echo '<p><label for="' . $this->get_field_id('zoom_thumb') . '">Zoom Level for Thumbnail Map: </label>';
-    echo '<select id="' . $this->get_field_id('zoom_thumb') . '" name="' . $this->get_field_name('zoom_thumb') . '">';
-    GMW::create_select_options($zoom_levels, $zoom_thumb);
+    echo '<p><label for="' . $this->get_field_id('thumb_zoom') . '">Zoom Level for Thumbnail Map: </label>';
+    echo '<select id="' . $this->get_field_id('thumb_zoom') . '" name="' . $this->get_field_name('thumb_zoom') . '">';
+    GMW::create_select_options($zoom_levels, $thumb_zoom);
     echo '</select></p>';
     
-    echo '<p><label for="' . $this->get_field_id('zoom_big') . '">Zoom Level for Lightbox Map: </label>';
-    echo '<select id="' . $this->get_field_id('zoom_big') . '" name="' . $this->get_field_name('zoom_big') . '">';
-    GMW::create_select_options($zoom_levels, $zoom_big);
+    echo '<p><label for="' . $this->get_field_id('lightbox_zoom') . '">Zoom Level for Lightbox Map: </label>';
+    echo '<select id="' . $this->get_field_id('lightbox_zoom') . '" name="' . $this->get_field_name('lightbox_zoom') . '">';
+    GMW::create_select_options($zoom_levels, $lightbox_zoom);
     echo '</select></p>';
 
     echo '<p><label for="' . $this->get_field_id('thumb_type') . '">Thumbnail Map Type: </label>';
     echo '<select id="' . $this->get_field_id('thumb_type') . '" name="' . $this->get_field_name('thumb_type') . '">';
-    GMW::create_select_options($map_types, $thumb_type);
+    GMW::create_select_options($map_types_thumb, $thumb_type);
     echo '</select></p>';
 
     echo '<p><label for="' . $this->get_field_id('lightbox_type') . '">Lightbox Map Type: </label>';
     echo '<select id="' . $this->get_field_id('lightbox_type') . '" name="' . $this->get_field_name('lightbox_type') . '">';
-    GMW::create_select_options($map_types, $lightbox_type);
+    GMW::create_select_options($map_types_lightbox, $lightbox_type);
     echo '</select></p>';
     
     echo '<p><label for="' . $this->get_field_id('footer') . '">Lightbox Footer Text:</label>';
@@ -98,8 +103,8 @@ class GoogleMapsWidget extends WP_Widget {
     $instance['lightbox_height'] = (int) $new_instance['lightbox_height'];
     $instance['thumb_type'] = $new_instance['thumb_type'];
     $instance['lightbox_type'] = $new_instance['lightbox_type'];
-    $instance['zoom_thumb'] = $new_instance['zoom_thumb'];
-    $instance['zoom_big'] = $new_instance['zoom_big'];
+    $instance['thumb_zoom'] = $new_instance['thumb_zoom'];
+    $instance['lightbox_zoom'] = $new_instance['lightbox_zoom'];
     $instance['footer'] = $new_instance['footer'];
     
     return $instance;
@@ -112,7 +117,8 @@ class GoogleMapsWidget extends WP_Widget {
     self::$widgets[] = array('title' => $instance['title'],
                              'footer' => $instance['footer'],
                              'address' => $instance['address'],
-                             'zoom_big' => $instance['zoom_big'],
+                             'lightbox_zoom' => $instance['lightbox_zoom'],
+                             'lightbox_type' => $instance['lightbox_type'],
                              'id' => $widget_id);
   
     $out .= $before_widget;
@@ -124,7 +130,7 @@ class GoogleMapsWidget extends WP_Widget {
  
     $tmp .= '<p><a class="widget-map" href="#dialog-' . $widget_id . '" title="Click to open larger map">';
     $tmp .= '<img title="Click to open larger map" alt="Click to open larger map" src="https://maps.googleapis.com/maps/api/staticmap?center=' . 
-         urlencode($instance['address']) . '&amp;zoom=' . $instance['zoom_thumb'] . 
+         urlencode($instance['address']) . '&amp;zoom=' . $instance['thumb_zoom'] .
          '&amp;size=' .$instance['thumb_width'] . 'x' . $instance['thumb_height'] . '&amp;maptype=' . $instance['thumb_type'] . '&amp;sensor=false&amp;scale=2&amp;markers=color:red%7Clabel:A%7C' .
          urlencode($instance['address']) . '"></a>';
     $tmp .= '</p>';
