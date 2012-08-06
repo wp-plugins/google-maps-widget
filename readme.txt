@@ -1,7 +1,7 @@
 === Google Maps Widget ===
 Contributors: WebFactory
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypal%40webfactoryltd%2ecom&lc=US&item_name=Google%20Maps%20Widget&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
-Tags: google maps, maps, gmaps, widget, lightbox, map
+Tags: google maps, maps, gmaps, widget, lightbox, map, google map, map widget, widgets
 License: GPLv2 or later
 Requires at least: 3.2
 Tested up to: 3.4.1
