@@ -18,6 +18,7 @@ class GoogleMapsWidget extends WP_Widget {
                               array('title' => 'Map',
                                     'address' => 'New York, USA',
                                     'thumb_pin_color' => 'red',
+                                    'thumb_pin_size' => 'default',
                                     'thumb_width' => 250,
                                     'thumb_height' => 250,
                                     'thumb_type' => 'roadmap',
@@ -31,6 +32,7 @@ class GoogleMapsWidget extends WP_Widget {
     $footer = $instance['footer'];
     $address = $instance['address'];
     $thumb_pin_color = $instance['thumb_pin_color'];
+    $thumb_pin_size = $instance['thumb_pin_size'];
     $thumb_width = $instance['thumb_width'];
     $thumb_height = $instance['thumb_height'];
     $thumb_type = $instance['thumb_type'];
@@ -61,6 +63,11 @@ class GoogleMapsWidget extends WP_Widget {
                         array('val' => 'red', 'label' => 'Red'),
                         array('val' => 'white', 'label' => 'White'));
 
+    $pin_sizes = array(array('val' => 'tiny', 'label' => 'Tiny'),
+                       array('val' => 'small', 'label' => 'Small'),
+                       array('val' => 'mid', 'label' => 'Medium'),
+                       array('val' => 'default', 'label' => 'Large (default)'));
+
     $zoom_levels = array(array('val' => '0', 'label' => '0 - entire world'));
     for ($tmp = 1; $tmp <= 20; $tmp++) {
       $zoom_levels[] = array('val' => $tmp, 'label' => $tmp);
@@ -74,6 +81,11 @@ class GoogleMapsWidget extends WP_Widget {
     echo '<p><label for="' . $this->get_field_id('thumb_pin_color') . '">Thumbnail Map Pin Color: </label>';
     echo '<select id="' . $this->get_field_id('thumb_pin_color') . '" name="' . $this->get_field_name('thumb_pin_color') . '">';
     GMW::create_select_options($pin_colors, $thumb_pin_color);
+    echo '</select></p>';
+
+    echo '<p><label for="' . $this->get_field_id('thumb_pin_size') . '">Thumbnail Map Pin Size: </label>';
+    echo '<select id="' . $this->get_field_id('thumb_pin_size') . '" name="' . $this->get_field_name('thumb_pin_size') . '">';
+    GMW::create_select_options($pin_sizes, $thumb_pin_size);
     echo '</select></p>';
 
     echo '<p><label for="' . $this->get_field_id('thumb_width') . '">Thumbnail Map Size: </label>';
@@ -116,6 +128,7 @@ class GoogleMapsWidget extends WP_Widget {
     $instance['title'] = $new_instance['title'];
     $instance['address'] = $new_instance['address'];
     $instance['thumb_pin_color'] = $new_instance['thumb_pin_color'];
+    $instance['thumb_pin_size'] = $new_instance['thumb_pin_size'];
     $instance['thumb_width'] = (int) $new_instance['thumb_width'];
     $instance['thumb_height'] = (int) $new_instance['thumb_height'];
     $instance['lightbox_width'] = (int) $new_instance['lightbox_width'];
@@ -150,7 +163,8 @@ class GoogleMapsWidget extends WP_Widget {
     $tmp .= '<p><a class="widget-map" href="#dialog-' . $widget_id . '" title="Click to open larger map">';
     $tmp .= '<img title="Click to open larger map" alt="Click to open larger map" src="https://maps.googleapis.com/maps/api/staticmap?center=' . 
          urlencode($instance['address']) . '&amp;zoom=' . $instance['thumb_zoom'] .
-         '&amp;size=' .$instance['thumb_width'] . 'x' . $instance['thumb_height'] . '&amp;maptype=' . $instance['thumb_type'] . '&amp;sensor=false&amp;scale=2&amp;markers=color:' . $instance['thumb_pin_color'] . '%7Clabel:A%7C' .
+         '&amp;size=' .$instance['thumb_width'] . 'x' . $instance['thumb_height'] . '&amp;maptype=' . $instance['thumb_type'] .
+         '&amp;sensor=false&amp;scale=2&amp;markers=size:' . $instance['thumb_pin_size'] . '%7Ccolor:' . $instance['thumb_pin_color'] . '%7Clabel:A%7C' .
          urlencode($instance['address']) . '"></a>';
     $tmp .= '</p>';
     $out .= apply_filters('google_maps_widget_content', $tmp);

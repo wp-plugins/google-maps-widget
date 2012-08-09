@@ -1,11 +1,11 @@
 === Google Maps Widget ===
 Contributors: WebFactory
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypal%40webfactoryltd%2ecom&lc=US&item_name=Google%20Maps%20Widget&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
-Tags: google maps, maps, gmaps, widget, lightbox, map
+Tags: google maps, maps, gmaps, widget, lightbox, map, google map
 License: GPLv2 or later
 Requires at least: 3.2
 Tested up to: 3.4.1
-Stable tag: 0.12
+Stable tag: 0.13
 
 Display a single-image super-fast loading Google map in a widget. A larger map with all the usual features is available on click in a lightbox.
 
@@ -16,6 +16,7 @@ More features, videos and demos are coming in a few days! Till then here's the w
 * title
 * address
 * thumbnail map pin color
+* thumbnail map pin size
 * thumbnail map width/height
 * thumbnail map zoom level
 * thumbnail map type
@@ -55,6 +56,10 @@ If you can figure it out open a thread in the support forums.
 
 == Changelog ==
 
+= 0.13 =
+* 2012/08/09
+* Added pin size for thumbnail map
+
 = 0.12 =
 * 2012/08/07
 * Added pin color for thumbnail map
@@ -70,6 +75,9 @@ If you can figure it out open a thread in the support forums.
 
 
 == Upgrade Notice ==
+
+= 0.1x =
+Upgrade without any fear :)
 
 = 0.1 =
 Initial release
