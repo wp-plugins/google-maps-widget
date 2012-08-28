@@ -4,7 +4,7 @@ Plugin Name: Google Maps Widget
 Plugin URI: http://wordpress.org/extend/plugins/google-maps-widget/
 Description: Display a single-image super-fast loading Google map in a widget. A larger, full featured map is available on click in a lightbox. 
 Author: Web factory Ltd
-Version: 0.13
+Version: 0.2
 Author URI: http://www.webfactoryltd.com/
 */
 
@@ -13,7 +13,7 @@ if (!function_exists('add_action')) {
   die('Please don\'t open this file directly!');
 }
 
-define('GOOGLE_MAPS_WIDGET_CORE_VER', '0.1');
+define('GOOGLE_MAPS_WIDGET_CORE_VER', '0.2');
 require_once 'gmw-widget.php';
 
 class GMW {
@@ -26,10 +26,13 @@ class GMW {
         add_filter('plugin_action_links_' . basename(dirname(__FILE__)) . '/' . basename(__FILE__),
                    array(__CLASS__, 'plugin_action_links'));
         add_filter('plugin_row_meta', array(__CLASS__, 'plugin_meta_links'), 10, 2);
+        
+        // enqueue admin scripts
+        add_action('admin_enqueue_scripts', array(__CLASS__, 'admin_enqueue_scripts'));
       } else {
-          // enqueue frontend scripts
-          add_action('wp_enqueue_scripts', array(__CLASS__, 'enqueue_scripts'));
-          add_action('wp_footer', array(__CLASS__, 'dialogs_markup'));
+        // enqueue frontend scripts
+        add_action('wp_enqueue_scripts', array(__CLASS__, 'enqueue_scripts'));
+        add_action('wp_footer', array(__CLASS__, 'dialogs_markup'));
       }
    } // init
 
@@ -87,7 +90,15 @@ class GMW {
        }
        
        foreach ($widgets as $widget) {
-         $out .= '<div class="gmw-dialog" style="display: none;" data-iframe-url="http://maps.google.co.uk/maps?hl=en&amp;ie=utf8&amp;output=embed&amp;iwloc=A&amp;iwd=1&amp;mrt=loc&amp;t=' . $widget['lightbox_type'] . '&amp;q=' . urlencode($widget['address']) . '&amp;z=' . urlencode($widget['lightbox_zoom']) . '" id="dialog-' . $widget['id'] . '" title="' . $widget['title'] . '">';
+         if ($widget['bubble']) {
+           $iwloc = 'addr';
+         } else {
+           $iwloc = 'near';
+         }
+         $out .= '<div class="gmw-dialog" style="display: none;" data-map-height="' . $widget['height'] . '" data-map-width="' . $widget['width'] . '" data-iframe-url="http://maps.google.co.uk/maps?hl=en&amp;ie=utf8&amp;output=embed&amp;iwloc=' . $iwloc . '&amp;iwd=1&amp;mrt=loc&amp;t=' . $widget['type'] . '&amp;q=' . urlencode($widget['address']) . '&amp;z=' . urlencode($widget['zoom']) . '" id="dialog-' . $widget['id'] . '" title="' . $widget['title'] . '">';
+         if ($widget['header']) {
+          $out .= '<div class="gmw-header" style="padding: 5px;"><i>' . do_shortcode($widget['header']) . '</i></div>';
+         }
          $out .= '<div class="gmw-map"></div>';
          if ($widget['footer']) {
           $out .= '<div class="gmw-footer" style="padding: 5px;"><i>' . do_shortcode($widget['footer']) . '</i></div>';
@@ -99,7 +110,7 @@ class GMW {
    } // run_scroller
 
 
-  // enqueue frontend scripts if necessary
+   // enqueue frontend scripts if necessary
    function enqueue_scripts() {
      if (is_active_widget(false, false, 'googlemapswidget', true)) {
        wp_enqueue_style('wp-jquery-ui-dialog');
@@ -108,7 +119,31 @@ class GMW {
      }
     } // enqueue_scripts
 
+   
+    // enqueue CSS and JS scripts on widgets page
+    function admin_enqueue_scripts() {
+      if (self::is_plugin_admin_page()) {
+        $plugin_url = plugin_dir_url(__FILE__);
+        
+        wp_enqueue_script('jquery-ui-tabs');
+        wp_enqueue_script('gmw-admin', $plugin_url . 'js/gmw-admin.js', array(), '1.0', true);
+        wp_enqueue_style('gmw-admin', $plugin_url . 'css/gmw-admin.css', array(), '1.0');
+      } // if
+    } // admin_enqueue_scripts
+    
+    
+    // check if plugin's admin page is shown
+    function is_plugin_admin_page() {
+      $current_screen = get_current_screen();
 
+      if ($current_screen->id == 'widgets') {
+        return true;
+      } else {
+        return false;
+      }
+    } // is_plugin_admin_page
+  
+  
     // helper function for creating dropdowns
     function create_select_options($options, $selected = null, $output = true) {
         $out = "\n";

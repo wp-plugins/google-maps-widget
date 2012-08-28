@@ -5,7 +5,7 @@ Tags: google maps, maps, gmaps, widget, lightbox, map, google map
 License: GPLv2 or later
 Requires at least: 3.2
 Tested up to: 3.4.1
-Stable tag: 0.13
+Stable tag: 0.2
 
 Display a single-image super-fast loading Google map in a widget. A larger map with all the usual features is available on click in a lightbox.
 
@@ -13,20 +13,29 @@ Display a single-image super-fast loading Google map in a widget. A larger map w
 
 More features, videos and demos are coming in a few days! Till then here's the widget's features list:
 
+**General widget options**
+
 * title
 * address
-* thumbnail map pin color
-* thumbnail map pin size
-* thumbnail map width/height
-* thumbnail map zoom level
-* thumbnail map type
-* lightbox map width/height
-* lightbox map zoom level
-* lightbox map type
-* lightbox footer text
 
+**Thumbnail map options**
 
-There are no additional JS libraries included; GMW uses jQuery and jQuery UI Dialog bundled with WP. There are also no CSS files, but will be in the future 'cause we want to make the dialog look nicer :)
+* map size - width & height
+* map type - road, satellite, map or hybrid
+* pin color
+* pin size
+* zoom level
+
+**Lightbox map options**
+
+* map size - width & height
+* map type - road, satellite, map or hybrid
+* zoom level
+* show/hide address bubble
+* header text
+* footer text
+
+There are no additional JS libraries included; GMW uses jQuery and jQuery UI Dialog bundled with WP. There are also no extra CSS files included. We do plan to add them in the future to provide map and dialog themes.
 
 == Installation ==
 
@@ -51,10 +60,20 @@ If you can figure it out open a thread in the support forums.
 
 == Screenshots ==
 
-1. Small map is shown as a widget and since it's just one image loads super-fast
+1. Small map is shown as a widget and since it's just one image it loads super-fast
 2. Larger map with all features is available in the lightbox
+3. Widget options - thumbnail map
+4. Widget options - lightbox map
 
 == Changelog ==
+
+= 0.2 =
+* 2012/08/28
+* Complete GUI rewrite
+* Added header text option
+* Added address bubble visibility option
+* Fixed thumbnail map scaling bug
+* Fixed lightbox map size bug
 
 = 0.13 =
 * 2012/08/09
@@ -75,6 +94,9 @@ If you can figure it out open a thread in the support forums.
 
 
 == Upgrade Notice ==
+
+= 0.2 =
+Due to variable name change footer text will be reset
 
 = 0.1x =
 Upgrade without any fear :)
