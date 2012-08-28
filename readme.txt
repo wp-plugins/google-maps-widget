@@ -11,7 +11,7 @@ Display a single-image super-fast loading Google map in a widget. A larger map w
 
 == Description ==
 
-More features, videos and demos are coming in a few days! Till then here's the widget's features list:
+More features, videos and demos are coming in a few days! Till then here's the widget's features list. Give us a shout <a href="http://twitter.com/WebFactoryLtd">@WebFactoryLtd</a>.
 
 **General widget options**
 
