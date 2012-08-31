@@ -37,7 +37,7 @@ More features, videos and demos are coming in a few days! Till then here's the w
 
 There are no additional JS libraries included; GMW uses jQuery and jQuery UI Dialog bundled with WP. There are also no extra CSS files included. We do plan to add them in the future to provide map and dialog themes.
 
-> If you need a Google Maps shortcode plugin you might be interested in purchasing our premium <a href="5sec Google Maps" href="http://5sec-gmap.webfactoryltd.com/">5sec Google Maps</a> plugin.
+> If you need a Google Maps shortcode plugin you might be interested in purchasing our premium <a title="5sec Google Maps" href="http://5sec-gmap.webfactoryltd.com/">5sec Google Maps</a> plugin.
 
 == Installation ==
 
