@@ -5,7 +5,7 @@ Tags: google maps, maps, gmaps, widget, lightbox, map, google map
 License: GPLv2 or later
 Requires at least: 3.2
 Tested up to: 3.4.1
-Stable tag: 0.22
+Stable tag: 0.23
 
 Display a single-image super-fast loading Google map in a widget. A larger map with all the usual features is available on click in a lightbox.
 
