@@ -82,7 +82,7 @@ class GoogleMapsWidget extends WP_Widget {
     echo '<p><label for="' . $this->get_field_id('title') . '">Title:</label><input class="widefat" id="' . $this->get_field_id('title') . '" name="' . $this->get_field_name('title') . '" type="text" value="' . esc_attr($title) . '" /></p>';
     echo '<p><label for="' . $this->get_field_id('address') . '">Address:</label><input class="widefat" id="' . $this->get_field_id('address') . '" name="' . $this->get_field_name('address') . '" type="text" value="' . esc_attr($address) . '" /></p>';
     
-    echo '<div class="gmw-tabs"><ul><li><a href="#gmw-thumb">Thumbnail map</a></li><li><a href="#gmw-lightbox">Lightbox map</a></li></ul>';
+    echo '<div class="gmw-tabs" id="tab-' . $this->id . '"><ul><li><a href="#gmw-thumb">Thumbnail map</a></li><li><a href="#gmw-lightbox">Lightbox map</a></li></ul>';
     echo '<div id="gmw-thumb">';
     
     echo '<p><label class="gmw-label" for="' . $this->get_field_id('thumb_width') . '">Map Size: </label>';

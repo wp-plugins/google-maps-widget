@@ -5,7 +5,7 @@ Tags: google maps, maps, gmaps, widget, lightbox, map, google map
 License: GPLv2 or later
 Requires at least: 3.2
 Tested up to: 3.4.1
-Stable tag: 0.21
+Stable tag: 0.22
 
 Display a single-image super-fast loading Google map in a widget. A larger map with all the usual features is available on click in a lightbox.
 
@@ -37,6 +37,8 @@ More features, videos and demos are coming in a few days! Till then here's the w
 
 There are no additional JS libraries included; GMW uses jQuery and jQuery UI Dialog bundled with WP. There are also no extra CSS files included. We do plan to add them in the future to provide map and dialog themes.
 
+> If you need a Google Maps shortcode plugin you might be interested in purchasing our premium <a href="5sec Google Maps" href="http://5sec-gmap.webfactoryltd.com/">5sec Google Maps</a> plugin.
+
 == Installation ==
 
 Follow the usual routine;
@@ -66,6 +68,10 @@ If you can figure it out open a thread in the support forums.
 4. Widget options - lightbox map
 
 == Changelog ==
+
+= 0.22 =
+* 2012/08/31
+* Fixed small JS related GUI bug
 
 = 0.2 =
 * 2012/08/28

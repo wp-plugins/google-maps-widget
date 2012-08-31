@@ -9,7 +9,7 @@ jQuery(function($) {
       map_width = dialog.attr('data-map-width');
       map_height = dialog.attr('data-map-height');
       
-      dialog.dialog('option', {'minWidth': map_width, 'minHeight': map_height,} ).dialog('open');
+      dialog.dialog('option', {'width': map_width, 'minHeight': map_height}).dialog('open');
       
       return false;
     });
@@ -18,14 +18,12 @@ jQuery(function($) {
                               'modal': true,
                               'resizable': false,
                               'zIndex': 9999,
-                              'minWidth': 550,
-                              'minHeight': 550,
                               'hide': 'fade',
                               'open': function(event, ui) { renderMap(event, ui); fixDialogClose(event, ui); },
                               'show': 'fade',
                               'autoOpen': false,
                               'closeOnEscape': true
-                              });
+                             });
 }); // onload
 
 function renderMap(event, ui) {
