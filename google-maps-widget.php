@@ -4,7 +4,7 @@ Plugin Name: Google Maps Widget
 Plugin URI: http://wordpress.org/extend/plugins/google-maps-widget/
 Description: Display a single-image super-fast loading Google map in a widget. A larger, full featured map is available on click in a lightbox. 
 Author: Web factory Ltd
-Version: 0.23
+Version: 0.3
 Author URI: http://www.webfactoryltd.com/
 */
 
@@ -13,8 +13,10 @@ if (!function_exists('add_action')) {
   die('Please don\'t open this file directly!');
 }
 
-define('GOOGLE_MAPS_WIDGET_CORE_VER', '0.2');
-require_once 'gmw-widget.php';
+
+define('GMW_VER', '0.2');
+require 'gmw-widget.php';
+
 
 class GMW {
    function init() {
@@ -86,6 +88,8 @@ class GMW {
        $widgets = GoogleMapsWidget::$widgets;
        
        if (!$widgets) {
+         wp_dequeue_script('gmw');
+         wp_dequeue_script('gmw-fancybox');
          return;
        }
        
@@ -95,13 +99,15 @@ class GMW {
          } else {
            $iwloc = 'near';
          }
-         $out .= '<div class="gmw-dialog" style="display: none;" data-map-height="' . $widget['height'] . '" data-map-width="' . $widget['width'] . '" data-iframe-url="http://maps.google.co.uk/maps?hl=en&amp;ie=utf8&amp;output=embed&amp;iwloc=' . $iwloc . '&amp;iwd=1&amp;mrt=loc&amp;t=' . $widget['type'] . '&amp;q=' . urlencode($widget['address']) . '&amp;z=' . urlencode($widget['zoom']) . '" id="dialog-' . $widget['id'] . '" title="' . $widget['title'] . '">';
+         $map_url = 'http://maps.google.co.uk/maps?hl=en&amp;ie=utf8&amp;output=embed&amp;iwloc=' . $iwloc . '&amp;iwd=1&amp;mrt=loc&amp;t=' . $widget['type'] . '&amp;q=' . urlencode($widget['address']) . '&amp;z=' . urlencode($widget['zoom']) . '';
+         
+         $out .= '<div class="gmw-dialog" style="display: none;" data-map-height="' . $widget['height'] . '" data-map-width="' . $widget['width'] . '" data-iframe-url="' . $map_url . '" id="dialog-' . $widget['id'] . '" title="' . $widget['title'] . '">';
          if ($widget['header']) {
-          $out .= '<div class="gmw-header" style="padding: 5px;"><i>' . do_shortcode($widget['header']) . '</i></div>';
+          $out .= '<div class="gmw-header"><i>' . do_shortcode($widget['header']) . '</i></div>';
          }
          $out .= '<div class="gmw-map"></div>';
          if ($widget['footer']) {
-          $out .= '<div class="gmw-footer" style="padding: 5px;"><i>' . do_shortcode($widget['footer']) . '</i></div>';
+          $out .= '<div class="gmw-footer"><i>' . do_shortcode($widget['footer']) . '</i></div>';
          }
          $out .= "</div>\n";  
        } // foreach $widgets
@@ -113,9 +119,9 @@ class GMW {
    // enqueue frontend scripts if necessary
    function enqueue_scripts() {
      if (is_active_widget(false, false, 'googlemapswidget', true)) {
-       wp_enqueue_style('wp-jquery-ui-dialog');
-       wp_enqueue_script('jquery-ui-dialog');
-       wp_enqueue_script('gmw', plugins_url('/js/gmw.js', __FILE__), array('jquery'), '1.0');
+       wp_enqueue_style('gmw', plugins_url('/css/gmw.css', __FILE__), array(), GMW_VER);
+       wp_enqueue_script('gmw-fancybox', plugins_url('/js/jquery.fancybox.pack.js', __FILE__), array('jquery'), GMW_VER, true);
+       wp_enqueue_script('gmw', plugins_url('/js/gmw.js', __FILE__), array('jquery'), GMW_VER, true);
      }
     } // enqueue_scripts
 
@@ -126,9 +132,9 @@ class GMW {
         $plugin_url = plugin_dir_url(__FILE__);
         
         wp_enqueue_script('jquery-ui-tabs');
-        wp_enqueue_script('sn-cookie', $plugin_url . 'js/jquery.cookie.js', array('jquery'), '1.0', true);
-        wp_enqueue_script('gmw-admin', $plugin_url . 'js/gmw-admin.js', array(), '1.0', true);
-        wp_enqueue_style('gmw-admin', $plugin_url . 'css/gmw-admin.css', array(), '1.0');
+        wp_enqueue_script('sn-cookie', $plugin_url . 'js/jquery.cookie.js', array('jquery'), GMW_VER, true);
+        wp_enqueue_script('gmw-admin', $plugin_url . 'js/gmw-admin.js', array(), GMW_VER, true);
+        wp_enqueue_style('gmw-admin', $plugin_url . 'css/gmw-admin.css', array(), GMW_VER);
       } // if
     } // admin_enqueue_scripts
     

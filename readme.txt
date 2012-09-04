@@ -1,17 +1,17 @@
 === Google Maps Widget ===
 Contributors: WebFactory
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypal%40webfactoryltd%2ecom&lc=US&item_name=Google%20Maps%20Widget&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
-Tags: google maps, maps, gmaps, widget, lightbox, map, google map
+Tags: google maps, maps, gmaps, widget, lightbox, map, google map, fancybox, fancybox2
 License: GPLv2 or later
 Requires at least: 3.2
 Tested up to: 3.4.1
-Stable tag: 0.23
+Stable tag: 0.3
 
-Display a single-image super-fast loading Google map in a widget. A larger map with all the usual features is available on click in a lightbox.
+Displays a single-image super-fast loading Google map in a widget. A larger map with all the usual features is available on click in a lightbox.
 
 == Description ==
 
-More features, videos and demos are coming in a few days! Till then here's the widget's features list. Give us a shout <a href="http://twitter.com/WebFactoryLtd">@WebFactoryLtd</a>.
+More features, videos and demos are coming up on a daily basis! Till then here are the widget's features. Give us a shout <a href="http://twitter.com/WebFactoryLtd">@WebFactoryLtd</a>.
 
 **General widget options**
 
@@ -32,16 +32,23 @@ More features, videos and demos are coming in a few days! Till then here's the w
 * map type - road, satellite, map or hybrid
 * zoom level
 * show/hide address bubble
+* show/hide map title
 * header text
 * footer text
 
-There are no additional JS libraries included; GMW uses jQuery and jQuery UI Dialog bundled with WP. There are also no extra CSS files included. We do plan to add them in the future to provide map and dialog themes.
-
 > If you need a Google Maps shortcode plugin you might be interested in purchasing our premium <a title="5sec Google Maps" href="http://5sec-gmap.webfactoryltd.com/">5sec Google Maps</a> plugin.
+
+The plugin was voted on the <a href="http://themesplugins.com/Plugin-detail/google-maps-widget-google-map-free-plugin-for-wordpress/" title="Top 100 WordPressian plugin">Top 100 List</a> by WordPressian.
 
 == Installation ==
 
 Follow the usual routine;
+
+1. Open WP admin - Plugins - Add New
+2. Enter "Google Maps Widget" under search and hit Enter
+3. Plugin will show up as the first on the list, click "Install Now"
+
+Or if needed, upload manually;
 
 1. Download the plugin.
 2. Unzip it and upload to wp-content/plugin/
@@ -68,6 +75,13 @@ If you can figure it out open a thread in the support forums.
 4. Widget options - lightbox map
 
 == Changelog ==
+
+= 0.3 =
+* 2012/09/04
+* lightbox script changed from jQuery UI Dialog to <a href="http://fancyapps.com/fancybox/">fancyBox2</a>
+* added "show map title on lightbox" option
+* significant speed improvements
+* preparations for lightbox skins
 
 = 0.22 =
 * 2012/08/31
@@ -102,7 +116,7 @@ If you can figure it out open a thread in the support forums.
 == Upgrade Notice ==
 
 = 0.2 =
-Due to variable name change footer text will be reset
+Due to variable name changes footer text will be reset
 
 = 0.1x =
 Upgrade without any fear :)

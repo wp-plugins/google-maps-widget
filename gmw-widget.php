@@ -28,6 +28,8 @@ class GoogleMapsWidget extends WP_Widget {
                                     'lightbox_type' => 'roadmap',
                                     'lightbox_zoom' => '14',
                                     'lightbox_bubble' => '1',
+                                    'lightbox_skin' => '',
+                                    'lightbox_title' => '1',
                                     'lightbox_header' => '',
                                     'lightbox_footer' => ''));
                                     
@@ -46,6 +48,8 @@ class GoogleMapsWidget extends WP_Widget {
     $lightbox_type = $instance['lightbox_type'];
     $lightbox_zoom = $instance['lightbox_zoom'];
     $lightbox_bubble = $instance['lightbox_bubble'];
+    $lightbox_title = $instance['lightbox_title'];
+    $lightbox_skin = $instance['lightbox_skin'];
 
     $map_types_thumb = array(array('val' => 'roadmap', 'label' => 'Road'),
                              array('val' => 'satellite', 'label' => 'Satellite'),
@@ -78,6 +82,8 @@ class GoogleMapsWidget extends WP_Widget {
       $zoom_levels[] = array('val' => $tmp, 'label' => $tmp);
     }
     $zoom_levels[] = array('val' => '21', 'label' => '21 - street view');
+    
+    $lightbox_skins[] = array('val' => '', 'label' => 'Default');
 
     echo '<p><label for="' . $this->get_field_id('title') . '">Title:</label><input class="widefat" id="' . $this->get_field_id('title') . '" name="' . $this->get_field_name('title') . '" type="text" value="' . esc_attr($title) . '" /></p>';
     echo '<p><label for="' . $this->get_field_id('address') . '">Address:</label><input class="widefat" id="' . $this->get_field_id('address') . '" name="' . $this->get_field_name('address') . '" type="text" value="' . esc_attr($address) . '" /></p>';
@@ -128,8 +134,17 @@ class GoogleMapsWidget extends WP_Widget {
     GMW::create_select_options($zoom_levels, $lightbox_zoom);
     echo '</select></p>';
     
+    echo '<p><label class="gmw-label" for="' . $this->get_field_id('lightbox_skin') . '">Skin: </label>';
+    echo '<select id="' . $this->get_field_id('lightbox_skin') . '" name="' . $this->get_field_name('lightbox_skin') . '">';
+    GMW::create_select_options($lightbox_skins, $lightbox_skin);
+    echo '</select></p>';
+    
     echo '<p><label for="' . $this->get_field_id('lightbox_bubble') . '">Show Address Bubble: &nbsp;</label>';
     echo '<input ' . checked('1', $lightbox_bubble, false) . ' value="1" type="checkbox" id="' . $this->get_field_id('lightbox_bubble') . '" name="' . $this->get_field_name('lightbox_bubble') . '">';
+    echo '</p>';
+    
+    echo '<p><label for="' . $this->get_field_id('lightbox_title') . '">Show Title Below Lightbox: &nbsp;</label>';
+    echo '<input ' . checked('1', $lightbox_title, false) . ' value="1" type="checkbox" id="' . $this->get_field_id('lightbox_title') . '" name="' . $this->get_field_name('lightbox_title') . '">';
     echo '</p>';
     
     echo '<p><label for="' . $this->get_field_id('lightbox_header') . '">Header Text:</label>';
@@ -140,6 +155,7 @@ class GoogleMapsWidget extends WP_Widget {
     
     echo '</div>'; // lightbox tab
     echo '</div>'; // tabs
+    echo '<p><i>If you like the plugin give us a shout <a title="WebFactory on Twitter" target="_blank" href="http://twitter.com/WebFactoryLtd">@WebFactoryLtd</a>. Thanks!</i></p>';
   }
  
   function update($new_instance, $old_instance) {
@@ -157,7 +173,8 @@ class GoogleMapsWidget extends WP_Widget {
     $instance['lightbox_type'] = $new_instance['lightbox_type'];
     $instance['thumb_zoom'] = $new_instance['thumb_zoom'];
     $instance['lightbox_zoom'] = $new_instance['lightbox_zoom'];
-    $instance['lightbox_bubble'] = (int) @$new_instance['lightbox_bubble'];
+    $instance['lightbox_bubble'] = isset($new_instance['lightbox_bubble']);
+    $instance['lightbox_title'] = isset($new_instance['lightbox_title']);
     $instance['lightbox_footer'] = $new_instance['lightbox_footer'];
     $instance['lightbox_header'] = $new_instance['lightbox_header'];
     
@@ -168,7 +185,7 @@ class GoogleMapsWidget extends WP_Widget {
     $out = $tmp = '';
     
     extract($args, EXTR_SKIP);
-    self::$widgets[] = array('title' => $instance['title'],
+    self::$widgets[] = array('title' => ($instance['lightbox_title']? $instance['title']: ''),
                              'width' => $instance['lightbox_width'],
                              'height' => $instance['lightbox_height'],
                              'footer' => $instance['lightbox_footer'],
