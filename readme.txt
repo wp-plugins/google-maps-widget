@@ -62,7 +62,7 @@ Or if needed, upload manually;
 
 For just about anyone who needs a map on their site.
 
-= It's not working!!! Arrrrrrrrr =
+= It's not working!!! Arrrrrrrrrr =
 
 A more detailed help is coming soon. Till then check 2 things: does your theme have wp_footer() function call in the footer and if there are any jQuery errors on the site.
 If you can figure it out open a thread in the support forums.
