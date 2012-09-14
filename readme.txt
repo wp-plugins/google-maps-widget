@@ -5,7 +5,7 @@ Tags: google maps, maps, gmaps, widget, lightbox, map, google map, fancybox, fan
 License: GPLv2 or later
 Requires at least: 3.2
 Tested up to: 3.4.1
-Stable tag: 0.3
+Stable tag: 0.31
 
 Displays a single-image super-fast loading Google map in a widget. A larger map with all the usual features is available on click in a lightbox.
 
@@ -62,7 +62,7 @@ Or if needed, upload manually;
 
 For just about anyone who needs a map on their site.
 
-= It's not working!!! Arrrrrrrrrr =
+= It's not working!!! Arrrrrrrrr =
 
 A more detailed help is coming soon. Till then check 2 things: does your theme have wp_footer() function call in the footer and if there are any jQuery errors on the site.
 If you can figure it out open a thread in the support forums.
@@ -75,6 +75,10 @@ If you can figure it out open a thread in the support forums.
 4. Widget options - lightbox map
 
 == Changelog ==
+
+= 0.31 =
+* 2012/10/14
+* fix for bad themes which don't respect proper sidebar markup
 
 = 0.3 =
 * 2012/09/04

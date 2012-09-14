@@ -4,7 +4,7 @@ Plugin Name: Google Maps Widget
 Plugin URI: http://wordpress.org/extend/plugins/google-maps-widget/
 Description: Display a single-image super-fast loading Google map in a widget. A larger, full featured map is available on click in a lightbox. 
 Author: Web factory Ltd
-Version: 0.3
+Version: 0.31
 Author URI: http://www.webfactoryltd.com/
 */
 
@@ -14,7 +14,7 @@ if (!function_exists('add_action')) {
 }
 
 
-define('GMW_VER', '0.2');
+define('GMW_VER', '0.31');
 require 'gmw-widget.php';
 
 
@@ -101,7 +101,7 @@ class GMW {
          }
          $map_url = 'http://maps.google.co.uk/maps?hl=en&amp;ie=utf8&amp;output=embed&amp;iwloc=' . $iwloc . '&amp;iwd=1&amp;mrt=loc&amp;t=' . $widget['type'] . '&amp;q=' . urlencode($widget['address']) . '&amp;z=' . urlencode($widget['zoom']) . '';
          
-         $out .= '<div class="gmw-dialog" style="display: none;" data-map-height="' . $widget['height'] . '" data-map-width="' . $widget['width'] . '" data-iframe-url="' . $map_url . '" id="dialog-' . $widget['id'] . '" title="' . $widget['title'] . '">';
+         $out .= '<div class="gmw-dialog" style="display: none;" data-map-height="' . $widget['height'] . '" data-map-width="' . $widget['width'] . '" data-map-iframe-url="' . $map_url . '" id="dialog-' . $widget['id'] . '" title="' . $widget['title'] . '">';
          if ($widget['header']) {
           $out .= '<div class="gmw-header"><i>' . do_shortcode($widget['header']) . '</i></div>';
          }

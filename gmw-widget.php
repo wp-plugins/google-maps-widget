@@ -203,7 +203,7 @@ class GoogleMapsWidget extends WP_Widget {
       $out .= $before_title . $title . $after_title;
     }
  
-    $tmp .= '<p><a class="widget-map" href="#dialog-' . $widget_id . '" title="Click to open larger map">';
+    $tmp .= '<p><a class="gmw-thumbnail-map" href="#dialog-' . $widget_id . '" title="Click to open larger map">';
     $tmp .= '<img title="Click to open larger map" alt="Click to open larger map" src="https://maps.googleapis.com/maps/api/staticmap?center=' . 
          urlencode($instance['address']) . '&amp;zoom=' . $instance['thumb_zoom'] .
          '&amp;size=' . $instance['thumb_width'] . 'x' . $instance['thumb_height'] . '&amp;maptype=' . $instance['thumb_type'] .
