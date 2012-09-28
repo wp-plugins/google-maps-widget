@@ -6,7 +6,7 @@
 .gmw-header, .gmw-footer {
   padding: 5px;
 }
- 
+
 
 /*! fancyBox v2.1.0 fancyapps.com | fancyapps.com/fancybox/#license */
 .fancybox-wrap,
@@ -271,4 +271,36 @@
 	padding: 10px;
 	background: #000;
 	background: rgba(0, 0, 0, .8);
+}
+
+/* lightbox skins */
+.black-rounded .fancybox-skin {
+  background: black;
+}
+.black-rounded .fancybox-title-float-wrap .child {
+  background: black;
+}
+
+.white-square .fancybox-skin {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+.white-square .fancybox-title-float-wrap .child {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+
+.black-square .fancybox-skin {
+  background: black;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+.black-square .fancybox-title-float-wrap .child {
+  background: black;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
 }

@@ -2,9 +2,9 @@
 /*
 Plugin Name: Google Maps Widget
 Plugin URI: http://wordpress.org/extend/plugins/google-maps-widget/
-Description: Display a single-image super-fast loading Google map in a widget. A larger, full featured map is available on click in a lightbox. 
+Description: Display a single-image super-fast loading Google map in a widget. A larger, full featured map is available on click in a lightbox.
 Author: Web factory Ltd
-Version: 0.31
+Version: 0.35
 Author URI: http://www.webfactoryltd.com/
 */
 
@@ -14,7 +14,7 @@ if (!function_exists('add_action')) {
 }
 
 
-define('GMW_VER', '0.31');
+define('GMW_VER', '0.35');
 require 'gmw-widget.php';
 
 
@@ -28,7 +28,7 @@ class GMW {
         add_filter('plugin_action_links_' . basename(dirname(__FILE__)) . '/' . basename(__FILE__),
                    array(__CLASS__, 'plugin_action_links'));
         add_filter('plugin_row_meta', array(__CLASS__, 'plugin_meta_links'), 10, 2);
-        
+
         // enqueue admin scripts
         add_action('admin_enqueue_scripts', array(__CLASS__, 'admin_enqueue_scripts'));
       } else {
@@ -86,13 +86,13 @@ class GMW {
   function dialogs_markup() {
        $out = '';
        $widgets = GoogleMapsWidget::$widgets;
-       
+
        if (!$widgets) {
          wp_dequeue_script('gmw');
          wp_dequeue_script('gmw-fancybox');
          return;
        }
-       
+
        foreach ($widgets as $widget) {
          if ($widget['bubble']) {
            $iwloc = 'addr';
@@ -100,8 +100,8 @@ class GMW {
            $iwloc = 'near';
          }
          $map_url = 'http://maps.google.co.uk/maps?hl=en&amp;ie=utf8&amp;output=embed&amp;iwloc=' . $iwloc . '&amp;iwd=1&amp;mrt=loc&amp;t=' . $widget['type'] . '&amp;q=' . urlencode($widget['address']) . '&amp;z=' . urlencode($widget['zoom']) . '';
-         
-         $out .= '<div class="gmw-dialog" style="display: none;" data-map-height="' . $widget['height'] . '" data-map-width="' . $widget['width'] . '" data-map-iframe-url="' . $map_url . '" id="dialog-' . $widget['id'] . '" title="' . $widget['title'] . '">';
+
+         $out .= '<div class="gmw-dialog" style="display: none;" data-map-height="' . $widget['height'] . '" data-map-width="' . $widget['width'] . '" data-map-skin="' . $widget['skin'] . '" data-map-iframe-url="' . $map_url . '" id="dialog-' . $widget['id'] . '" title="' . esc_attr($widget['title']) . '">';
          if ($widget['header']) {
           $out .= '<div class="gmw-header"><i>' . do_shortcode($widget['header']) . '</i></div>';
          }
@@ -109,9 +109,9 @@ class GMW {
          if ($widget['footer']) {
           $out .= '<div class="gmw-footer"><i>' . do_shortcode($widget['footer']) . '</i></div>';
          }
-         $out .= "</div>\n";  
+         $out .= "</div>\n";
        } // foreach $widgets
-       
+
        echo $out;
    } // run_scroller
 
@@ -125,20 +125,20 @@ class GMW {
      }
     } // enqueue_scripts
 
-   
+
     // enqueue CSS and JS scripts on widgets page
     function admin_enqueue_scripts() {
       if (self::is_plugin_admin_page()) {
         $plugin_url = plugin_dir_url(__FILE__);
-        
+
         wp_enqueue_script('jquery-ui-tabs');
         wp_enqueue_script('sn-cookie', $plugin_url . 'js/jquery.cookie.js', array('jquery'), GMW_VER, true);
         wp_enqueue_script('gmw-admin', $plugin_url . 'js/gmw-admin.js', array(), GMW_VER, true);
         wp_enqueue_style('gmw-admin', $plugin_url . 'css/gmw-admin.css', array(), GMW_VER);
       } // if
     } // admin_enqueue_scripts
-    
-    
+
+
     // check if plugin's admin page is shown
     function is_plugin_admin_page() {
       $current_screen = get_current_screen();
@@ -149,8 +149,8 @@ class GMW {
         return false;
       }
     } // is_plugin_admin_page
-  
-  
+
+
     // helper function for creating dropdowns
     function create_select_options($options, $selected = null, $output = true) {
         $out = "\n";
