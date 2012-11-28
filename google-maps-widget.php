@@ -4,7 +4,7 @@ Plugin Name: Google Maps Widget
 Plugin URI: http://wordpress.org/extend/plugins/google-maps-widget/
 Description: Display a single-image super-fast loading Google map in a widget. A larger, full featured map is available on click in a lightbox.
 Author: Web factory Ltd
-Version: 0.37
+Version: 0.4
 Author URI: http://www.webfactoryltd.com/
 */
 
@@ -14,7 +14,7 @@ if (!function_exists('add_action')) {
 }
 
 
-define('GMW_VER', '0.37');
+define('GMW_VER', '0.4');
 require 'gmw-widget.php';
 
 
@@ -99,7 +99,7 @@ class GMW {
          } else {
            $iwloc = 'near';
          }
-         $map_url = 'http://maps.google.com/maps?hl=en&amp;ie=utf8&amp;output=embed&amp;iwloc=' . $iwloc . '&amp;iwd=1&amp;mrt=loc&amp;t=' . $widget['type'] . '&amp;q=' . urlencode($widget['address']) . '&amp;z=' . urlencode($widget['zoom']) . '';
+         $map_url = 'http://maps.google.com/maps?hl=en&amp;ie=utf8&amp;output=embed&amp;iwloc=' . $iwloc . '&amp;iwd=1&amp;mrt=loc&amp;t=' . $widget['type'] . '&amp;q=' . urlencode(remove_accents($widget['address'])) . '&amp;z=' . urlencode($widget['zoom']) . '';
 
          $out .= '<div class="gmw-dialog" style="display: none;" data-map-height="' . $widget['height'] . '" data-map-width="' . $widget['width'] . '" data-map-skin="' . $widget['skin'] . '" data-map-iframe-url="' . $map_url . '" id="dialog-' . $widget['id'] . '" title="' . esc_attr($widget['title']) . '">';
          if ($widget['header']) {
@@ -129,12 +129,10 @@ class GMW {
     // enqueue CSS and JS scripts on widgets page
     function admin_enqueue_scripts() {
       if (self::is_plugin_admin_page()) {
-        $plugin_url = plugin_dir_url(__FILE__);
-
         wp_enqueue_script('jquery-ui-tabs');
-        wp_enqueue_script('sn-cookie', $plugin_url . 'js/jquery.cookie.js', array('jquery'), GMW_VER, true);
-        wp_enqueue_script('gmw-admin', $plugin_url . 'js/gmw-admin.js', array(), GMW_VER, true);
-        wp_enqueue_style('gmw-admin', $plugin_url . 'css/gmw-admin.css', array(), GMW_VER);
+        wp_enqueue_script('gmw-cookie', plugins_url('js/jquery.cookie.js', __FILE__), array('jquery'), GMW_VER, true);
+        wp_enqueue_script('gmw-admin', plugins_url('js/gmw-admin.js', __FILE__), array('jquery'), GMW_VER, true);
+        wp_enqueue_style('gmw-admin', plugins_url('css/gmw-admin.css', __FILE__), array(), GMW_VER);
       } // if
     } // admin_enqueue_scripts
 
