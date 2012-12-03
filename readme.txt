@@ -5,7 +5,7 @@ Tags: google maps, maps, gmaps, widget, lightbox, map, google map, fancybox, fan
 License: GPLv2 or later
 Requires at least: 3.2
 Tested up to: 3.4.2
-Stable tag: 0.4
+Stable tag: 0.41
 
 Displays a single-image super-fast loading Google map in a widget. A larger map with all the usual features is available on click in a lightbox.
 
@@ -78,6 +78,10 @@ If you can figure it out open a thread in the support forums.
 4. Widget options - lightbox map
 
 == Changelog ==
+
+= 0.41 =
+* 2012/12/03
+* removed screenshots from plugin package
 
 = 0.4 =
 * 2012/11/28
