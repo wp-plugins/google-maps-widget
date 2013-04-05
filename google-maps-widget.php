@@ -4,7 +4,7 @@ Plugin Name: Google Maps Widget
 Plugin URI: http://wordpress.org/extend/plugins/google-maps-widget/
 Description: Display a single-image super-fast loading Google map in a widget. A larger, full featured map is available on click in a lightbox.
 Author: Web factory Ltd
-Version: 0.50
+Version: 0.55
 Author URI: http://www.webfactoryltd.com/
 */
 
