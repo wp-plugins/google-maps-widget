@@ -82,10 +82,9 @@ class GoogleMapsWidget extends WP_Widget {
                        array('val' => 'default', 'label' => 'Large (default)'));
 
     $zoom_levels = array(array('val' => '0', 'label' => '0 - entire world'));
-    for ($tmp = 1; $tmp <= 20; $tmp++) {
+    for ($tmp = 1; $tmp <= 21; $tmp++) {
       $zoom_levels[] = array('val' => $tmp, 'label' => $tmp);
     }
-    $zoom_levels[] = array('val' => '21', 'label' => '21 - street view');
 
     $lightbox_skins[] = array('val' => '', 'label' => 'White with rounded corners (default)');
     $lightbox_skins[] = array('val' => 'black-rounded', 'label' => 'Black with rounded corners');
@@ -123,7 +122,7 @@ class GoogleMapsWidget extends WP_Widget {
     echo '<select id="' . $this->get_field_id('thumb_zoom') . '" name="' . $this->get_field_name('thumb_zoom') . '">';
     GMW::create_select_options($zoom_levels, $thumb_zoom);
     echo '</select></p>';
-    
+
     echo '<p><label for="' . $this->get_field_id('thumb_header') . '">Text Above Map:</label>';
     echo '<textarea class="widefat" rows="3" cols="20" id="' . $this->get_field_id('thumb_header') . '" name="' . $this->get_field_name('thumb_header') . '">'. $thumb_header . '</textarea></p>';
 
@@ -202,6 +201,15 @@ class GoogleMapsWidget extends WP_Widget {
     $out = $tmp = '';
 
     extract($args, EXTR_SKIP);
+
+    $ll = '';
+    if ($instance['lightbox_zoom'] > 14) {
+      $coordinates = GMW::get_coordinates($instance['address']);
+      if ($coordinates) {
+        $ll = $coordinates['lat'] . ',' . $coordinates['lng'];
+      }
+    }
+
     self::$widgets[] = array('title' => ($instance['lightbox_title']? $instance['title']: ''),
                              'width' => $instance['lightbox_width'],
                              'height' => $instance['lightbox_height'],
@@ -212,6 +220,7 @@ class GoogleMapsWidget extends WP_Widget {
                              'type' => $instance['lightbox_type'],
                              'skin' => $instance['lightbox_skin'],
                              'bubble' => $instance['lightbox_bubble'],
+                             'll' => $ll,
                              'id' => $widget_id);
 
     $out .= $before_widget;

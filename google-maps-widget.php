@@ -4,7 +4,7 @@ Plugin Name: Google Maps Widget
 Plugin URI: http://wordpress.org/extend/plugins/google-maps-widget/
 Description: Display a single-image super-fast loading Google map in a widget. A larger, full featured map is available on click in a lightbox.
 Author: Web factory Ltd
-Version: 0.55
+Version: 0.60
 Author URI: http://www.webfactoryltd.com/
 */
 
@@ -14,7 +14,7 @@ if (!function_exists('add_action')) {
 }
 
 
-define('GMW_VER', '0.50');
+define('GMW_VER', '0.60');
 require 'gmw-widget.php';
 
 
@@ -99,7 +99,13 @@ class GMW {
          } else {
            $iwloc = 'near';
          }
-         $map_url = 'http://maps.google.com/maps?hl=en&amp;ie=utf8&amp;output=embed&amp;iwloc=' . $iwloc . '&amp;iwd=1&amp;mrt=loc&amp;t=' . $widget['type'] . '&amp;q=' . urlencode(remove_accents($widget['address'])) . '&amp;z=' . urlencode($widget['zoom']) . '';
+         if ($widget['ll']) {
+           $ll = '&amp;ll=' . $widget['ll'];
+         } else {
+           $ll = '';
+         }
+
+         $map_url = 'http://maps.google.com/maps?hl=en&amp;ie=utf8&amp;output=embed&amp;iwloc=' . $iwloc . '&amp;iwd=1&amp;mrt=loc&amp;t=' . $widget['type'] . '&amp;q=' . urlencode(remove_accents($widget['address'])) . '&amp;z=' . urlencode($widget['zoom']) . $ll;
 
          $out .= '<div class="gmw-dialog" style="display: none;" data-map-height="' . $widget['height'] . '" data-map-width="' . $widget['width'] . '" data-map-skin="' . $widget['skin'] . '" data-map-iframe-url="' . $map_url . '" id="dialog-' . $widget['id'] . '" title="' . esc_attr($widget['title']) . '">';
          if ($widget['header']) {
@@ -167,6 +173,46 @@ class GMW {
             return $out;
         }
     } // create_select_options
+
+
+  function get_coordinates($address, $force_refresh = false) {
+    $address_hash = md5('gmw' . $address);
+
+    if ($force_refresh || ($coordinates = get_transient($address_hash)) === false) {
+      $url = 'http://maps.googleapis.com/maps/api/geocode/xml?address=' . urlencode($address) . '&sensor=false';
+
+      $ch = curl_init();
+      curl_setopt($ch, CURLOPT_URL, $url);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+      $xml = curl_exec($ch);
+      $ch_info = curl_getinfo($ch);
+      curl_close($ch);
+
+      if ($ch_info['http_code'] == 200) {
+        $data = new SimpleXMLElement($xml);
+        if ($data->status == 'OK') {
+          $cache_value['lat']     = (string) $data->result->geometry->location->lat;
+          $cache_value['lng']     = (string) $data->result->geometry->location->lng;
+          $cache_value['address'] = (string) $data->result->formatted_address;
+
+          // cache coordinates for 3 months
+          set_transient($address_hash, $cache_value, 3600*24*30*3);
+          $data = $cache_value;
+        } elseif (!$data->status) {
+          return false;
+        } else {
+          return false;
+        }
+      } else {
+         return false;
+      }
+    } else {
+       // data is cached, get it
+       $data = get_transient($address_hash);
+    }
+
+    return $data;
+  } // get_coordinates
 } // class GMW
 
 
