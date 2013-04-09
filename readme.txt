@@ -27,6 +27,7 @@ http://www.youtube.com/watch?v=y1siX9ha7Pw&hd=1
 * pin color
 * pin size
 * zoom level
+* text above & below map
 
 **Lightbox map options**
 
