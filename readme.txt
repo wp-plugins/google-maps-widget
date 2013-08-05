@@ -3,9 +3,9 @@ Contributors: WebFactory
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypal%40webfactoryltd%2ecom&lc=US&item_name=Google%20Maps%20Widget&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
 Tags: google maps, maps, gmaps, widget, lightbox, map, google map, fancybox, fancybox2
 License: GPLv2 or later
-Requires at least: 3.2
-Tested up to: 3.5
-Stable tag: 0.60
+Requires at least: 3.3
+Tested up to: 3.6
+Stable tag: 0.65
 
 Displays a single-image super-fast loading Google map in a widget. A larger map with all the usual features is available on click in a lightbox.
 
@@ -27,7 +27,6 @@ http://www.youtube.com/watch?v=y1siX9ha7Pw&hd=1
 * pin color
 * pin size
 * zoom level
-* text above & below map
 
 **Lightbox map options**
 
@@ -79,6 +78,10 @@ If you can figure it out open a thread in the support forums.
 4. Widget options - lightbox map
 
 == Changelog ==
+
+= 0.65 =
+* 2013/08/05
+* updated JS for WP v3.6
 
 = 0.60 =
 * 2013/04/06

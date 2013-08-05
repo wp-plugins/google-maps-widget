@@ -1,6 +1,6 @@
 /*
  * Google Maps Widget
- * (c) Web factory Ltd, 2012
+ * (c) Web factory Ltd, 2013
  */
 
 jQuery(function($) {

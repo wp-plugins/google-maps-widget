@@ -4,8 +4,23 @@ Plugin Name: Google Maps Widget
 Plugin URI: http://wordpress.org/extend/plugins/google-maps-widget/
 Description: Display a single-image super-fast loading Google map in a widget. A larger, full featured map is available on click in a lightbox.
 Author: Web factory Ltd
-Version: 0.60
+Version: 0.65
 Author URI: http://www.webfactoryltd.com/
+
+  Copyright 2013  Web factory Ltd  (email : info@webfactoryltd.com)
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License, version 2, as 
+  published by the Free Software Foundation.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program; if not, write to the Free Software
+  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 
@@ -14,15 +29,15 @@ if (!function_exists('add_action')) {
 }
 
 
-define('GMW_VER', '0.60');
-require 'gmw-widget.php';
+define('GMW_VER', '0.65');
+require_once 'gmw-widget.php';
 
 
 class GMW {
    function init() {
       if (is_admin()) {
         // check if minimal required WP version is used
-        self::check_wp_version(3.2);
+        self::check_wp_version(3.3);
 
         // aditional links in plugin description
         add_filter('plugin_action_links_' . basename(dirname(__FILE__)) . '/' . basename(__FILE__),
@@ -78,7 +93,7 @@ class GMW {
 
   // display error message if WP version is too low
   function min_version_error() {
-    echo '<div class="error"><p>Google Maps Widget <b>requires WordPress version 3.2</b> or higher to function properly. You\'re using WordPress version ' . get_bloginfo('version') . '. Please <a href="' . admin_url('update-core.php') . '">update it</a>.</p></div>';
+    echo '<div class="error"><p>Google Maps Widget <b>requires WordPress version 3.3</b> or higher to function properly. You\'re using WordPress version ' . get_bloginfo('version') . '. Please <a href="' . admin_url('update-core.php') . '">update it</a>.</p></div>';
   } // min_version_error
 
 
