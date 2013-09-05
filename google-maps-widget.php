@@ -1,10 +1,10 @@
 <?php
 /*
 Plugin Name: Google Maps Widget
-Plugin URI: http://wordpress.org/extend/plugins/google-maps-widget/
+Plugin URI: http://www.googlemapswidget.com/
 Description: Display a single-image super-fast loading Google map in a widget. A larger, full featured map is available on click in a lightbox.
 Author: Web factory Ltd
-Version: 0.65
+Version: 0.70
 Author URI: http://www.webfactoryltd.com/
 
   Copyright 2013  Web factory Ltd  (email : info@webfactoryltd.com)
@@ -29,7 +29,7 @@ if (!function_exists('add_action')) {
 }
 
 
-define('GMW_VER', '0.65');
+define('GMW_VER', '0.70');
 require_once 'gmw-widget.php';
 
 
@@ -51,6 +51,8 @@ class GMW {
         add_action('wp_enqueue_scripts', array(__CLASS__, 'enqueue_scripts'));
         add_action('wp_footer', array(__CLASS__, 'dialogs_markup'));
       }
+      
+      load_plugin_textdomain('google-maps-widget', false, basename(dirname(__FILE__)) . '/lang');
    } // init
 
 
@@ -62,7 +64,7 @@ class GMW {
 
   // add settings link to plugins page
   function plugin_action_links($links) {
-    $settings_link = '<a href="' . admin_url('widgets.php') . '" title="Configure Google Maps Widget">Widgets</a>';
+    $settings_link = '<a href="' . admin_url('widgets.php') . '" title="' . __('Configure Google Maps Widget', 'google-maps-widget') . '">' . __('Widgets', 'google-maps-widget') . '</a>';
     array_unshift($links, $settings_link);
 
     return $links;
@@ -71,8 +73,8 @@ class GMW {
 
   // add links to plugin's description in plugins table
   function plugin_meta_links($links, $file) {
-    $documentation_link = '<a target="_blank" href="' . plugin_dir_url(__FILE__) . '#" title="View Google Maps Widget documentation">Documentation</a>';
-    $support_link = '<a target="_blank" href="http://wordpress.org/support/plugin/google-maps-widget" title="Problems? We\'re here to help!">Support</a>';
+    $documentation_link = '<a target="_blank" href="' . plugin_dir_url(__FILE__) . '#" title="' . __('View Google Maps Widget documentation', 'google-maps-widget') . '">'. __('Documentation', 'google-maps-widget') . '</a>';
+    $support_link = '<a target="_blank" href="http://wordpress.org/support/plugin/google-maps-widget" title="' . __('Problems? We are here to help!', 'google-maps-widget') . '">' . __('Support', 'google-maps-widget') . '</a>';
 
     if ($file == plugin_basename(__FILE__)) {
       //$links[] = $documentation_link;
@@ -93,7 +95,7 @@ class GMW {
 
   // display error message if WP version is too low
   function min_version_error() {
-    echo '<div class="error"><p>Google Maps Widget <b>requires WordPress version 3.3</b> or higher to function properly. You\'re using WordPress version ' . get_bloginfo('version') . '. Please <a href="' . admin_url('update-core.php') . '">update it</a>.</p></div>';
+    echo '<div class="error"><p>' . sprintf('Google Maps Widget <b>requires WordPress version 3.3</b> or higher to function properly. You are using WordPress version %s. Please <a href="%s">update it</a>.', get_bloginfo('version'), admin_url('update-core.php')) . '</p></div>';
   } // min_version_error
 
 
@@ -120,7 +122,7 @@ class GMW {
            $ll = '';
          }
 
-         $map_url = 'http://maps.google.com/maps?hl=en&amp;ie=utf8&amp;output=embed&amp;iwloc=' . $iwloc . '&amp;iwd=1&amp;mrt=loc&amp;t=' . $widget['type'] . '&amp;q=' . urlencode(remove_accents($widget['address'])) . '&amp;z=' . urlencode($widget['zoom']) . $ll;
+         $map_url = '//maps.google.com/maps?hl=en&amp;ie=utf8&amp;output=embed&amp;iwloc=' . $iwloc . '&amp;iwd=1&amp;mrt=loc&amp;t=' . $widget['type'] . '&amp;q=' . urlencode(remove_accents($widget['address'])) . '&amp;z=' . urlencode($widget['zoom']) . $ll;
 
          $out .= '<div class="gmw-dialog" style="display: none;" data-map-height="' . $widget['height'] . '" data-map-width="' . $widget['width'] . '" data-map-skin="' . $widget['skin'] . '" data-map-iframe-url="' . $map_url . '" id="dialog-' . $widget['id'] . '" title="' . esc_attr($widget['title']) . '">';
          if ($widget['header']) {

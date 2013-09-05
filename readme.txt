@@ -3,15 +3,16 @@ Contributors: WebFactory
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypal%40webfactoryltd%2ecom&lc=US&item_name=Google%20Maps%20Widget&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
 Tags: google maps, maps, gmaps, widget, lightbox, map, google map, fancybox, fancybox2
 License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.3
 Tested up to: 3.6
-Stable tag: 0.65
+Stable tag: 0.70
 
 Displays a single-image super-fast loading Google map in a widget. A larger map with all the usual features is available on click in a lightbox.
 
 == Description ==
 
-Check out the [Google Maps Widget video](http://www.youtube.com/watch?v=y1siX9ha7Pw) or give us a shout <a href="http://twitter.com/WebFactoryLtd">@WebFactoryLtd</a>.
+Check out some examples on the <a href="http://www.googlemapswidget.com/">official plugin site</a>, view the [Google Maps Widget video](http://www.youtube.com/watch?v=y1siX9ha7Pw) or give us a shout <a href="http://twitter.com/WebFactoryLtd">@WebFactoryLtd</a>.
 
 http://www.youtube.com/watch?v=y1siX9ha7Pw&hd=1
 
@@ -27,6 +28,8 @@ http://www.youtube.com/watch?v=y1siX9ha7Pw&hd=1
 * pin color
 * pin size
 * zoom level
+* text above map
+* text below map
 
 **Lightbox map options**
 
@@ -78,6 +81,12 @@ If you can figure it out open a thread in the support forums.
 4. Widget options - lightbox map
 
 == Changelog ==
+
+= 0.70 =
+* 2013/09/05
+* prepared everything for translation, POT file is available and all strings are wrapped in <i>__()</i>
+* protocols should now match http/https for both thumbnail and ligtbox map
+* <a href="http://www.googlemapswidget.com/">www.googlemapswidget.com</a> is up and running
 
 = 0.65 =
 * 2013/08/05
