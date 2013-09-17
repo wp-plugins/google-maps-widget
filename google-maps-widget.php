@@ -4,13 +4,13 @@ Plugin Name: Google Maps Widget
 Plugin URI: http://www.googlemapswidget.com/
 Description: Display a single-image super-fast loading Google map in a widget. A larger, full featured map is available on click in a lightbox.
 Author: Web factory Ltd
-Version: 0.70
+Version: 0.71
 Author URI: http://www.webfactoryltd.com/
 
   Copyright 2013  Web factory Ltd  (email : info@webfactoryltd.com)
 
   This program is free software; you can redistribute it and/or modify
-  it under the terms of the GNU General Public License, version 2, as 
+  it under the terms of the GNU General Public License, version 2, as
   published by the Free Software Foundation.
 
   This program is distributed in the hope that it will be useful,
@@ -29,7 +29,7 @@ if (!function_exists('add_action')) {
 }
 
 
-define('GMW_VER', '0.70');
+define('GMW_VER', '0.71');
 require_once 'gmw-widget.php';
 
 
@@ -51,7 +51,7 @@ class GMW {
         add_action('wp_enqueue_scripts', array(__CLASS__, 'enqueue_scripts'));
         add_action('wp_footer', array(__CLASS__, 'dialogs_markup'));
       }
-      
+
       load_plugin_textdomain('google-maps-widget', false, basename(dirname(__FILE__)) . '/lang');
    } // init
 

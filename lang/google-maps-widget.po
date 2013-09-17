@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Google Maps Widget\n"
-"POT-Creation-Date: 2013-09-05 23:53+0100\n"
-"PO-Revision-Date: 2013-09-05 23:53+0100\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2013-09-17 14:28+0100\n"
+"PO-Revision-Date: 2013-09-17 14:28+0100\n"
+"Last-Translator: Web factory Ltd <info@webfactoryltd.com>\n"
 "Language-Team: Web Factory Ltd <info@webfactoryltd.com>\n"
 "Language: eng\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Poedit 1.5.5\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -125,11 +125,11 @@ msgid "Black with square corners"
 msgstr ""
 
 #: ../gmw-widget.php:95
-msgid "Title:"
+msgid "Title"
 msgstr ""
 
 #: ../gmw-widget.php:96
-msgid "Address:"
+msgid "Address"
 msgstr ""
 
 #: ../gmw-widget.php:98
@@ -141,58 +141,55 @@ msgid "Lightbox map"
 msgstr ""
 
 #: ../gmw-widget.php:101 ../gmw-widget.php:135
-msgid "Map Size:"
+msgid "Map Size"
 msgstr ""
 
 #: ../gmw-widget.php:106 ../gmw-widget.php:140
-msgid "Map Type:"
+msgid "Map Type"
 msgstr ""
 
 #: ../gmw-widget.php:111
-msgid "Pin Color:"
+msgid "Pin Color"
 msgstr ""
 
 #: ../gmw-widget.php:116
-msgid "Pin Size:"
+msgid "Pin Size"
 msgstr ""
 
 #: ../gmw-widget.php:121 ../gmw-widget.php:145
-msgid "Zoom Level:"
+msgid "Zoom Level"
 msgstr ""
 
 #: ../gmw-widget.php:126
-msgid "Text Above Map:"
+msgid "Text Above Map"
 msgstr ""
 
 #: ../gmw-widget.php:129
-msgid "Text Below Map:"
+msgid "Text Below Map"
 msgstr ""
 
 #: ../gmw-widget.php:150
-msgid "Skin:"
+msgid "Skin"
 msgstr ""
 
 #: ../gmw-widget.php:155
-msgid "Show Address Bubble:"
+msgid "Show Address Bubble"
 msgstr ""
 
 #: ../gmw-widget.php:159
-msgid "Show Title Below Lightbox:"
+msgid "Show Title Below Lightbox"
 msgstr ""
 
 #: ../gmw-widget.php:163
-msgid "Header Text:"
+msgid "Header Text"
 msgstr ""
 
 #: ../gmw-widget.php:166
-msgid "Footer Text:"
+msgid "Footer Text"
 msgstr ""
 
 #: ../gmw-widget.php:171
-msgid ""
-"If you like the plugin give us a shout <a title=\"WebFactory on Twitter\" "
-"target=\"_blank\" href=\"http://twitter.com/WebFactoryLtd\">@WebFactoryLtd</"
-"a>. Thanks!"
+msgid "If you like the plugin give us a shout. Thanks!"
 msgstr ""
 
 #: ../gmw-widget.php:236

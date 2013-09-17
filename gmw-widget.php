@@ -92,83 +92,83 @@ class GoogleMapsWidget extends WP_Widget {
     $lightbox_skins[] = array('val' => 'black-square', 'label' => __('Black with square corners', 'google-maps-widget'));
 
 
-    echo '<p><label for="' . $this->get_field_id('title') . '">' . __('Title:', 'google-maps-widget') . '</label><input class="widefat" id="' . $this->get_field_id('title') . '" name="' . $this->get_field_name('title') . '" type="text" value="' . esc_attr($title) . '" /></p>';
-    echo '<p><label for="' . $this->get_field_id('address') . '">' . __('Address:', 'google-maps-widget') . '</label><input class="widefat" id="' . $this->get_field_id('address') . '" name="' . $this->get_field_name('address') . '" type="text" value="' . esc_attr($address) . '" /></p>';
+    echo '<p><label for="' . $this->get_field_id('title') . '">' . __('Title', 'google-maps-widget') . ':</label><input class="widefat" id="' . $this->get_field_id('title') . '" name="' . $this->get_field_name('title') . '" type="text" value="' . esc_attr($title) . '" /></p>';
+    echo '<p><label for="' . $this->get_field_id('address') . '">' . __('Address', 'google-maps-widget') . ':</label><input class="widefat" id="' . $this->get_field_id('address') . '" name="' . $this->get_field_name('address') . '" type="text" value="' . esc_attr($address) . '" /></p>';
 
     echo '<div class="gmw-tabs" id="tab-' . $this->id . '"><ul><li><a href="#gmw-thumb">' . __('Thumbnail map', 'google-maps-widget') . '</a></li><li><a href="#gmw-lightbox">' . __('Lightbox map', 'google-maps-widget') . '</a></li></ul>';
     echo '<div id="gmw-thumb">';
 
-    echo '<p><label class="gmw-label" for="' . $this->get_field_id('thumb_width') . '">' . __('Map Size:', 'google-maps-widget') . '</label>';
+    echo '<p><label class="gmw-label" for="' . $this->get_field_id('thumb_width') . '">' . __('Map Size', 'google-maps-widget') . ':</label>';
     echo '<input class="small-text" id="' . $this->get_field_id('thumb_width') . '" name="' . $this->get_field_name('thumb_width') . '" type="text" value="' . esc_attr($thumb_width) . '" /> x ';
     echo '<input class="small-text" id="' . $this->get_field_id('thumb_height') . '" name="' . $this->get_field_name('thumb_height') . '" type="text" value="' . esc_attr($thumb_height) . '" />';
     echo ' px</p>';
 
-    echo '<p><label class="gmw-label" for="' . $this->get_field_id('thumb_type') . '">' . __('Map Type:', 'google-maps-widget') . '</label>';
+    echo '<p><label class="gmw-label" for="' . $this->get_field_id('thumb_type') . '">' . __('Map Type', 'google-maps-widget') . ':</label>';
     echo '<select id="' . $this->get_field_id('thumb_type') . '" name="' . $this->get_field_name('thumb_type') . '">';
     GMW::create_select_options($map_types_thumb, $thumb_type);
     echo '</select></p>';
 
-    echo '<p><label class="gmw-label" for="' . $this->get_field_id('thumb_pin_color') . '">' . __('Pin Color:', 'google-maps-widget') . '</label>';
+    echo '<p><label class="gmw-label" for="' . $this->get_field_id('thumb_pin_color') . '">' . __('Pin Color', 'google-maps-widget') . ':</label>';
     echo '<select id="' . $this->get_field_id('thumb_pin_color') . '" name="' . $this->get_field_name('thumb_pin_color') . '">';
     GMW::create_select_options($pin_colors, $thumb_pin_color);
     echo '</select></p>';
 
-    echo '<p><label class="gmw-label" for="' . $this->get_field_id('thumb_pin_size') . '">' . __('Pin Size:', 'google-maps-widget') . '</label>';
+    echo '<p><label class="gmw-label" for="' . $this->get_field_id('thumb_pin_size') . '">' . __('Pin Size', 'google-maps-widget') . ':</label>';
     echo '<select id="' . $this->get_field_id('thumb_pin_size') . '" name="' . $this->get_field_name('thumb_pin_size') . '">';
     GMW::create_select_options($pin_sizes, $thumb_pin_size);
     echo '</select></p>';
 
-    echo '<p><label class="gmw-label" for="' . $this->get_field_id('thumb_zoom') . '">' . __('Zoom Level:', 'google-maps-widget') . '</label>';
+    echo '<p><label class="gmw-label" for="' . $this->get_field_id('thumb_zoom') . '">' . __('Zoom Level', 'google-maps-widget') . ':</label>';
     echo '<select id="' . $this->get_field_id('thumb_zoom') . '" name="' . $this->get_field_name('thumb_zoom') . '">';
     GMW::create_select_options($zoom_levels, $thumb_zoom);
     echo '</select></p>';
 
-    echo '<p><label for="' . $this->get_field_id('thumb_header') . '">' . __('Text Above Map:', 'google-maps-widget') . '</label>';
+    echo '<p><label for="' . $this->get_field_id('thumb_header') . '">' . __('Text Above Map', 'google-maps-widget') . ':</label>';
     echo '<textarea class="widefat" rows="3" cols="20" id="' . $this->get_field_id('thumb_header') . '" name="' . $this->get_field_name('thumb_header') . '">'. $thumb_header . '</textarea></p>';
 
-    echo '<p><label for="' . $this->get_field_id('thumb_footer') . '">' . __('Text Below Map:', 'google-maps-widget') . '</label>';
+    echo '<p><label for="' . $this->get_field_id('thumb_footer') . '">' . __('Text Below Map', 'google-maps-widget') . ':</label>';
     echo '<textarea class="widefat" rows="3" cols="20" id="' . $this->get_field_id('thumb_footer') . '" name="' . $this->get_field_name('thumb_footer') . '">'. $thumb_footer . '</textarea></p>';
 
     echo '</div>'; // thumbnail tab
     echo '<div id="gmw-lightbox">';
 
-    echo '<p><label class="gmw-label" for="' . $this->get_field_id('lightbox_width') . '">' . __('Map Size:', 'google-maps-widget') . '</label>';
+    echo '<p><label class="gmw-label" for="' . $this->get_field_id('lightbox_width') . '">' . __('Map Size', 'google-maps-widget') . ':</label>';
     echo '<input class="small-text" id="' . $this->get_field_id('lightbox_width') . '" name="' . $this->get_field_name('lightbox_width') . '" type="text" value="' . esc_attr($lightbox_width) . '" /> x ';
     echo '<input class="small-text" id="' . $this->get_field_id('lightbox_height') . '" name="' . $this->get_field_name('lightbox_height') . '" type="text" value="' . esc_attr($lightbox_height) . '" />';
     echo ' px</p>';
 
-    echo '<p><label class="gmw-label" for="' . $this->get_field_id('lightbox_type') . '">' . __('Map Type:', 'google-maps-widget') . '</label>';
+    echo '<p><label class="gmw-label" for="' . $this->get_field_id('lightbox_type') . '">' . __('Map Type', 'google-maps-widget') . ':</label>';
     echo '<select id="' . $this->get_field_id('lightbox_type') . '" name="' . $this->get_field_name('lightbox_type') . '">';
     GMW::create_select_options($map_types_lightbox, $lightbox_type);
     echo '</select></p>';
 
-    echo '<p><label class="gmw-label" for="' . $this->get_field_id('lightbox_zoom') . '">' . __('Zoom Level:', 'google-maps-widget') . '</label>';
+    echo '<p><label class="gmw-label" for="' . $this->get_field_id('lightbox_zoom') . '">' . __('Zoom Level', 'google-maps-widget') . ':</label>';
     echo '<select id="' . $this->get_field_id('lightbox_zoom') . '" name="' . $this->get_field_name('lightbox_zoom') . '">';
     GMW::create_select_options($zoom_levels, $lightbox_zoom);
     echo '</select></p>';
 
-    echo '<p><label class="gmw-label" for="' . $this->get_field_id('lightbox_skin') . '">' . __('Skin:', 'google-maps-widget') . '</label>';
+    echo '<p><label class="gmw-label" for="' . $this->get_field_id('lightbox_skin') . '">' . __('Skin', 'google-maps-widget') . ':</label>';
     echo '<select id="' . $this->get_field_id('lightbox_skin') . '" name="' . $this->get_field_name('lightbox_skin') . '">';
     GMW::create_select_options($lightbox_skins, $lightbox_skin);
     echo '</select></p>';
 
-    echo '<p><label for="' . $this->get_field_id('lightbox_bubble') . '">' . __('Show Address Bubble:', 'google-maps-widget') . '&nbsp;</label>';
+    echo '<p><label for="' . $this->get_field_id('lightbox_bubble') . '">' . __('Show Address Bubble', 'google-maps-widget') . ':&nbsp;</label>';
     echo '<input ' . checked('1', $lightbox_bubble, false) . ' value="1" type="checkbox" id="' . $this->get_field_id('lightbox_bubble') . '" name="' . $this->get_field_name('lightbox_bubble') . '">';
     echo '</p>';
 
-    echo '<p><label for="' . $this->get_field_id('lightbox_title') . '">' . __('Show Title Below Lightbox:', 'google-maps-widget') . '&nbsp;</label>';
+    echo '<p><label for="' . $this->get_field_id('lightbox_title') . '">' . __('Show Title Below Lightbox', 'google-maps-widget') . ':&nbsp;</label>';
     echo '<input ' . checked('1', $lightbox_title, false) . ' value="1" type="checkbox" id="' . $this->get_field_id('lightbox_title') . '" name="' . $this->get_field_name('lightbox_title') . '">';
     echo '</p>';
 
-    echo '<p><label for="' . $this->get_field_id('lightbox_header') . '">' . __('Header Text:', 'google-maps-widget') . '</label>';
+    echo '<p><label for="' . $this->get_field_id('lightbox_header') . '">' . __('Header Text', 'google-maps-widget') . ':</label>';
     echo '<textarea class="widefat" rows="3" cols="20" id="' . $this->get_field_id('lightbox_header') . '" name="' . $this->get_field_name('lightbox_header') . '">'. $lightbox_header . '</textarea></p>';
 
-    echo '<p><label for="' . $this->get_field_id('lightbox_footer') . '">' . __('Footer Text:', 'google-maps-widget') . '</label>';
+    echo '<p><label for="' . $this->get_field_id('lightbox_footer') . '">' . __('Footer Text', 'google-maps-widget') . ':</label>';
     echo '<textarea class="widefat" rows="3" cols="20" id="' . $this->get_field_id('lightbox_footer') . '" name="' . $this->get_field_name('lightbox_footer') . '">'. $lightbox_footer . '</textarea></p>';
 
     echo '</div>'; // lightbox tab
     echo '</div>'; // tabs
-    echo '<p><i>' . __('If you like the plugin give us a shout <a title="WebFactory on Twitter" target="_blank" href="http://twitter.com/WebFactoryLtd">@WebFactoryLtd</a>. Thanks!', 'google-maps-widget') . '</i></p>';
+    echo '<p><i>' . __('If you like the plugin give us a shout. Thanks!', 'google-maps-widget') . '<a title="WebFactory on Twitter" target="_blank" href="http://twitter.com/WebFactoryLtd">@WebFactoryLtd</a></i></p>';
   }
 
   function update($new_instance, $old_instance) {
