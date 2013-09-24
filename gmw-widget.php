@@ -1,7 +1,7 @@
 <?php
 /*
  * Google Maps Widget
- * (c) Web factory Ltd, 2012
+ * (c) Web factory Ltd, 2012 - 2013
  */
 
 class GoogleMapsWidget extends WP_Widget {
@@ -210,6 +210,11 @@ class GoogleMapsWidget extends WP_Widget {
       }
     }
 
+    $lang = substr(@$_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+    if (!$lang) {
+      $lang = 'en';
+    }
+
     self::$widgets[] = array('title' => ($instance['lightbox_title']? $instance['title']: ''),
                              'width' => $instance['lightbox_width'],
                              'height' => $instance['lightbox_height'],
@@ -238,7 +243,7 @@ class GoogleMapsWidget extends WP_Widget {
          urlencode($instance['address']) . '&amp;zoom=' . $instance['thumb_zoom'] .
          '&amp;size=' . $instance['thumb_width'] . 'x' . $instance['thumb_height'] . '&amp;maptype=' . $instance['thumb_type'] .
          '&amp;sensor=false&amp;scale=1&amp;markers=size:' . $instance['thumb_pin_size'] . '%7Ccolor:' . $instance['thumb_pin_color'] . '%7Clabel:A%7C' .
-         urlencode($instance['address']) . '"></a>';
+         urlencode($instance['address']) . '&amp;language=' . $lang . '"></a>';
     $tmp .= '</p>';
     if ($instance['thumb_footer']) {
       $tmp .= wpautop($instance['thumb_footer']);

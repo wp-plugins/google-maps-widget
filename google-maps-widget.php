@@ -4,7 +4,7 @@ Plugin Name: Google Maps Widget
 Plugin URI: http://www.googlemapswidget.com/
 Description: Display a single-image super-fast loading Google map in a widget. A larger, full featured map is available on click in a lightbox.
 Author: Web factory Ltd
-Version: 0.71
+Version: 0.75
 Author URI: http://www.webfactoryltd.com/
 
   Copyright 2013  Web factory Ltd  (email : info@webfactoryltd.com)
@@ -29,11 +29,13 @@ if (!function_exists('add_action')) {
 }
 
 
-define('GMW_VER', '0.71');
+define('GMW_VER', '0.75');
 require_once 'gmw-widget.php';
 
 
+
 class GMW {
+  // hook everything up
    function init() {
       if (is_admin()) {
         // check if minimal required WP version is used
@@ -51,9 +53,13 @@ class GMW {
         add_action('wp_enqueue_scripts', array(__CLASS__, 'enqueue_scripts'));
         add_action('wp_footer', array(__CLASS__, 'dialogs_markup'));
       }
+  } // init
 
-      load_plugin_textdomain('google-maps-widget', false, basename(dirname(__FILE__)) . '/lang');
-   } // init
+
+  // textdomain has to be loaded earlier
+  function plugins_loaded() {
+    load_plugin_textdomain('google-maps-widget', false, basename(dirname(__FILE__)) . '/lang');
+  } // plugins_loaded
 
 
   // initialize widgets
@@ -122,7 +128,12 @@ class GMW {
            $ll = '';
          }
 
-         $map_url = '//maps.google.com/maps?hl=en&amp;ie=utf8&amp;output=embed&amp;iwloc=' . $iwloc . '&amp;iwd=1&amp;mrt=loc&amp;t=' . $widget['type'] . '&amp;q=' . urlencode(remove_accents($widget['address'])) . '&amp;z=' . urlencode($widget['zoom']) . $ll;
+         $lang = substr(@$_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+         if (!$lang) {
+           $lang = 'en';
+         }
+
+         $map_url = '//maps.google.com/maps?hl=' . $lang . '&amp;ie=utf8&amp;output=embed&amp;iwloc=' . $iwloc . '&amp;iwd=1&amp;mrt=loc&amp;t=' . $widget['type'] . '&amp;q=' . urlencode(remove_accents($widget['address'])) . '&amp;z=' . urlencode($widget['zoom']) . $ll;
 
          $out .= '<div class="gmw-dialog" style="display: none;" data-map-height="' . $widget['height'] . '" data-map-width="' . $widget['width'] . '" data-map-skin="' . $widget['skin'] . '" data-map-iframe-url="' . $map_url . '" id="dialog-' . $widget['id'] . '" title="' . esc_attr($widget['title']) . '">';
          if ($widget['header']) {
@@ -235,4 +246,5 @@ class GMW {
 
 // hook everything up
 add_action('init', array('GMW', 'init'));
+add_action('plugins_loaded', array('GMW', 'plugins_loaded'));
 add_action('widgets_init', array('GMW', 'widgets_init'));
