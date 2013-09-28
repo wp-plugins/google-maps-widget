@@ -239,7 +239,7 @@ class GoogleMapsWidget extends WP_Widget {
       $tmp .= wpautop($instance['thumb_header']);
     }
     $tmp .= '<p><a class="gmw-thumbnail-map" href="#dialog-' . $widget_id . '" title="' . __('Click to open larger map', 'google-maps-widget') . '">';
-    $tmp .= '<img title="Click to open larger map" alt="Click to open larger map" src="//maps.googleapis.com/maps/api/staticmap?center=' .
+    $tmp .= '<img title="' . __('Click to open larger map', 'google-maps-widget') . '" alt="' . __('Click to open larger map', 'google-maps-widget') . '" src="//maps.googleapis.com/maps/api/staticmap?center=' .
          urlencode($instance['address']) . '&amp;zoom=' . $instance['thumb_zoom'] .
          '&amp;size=' . $instance['thumb_width'] . 'x' . $instance['thumb_height'] . '&amp;maptype=' . $instance['thumb_type'] .
          '&amp;sensor=false&amp;scale=1&amp;markers=size:' . $instance['thumb_pin_size'] . '%7Ccolor:' . $instance['thumb_pin_color'] . '%7Clabel:A%7C' .
