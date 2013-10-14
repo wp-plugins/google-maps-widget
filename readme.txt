@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.3
 Tested up to: 3.6.1
-Stable tag: 0.86
+Stable tag: 0.90
 
 Displays a single-image super-fast loading Google map in a widget. A larger map with all the usual features is available on click in a lightbox.
 
@@ -52,8 +52,9 @@ The plugin was voted on the <a href="http://themesplugins.com/Plugin-detail/goog
 * Swedish - Sofia Asklund
 * Spanish - Jesus Garica
 * Croatian - Gordan
-* German - coming soon
+* German - Karimba
 * French - coming soon
+* Chinese - coming soon
 
 == Installation ==
 
@@ -77,6 +78,10 @@ Or if needed, upload manually;
 
 For just about anyone who needs a map on their site.
 
+= Thumbnail map works but lightbox won't open on click =
+
+You most probably have Fancybox JS and CSS files included twice; once by the theme and second time by GMW plugin. Remove one instance of files. If that's not the case then you have a fatal JS error thats preventing execution of other JS code. Hit F12 in Firefox or Chrome and have a look at the debug console. If there are any red lines - it's a fatal error. Open a new thread in the support forums but please bear in mind that support is community based and we do this in our spare time.
+
 = It's not working!!! Arrrrrrrrr =
 
 A more detailed help is coming soon. Till then check 2 things: does your theme have wp_footer() function call in the footer and if there are any jQuery errors on the site.
@@ -90,6 +95,11 @@ If you can figure it out open a thread in the support forums.
 4. Widget options - lightbox map
 
 == Changelog ==
+= 0.90 =
+* 2013/10/14
+* added German translation; thanks Karimba
+* we reached 100k downloads ;)
+
 = 0.86 =
 * 2013/10/07
 * fixed a few strict standards errors; thanks Jay!
