@@ -1,12 +1,12 @@
 === Google Maps Widget ===
 Contributors: WebFactory
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypal%40webfactoryltd%2ecom&lc=US&item_name=Google%20Maps%20Widget&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
-Tags: google maps, maps, gmaps, widget, lightbox, map, google map, fancybox, fancybox2, multilingual, sidebar
+Tags: google maps, maps, gmaps, widget, lightbox, map, google map, fancybox, fancybox2, multilingual, sidebar, chinese
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.3
-Tested up to: 3.6.1
-Stable tag: 0.95
+Tested up to: 3.7
+Stable tag: 1.0
 
 Displays a single-image super-fast loading Google map in a widget. A larger map with all the usual features is available on click in a lightbox.
 
@@ -46,7 +46,7 @@ http://www.youtube.com/watch?v=y1siX9ha7Pw&hd=1
 
 The plugin was voted on the <a href="http://themesplugins.com/Plugin-detail/google-maps-widget-google-map-free-plugin-for-wordpress/" title="Top 100 WordPressian plugin">Top 100 List</a> by WordPressian.
 
-**Translator (thank you!)**
+**Translators (thank you!)**
 
 * English - original :)
 * Swedish - Sofia Asklund
@@ -54,7 +54,8 @@ The plugin was voted on the <a href="http://themesplugins.com/Plugin-detail/goog
 * Croatian - Gordan
 * German - Karimba
 * French - Karimba
-* Chinese - coming soon
+* Chinese simplified  - Wyeoh
+* Chinese traditional - coming soon
 
 == Installation ==
 
@@ -95,6 +96,11 @@ If you can figure it out open a thread in the support forums.
 4. Widget options - lightbox map
 
 == Changelog ==
+= 1.0 =
+* 2013/10/28
+* WP 3.7 compatibility check
+* added Chinese simplified translation; thanks Wyeoh
+
 = 0.95 =
 * 2013/10/21
 * added French translation; thanks Karimba
