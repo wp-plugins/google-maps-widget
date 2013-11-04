@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.3
 Tested up to: 3.7
-Stable tag: 1.0
+Stable tag: 1.05
 
 Displays a single-image super-fast loading Google map in a widget. A larger map with all the usual features is available on click in a lightbox.
 
@@ -55,7 +55,7 @@ The plugin was voted on the <a href="http://themesplugins.com/Plugin-detail/goog
 * German - Karimba
 * French - Karimba
 * Chinese simplified  - Wyeoh
-* Chinese traditional - coming soon
+* Chinese traditional - Wyeoh
 
 == Installation ==
 
@@ -96,6 +96,10 @@ If you can figure it out open a thread in the support forums.
 4. Widget options - lightbox map
 
 == Changelog ==
+= 1.05 =
+* 2013/11/04
+* added Chinese traditional translation; thanks Wyeoh
+
 = 1.0 =
 * 2013/10/28
 * WP 3.7 compatibility check
