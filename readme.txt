@@ -1,12 +1,12 @@
 === Google Maps Widget ===
 Contributors: WebFactory
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypal%40webfactoryltd%2ecom&lc=US&item_name=Google%20Maps%20Widget&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
-Tags: google maps, maps, gmaps, widget, lightbox, map, google map, fancybox, fancybox2, multilingual, sidebar, chinese
+Tags: google maps, maps, gmaps, widget, lightbox, map, google map, fancybox, multilingual, sidebar, chinese
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.3
 Tested up to: 3.7.1
-Stable tag: 1.05
+Stable tag: 1.10
 
 Displays a single-image super-fast loading Google map in a widget. A larger map with all the usual features is available on click in a lightbox.
 
@@ -28,6 +28,7 @@ http://www.youtube.com/watch?v=y1siX9ha7Pw&hd=1
 * pin color
 * pin size
 * zoom level
+* map color scheme - new & old
 * text above map
 * text below map
 
@@ -36,7 +37,7 @@ http://www.youtube.com/watch?v=y1siX9ha7Pw&hd=1
 * map size - width & height
 * map type - road, satellite, map or hybrid
 * zoom level
-* skin
+* skin - black, white, rounded & squared
 * show/hide address bubble
 * show/hide map title
 * header text
@@ -96,6 +97,10 @@ If you can figure it out open a thread in the support forums.
 4. Widget options - lightbox map
 
 == Changelog ==
+= 1.10 =
+* 2013/11/18
+* added option for thumbnail map to use the new look/color scheme
+
 = 1.05 =
 * 2013/11/04
 * added Chinese traditional translation; thanks Wyeoh

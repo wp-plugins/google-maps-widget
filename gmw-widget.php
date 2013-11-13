@@ -25,6 +25,7 @@ class GoogleMapsWidget extends WP_Widget {
                                     'thumb_zoom' => '13',
                                     'thumb_header' => '',
                                     'thumb_footer' => '',
+                                    'thumb_new_colors' => '1',
                                     'lightbox_width' => '550',
                                     'lightbox_height' => '550',
                                     'lightbox_type' => 'roadmap',
@@ -45,6 +46,7 @@ class GoogleMapsWidget extends WP_Widget {
     $thumb_zoom = $instance['thumb_zoom'];
     $thumb_header = $instance['thumb_header'];
     $thumb_footer = $instance['thumb_footer'];
+    $thumb_new_colors = $instance['thumb_new_colors'];
     $lightbox_width = $instance['lightbox_width'];
     $lightbox_height = $instance['lightbox_height'];
     $lightbox_type = $instance['lightbox_type'];
@@ -123,6 +125,10 @@ class GoogleMapsWidget extends WP_Widget {
     GMW::create_select_options($zoom_levels, $thumb_zoom);
     echo '</select></p>';
 
+    echo '<p><label for="' . $this->get_field_id('thumb_new_colors') . '">' . __('Use New Color Scheme', 'google-maps-widget') . ':&nbsp;</label>';
+    echo '<input ' . checked('1', $thumb_new_colors, false) . ' value="1" type="checkbox" id="' . $this->get_field_id('thumb_new_colors') . '" name="' . $this->get_field_name('thumb_new_colors') . '">';
+    echo '</p>';
+
     echo '<p><label for="' . $this->get_field_id('thumb_header') . '">' . __('Text Above Map', 'google-maps-widget') . ':</label>';
     echo '<textarea class="widefat" rows="3" cols="20" id="' . $this->get_field_id('thumb_header') . '" name="' . $this->get_field_name('thumb_header') . '">'. $thumb_header . '</textarea></p>';
 
@@ -184,6 +190,7 @@ class GoogleMapsWidget extends WP_Widget {
     $instance['thumb_type'] = $new_instance['thumb_type'];
     $instance['thumb_header'] = trim($new_instance['thumb_header']);
     $instance['thumb_footer'] = trim($new_instance['thumb_footer']);
+    $instance['thumb_new_colors'] = isset($new_instance['thumb_new_colors']);
     $instance['lightbox_width'] = (int) $new_instance['lightbox_width'];
     $instance['lightbox_height'] = (int) $new_instance['lightbox_height'];
     $instance['lightbox_type'] = $new_instance['lightbox_type'];
@@ -230,6 +237,12 @@ class GoogleMapsWidget extends WP_Widget {
 
     $out .= $before_widget;
 
+    if ($instance['thumb_new_colors']) {
+      $instance['thumb_new_colors'] = 'true';
+    } else {
+      $instance['thumb_new_colors'] = 'false';
+    }
+
     $title = empty($instance['title']) ? ' ' : apply_filters('widget_title', $instance['title']);
     if (!empty($title)) {
       $out .= $before_title . $title . $after_title;
@@ -243,7 +256,7 @@ class GoogleMapsWidget extends WP_Widget {
          urlencode($instance['address']) . '&amp;zoom=' . $instance['thumb_zoom'] .
          '&amp;size=' . $instance['thumb_width'] . 'x' . $instance['thumb_height'] . '&amp;maptype=' . $instance['thumb_type'] .
          '&amp;sensor=false&amp;scale=1&amp;markers=size:' . $instance['thumb_pin_size'] . '%7Ccolor:' . $instance['thumb_pin_color'] . '%7Clabel:A%7C' .
-         urlencode($instance['address']) . '&amp;language=' . $lang . '"></a>';
+         urlencode($instance['address']) . '&amp;language=' . $lang . '&amp;visual_refresh=' . $instance['thumb_new_colors'] .'"></a>';
     $tmp .= '</p>';
     if ($instance['thumb_footer']) {
       $tmp .= wpautop($instance['thumb_footer']);
