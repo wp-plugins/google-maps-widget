@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.3
 Tested up to: 3.7.1
-Stable tag: 1.15
+Stable tag: 1.20
 
 Displays a single-image super-fast loading Google map in a widget. A larger map with all the usual features is available on click in a lightbox.
 
@@ -98,6 +98,11 @@ If you can figure it out open a thread in the support forums.
 4. Widget options - lightbox map
 
 == Changelog ==
+= 1.20 =
+* 2013/12/17
+* WP v3.8 update
+* language files update
+
 = 1.15 =
 * 2013/11/25
 * added option for thumbnail map to link to a custom URL which disables the lightbox; you can link to a lightbox, a custom link or remove the link all together
