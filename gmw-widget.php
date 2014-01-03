@@ -194,7 +194,7 @@ class GoogleMapsWidget extends WP_Widget {
 
     echo '</div>'; // lightbox tab
     echo '</div>'; // tabs
-    echo '<p><i>' . __('If you like the plugin give us a shout. Thanks!', 'google-maps-widget') . '<a title="WebFactory on Twitter" target="_blank" href="http://twitter.com/WebFactoryLtd">@WebFactoryLtd</a></i></p>';
+    echo '<p><i>' . __('If you like the plugin give us a shout. Thanks!', 'google-maps-widget') . ' <a title="WebFactory on Twitter" target="_blank" href="http://twitter.com/WebFactoryLtd">@WebFactoryLtd</a></i></p>';
   }
 
   function update($new_instance, $old_instance) {

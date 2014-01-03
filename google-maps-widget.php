@@ -4,10 +4,10 @@ Plugin Name: Google Maps Widget
 Plugin URI: http://www.googlemapswidget.com/
 Description: Display a single-image super-fast loading Google map in a widget. A larger, full featured map is available on click in a lightbox.
 Author: Web factory Ltd
-Version: 1.21
+Version: 1.25
 Author URI: http://www.webfactoryltd.com/
 
-  Copyright 2013  Web factory Ltd  (email : info@webfactoryltd.com)
+  Copyright 2013 - 2014  Web factory Ltd  (email : info@webfactoryltd.com)
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License, version 2, as
@@ -29,7 +29,7 @@ if (!function_exists('add_action')) {
 }
 
 
-define('GMW_VER', '1.20');
+define('GMW_VER', '1.25');
 require_once 'gmw-widget.php';
 
 
@@ -240,10 +240,23 @@ class GMW {
 
     return $data;
   } // get_coordinates
+
+  // track a few things on plugin activation
+  // NO DATA is sent anywhere!
+  static function activate() {
+    $options = get_option('gmw_options');
+
+    if (!isset($options['first_version']) || !isset($options['first_install'])) {
+      $options['first_version'] = GMW_VER;
+      $options['first_install'] = current_time('timestamp');
+      update_option('gmw_options', $options);
+    }
+  } // activate
 } // class GMW
 
 
 // hook everything up
+register_activation_hook(__FILE__, array('GMW', 'activate'));
 add_action('init', array('GMW', 'init'));
 add_action('plugins_loaded', array('GMW', 'plugins_loaded'));
 add_action('widgets_init', array('GMW', 'widgets_init'));
