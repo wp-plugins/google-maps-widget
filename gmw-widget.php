@@ -1,8 +1,15 @@
 <?php
 /*
  * Google Maps Widget
+ * Widget definition, admin GUI and front-end functions
  * (c) Web factory Ltd, 2012 - 2013
  */
+
+
+// include only file
+if (!defined('ABSPATH')) {
+  die();
+}
 
 class GoogleMapsWidget extends WP_Widget {
   static $widgets = array();

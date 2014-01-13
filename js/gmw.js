@@ -1,5 +1,6 @@
 /*
  * Google Maps Widget
+ * Front-end JS init functions
  * (c) Web factory Ltd, 2012 - 2013
  */
 
