@@ -1,12 +1,12 @@
 === Google Maps Widget ===
 Contributors: WebFactory
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypal%40webfactoryltd%2ecom&lc=US&item_name=Google%20Maps%20Widget&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=gordan%40webfactoryltd%2ecom&lc=US&item_name=Google%20Maps%20Widget&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
 Tags: google maps, maps, gmaps, widget, lightbox, map, google map, fancybox, fancybox2, multilingual, sidebar, chinese
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.3
 Tested up to: 3.8.1
-Stable tag: 1.31
+Stable tag: 1.35
 
 Displays a single-image super-fast loading Google map in a widget. A larger map with all the usual features is available on click in a lightbox.
 
@@ -46,7 +46,7 @@ http://www.youtube.com/watch?v=y1siX9ha7Pw&hd=1
 
 > If you need a Google Maps shortcode plugin you might be interested in purchasing our premium <a title="5sec Google Maps" href="http://5sec-gmap.webfactoryltd.com/">5sec Google Maps</a> plugin.
 
-The plugin was voted on the <a href="http://themesplugins.com/Plugin-detail/google-maps-widget-google-map-free-plugin-for-wordpress/" title="Top 100 WordPressian plugin">Top 100 List</a> by WordPressian.
+The plugin was voted on the <a href="http://themesplugins.com/Plugin-detail/google-maps-widget-google-map-free-plugin-for-wordpress/" title="Top 100 WordPressian plugin">Top 100 List</a> by WordPressian and made it on the <a href="http://tidyrepo.com/google-maps-widget/">Tidy Repo</a> list.
 
 **Translators (thank you!)**
 
@@ -99,6 +99,10 @@ If you can figure it out open a thread in the support forums.
 4. Widget options - lightbox map
 
 == Changelog ==
+= 1.35 =
+* 2014/02/05
+* added optional plugin usage tracking (<a href="http://www.googlemapswidget.com/plugin-tracking-info/">detailed info</a>)
+
 = 1.31 =
 * 2014/02/03
 * WP v3.8.1 compatibility check

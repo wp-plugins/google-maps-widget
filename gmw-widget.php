@@ -2,7 +2,7 @@
 /*
  * Google Maps Widget
  * Widget definition, admin GUI and front-end functions
- * (c) Web factory Ltd, 2012 - 2013
+ * (c) Web factory Ltd, 2012 - 2014
  */
 
 
@@ -45,6 +45,7 @@ class GoogleMapsWidget extends WP_Widget {
                                     'lightbox_header' => '',
                                     'lightbox_footer' => ''));
 
+    // todo - use extract() to make code nicer
     $title = $instance['title'];
     $address = $instance['address'];
     $thumb_pin_color = $instance['thumb_pin_color'];
@@ -283,6 +284,7 @@ class GoogleMapsWidget extends WP_Widget {
 
     if ($instance['thumb_header']) {
       $tmp .= wpautop($instance['thumb_header']);
+      // todo, test -  do_shortcode
     }
     $tmp .= '<p>';
     if ($instance['thumb_link_type'] == 'lightbox') {
@@ -301,6 +303,7 @@ class GoogleMapsWidget extends WP_Widget {
     $tmp .= '</p>';
     if ($instance['thumb_footer']) {
       $tmp .= wpautop($instance['thumb_footer']);
+      // todo, test -  do_shortcode
     }
     $out .= apply_filters('google_maps_widget_content', $tmp);
 

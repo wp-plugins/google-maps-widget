@@ -4,10 +4,12 @@ Plugin Name: Google Maps Widget
 Plugin URI: http://www.googlemapswidget.com/
 Description: Display a single-image super-fast loading Google map in a widget. A larger, full featured map is available on click in a lightbox.
 Author: Web factory Ltd
-Version: 1.31
+Version: 1.35
 Author URI: http://www.webfactoryltd.com/
+Text Domain: google-maps-widget
+Domain Path: lang
 
-  Copyright 2013 - 2014  Web factory Ltd  (email : info@webfactoryltd.com)
+  Copyright 2012 - 2014  Web factory Ltd  (email : info@webfactoryltd.com)
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License, version 2, as
@@ -24,40 +26,47 @@ Author URI: http://www.webfactoryltd.com/
 */
 
 
-if (!function_exists('add_action')) {
-  die('Please don\'t open this file directly!');
+if (!defined('ABSPATH')) {
+  die();
 }
 
 
-define('GMW_VER', '1.31');
+define('GMW_VER', '1.35');
+define('GMW_OPTIONS', 'gmw_options');
+define('GMW_CRON', 'gmw_cron');
+
 require_once 'gmw-widget.php';
+require_once 'gmw-tracking.php';
 
 
 class GMW {
   // hook everything up
    static function init() {
-      if (is_admin()) {
-        // check if minimal required WP version is used
-        self::check_wp_version(3.3);
+     GMW_tracking::init();
 
-        // aditional links in plugin description
-        add_filter('plugin_action_links_' . basename(dirname(__FILE__)) . '/' . basename(__FILE__),
-                   array(__CLASS__, 'plugin_action_links'));
-        add_filter('plugin_row_meta', array(__CLASS__, 'plugin_meta_links'), 10, 2);
+     if (is_admin()) {
+      // check if minimal required WP version is used
+      self::check_wp_version(3.3);
 
-        // enqueue admin scripts
-        add_action('admin_enqueue_scripts', array(__CLASS__, 'admin_enqueue_scripts'));
-      } else {
-        // enqueue frontend scripts
-        add_action('wp_enqueue_scripts', array(__CLASS__, 'enqueue_scripts'));
-        add_action('wp_footer', array(__CLASS__, 'dialogs_markup'));
-      }
+      // aditional links in plugin description
+      add_filter('plugin_action_links_' . basename(dirname(__FILE__)) . '/' . basename(__FILE__),
+                 array(__CLASS__, 'plugin_action_links'));
+      add_filter('plugin_row_meta', array(__CLASS__, 'plugin_meta_links'), 10, 2);
+
+      // enqueue admin scripts
+      add_action('admin_enqueue_scripts', array(__CLASS__, 'admin_enqueue_scripts'));
+    } else {
+      // enqueue frontend scripts
+      add_action('wp_enqueue_scripts', array(__CLASS__, 'enqueue_scripts'));
+      add_action('wp_footer', array(__CLASS__, 'dialogs_markup'));
+    }
   } // init
 
 
-  // textdomain has to be loaded earlier
+  // some things have to be loaded earlier
   static function plugins_loaded() {
     load_plugin_textdomain('google-maps-widget', false, basename(dirname(__FILE__)) . '/lang');
+    add_filter('cron_schedules', array('GMW_tracking', 'register_cron_intervals'));
   } // plugins_loaded
 
 
@@ -67,7 +76,7 @@ class GMW {
   } // widgets_init
 
 
-  // add settings link to plugins page
+  // add widgets link to plugins page
   static function plugin_action_links($links) {
     $settings_link = '<a href="' . admin_url('widgets.php') . '" title="' . __('Configure Google Maps Widget', 'google-maps-widget') . '">' . __('Widgets', 'google-maps-widget') . '</a>';
     array_unshift($links, $settings_link);
@@ -78,12 +87,16 @@ class GMW {
 
   // add links to plugin's description in plugins table
   static function plugin_meta_links($links, $file) {
-    $documentation_link = '<a target="_blank" href="' . plugin_dir_url(__FILE__) . '#" title="' . __('View Google Maps Widget documentation', 'google-maps-widget') . '">'. __('Documentation', 'google-maps-widget') . '</a>';
+    // todo - write proper docs
+    //$documentation_link = '<a target="_blank" href="' . plugin_dir_url(__FILE__) . '#" title="' . __('View Google Maps Widget documentation', 'google-maps-widget') . '">'. __('Documentation', 'google-maps-widget') . '</a>';
     $support_link = '<a target="_blank" href="http://wordpress.org/support/plugin/google-maps-widget" title="' . __('Problems? We are here to help!', 'google-maps-widget') . '">' . __('Support', 'google-maps-widget') . '</a>';
+    $review_link = '<a target="_blank" href="http://wordpress.org/support/view/plugin-reviews/google-maps-widget" title="' . __('If you like it, please review the plugin', 'google-maps-widget') . '">' . __('Review the plugin', 'google-maps-widget') . '</a>';
+    $donate_link = '<a target="_blank" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=gordan%40webfactoryltd%2ecom&lc=US&item_name=Google%20Maps%20Widget&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest" title="' . __('If you feel we deserve it, buy us coffee', 'google-maps-widget') . '">' . __('Donate', 'google-maps-widget') . '</a>';
 
     if ($file == plugin_basename(__FILE__)) {
-      //$links[] = $documentation_link;
       $links[] = $support_link;
+      $links[] = $review_link;
+      $links[] = $donate_link;
     }
 
     return $links;
@@ -208,6 +221,7 @@ class GMW {
     if ($force_refresh || ($coordinates = get_transient($address_hash)) === false) {
       $url = 'http://maps.googleapis.com/maps/api/geocode/xml?address=' . urlencode($address) . '&sensor=false';
 
+      // todo - rewrite using wp_remote_get()
       $ch = curl_init();
       curl_setopt($ch, CURLOPT_URL, $url);
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -241,15 +255,30 @@ class GMW {
     return $data;
   } // get_coordinates
 
-  // track a few things on plugin activation
-  // NO DATA is sent anywhere!
+
+  // write down a few things on plugin activation
+  // NO DATA is sent anywhere unless user explicitly agrees to it!
   static function activate() {
-    $options = get_option('gmw_options');
+    $options = get_option(GMW_OPTIONS);
 
     if (!isset($options['first_version']) || !isset($options['first_install'])) {
       $options['first_version'] = GMW_VER;
       $options['first_install'] = current_time('timestamp');
-      update_option('gmw_options', $options);
+      $options['last_tracking'] = false;
+      update_option(GMW_OPTIONS, $options);
+    }
+  } // activate
+
+
+  // clean up on deactivation
+  static function deactivate() {
+    $options = get_option(GMW_OPTIONS);
+
+    if (isset($options['allow_tracking']) && $options['allow_tracking'] === false) {
+      unset($options['allow_tracking']);
+      update_option(GMW_OPTIONS, $options);
+    } elseif (isset($options['allow_tracking']) && $options['allow_tracking'] === true) {
+      GMW_tracking::clear_cron();
     }
   } // activate
 } // class GMW
@@ -257,6 +286,7 @@ class GMW {
 
 // hook everything up
 register_activation_hook(__FILE__, array('GMW', 'activate'));
+register_deactivation_hook(__FILE__, array('GMW', 'deactivate'));
 add_action('init', array('GMW', 'init'));
 add_action('plugins_loaded', array('GMW', 'plugins_loaded'));
 add_action('widgets_init', array('GMW', 'widgets_init'));
