@@ -4,7 +4,7 @@ Plugin Name: Google Maps Widget
 Plugin URI: http://www.googlemapswidget.com/
 Description: Display a single-image super-fast loading Google map in a widget. A larger, full featured map is available on click in a lightbox.
 Author: Web factory Ltd
-Version: 1.35
+Version: 1.36
 Author URI: http://www.webfactoryltd.com/
 Text Domain: google-maps-widget
 Domain Path: lang
@@ -31,7 +31,7 @@ if (!defined('ABSPATH')) {
 }
 
 
-define('GMW_VER', '1.35');
+define('GMW_VER', '1.36');
 define('GMW_OPTIONS', 'gmw_options');
 define('GMW_CRON', 'gmw_cron');
 
