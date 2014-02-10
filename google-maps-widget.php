@@ -4,7 +4,7 @@ Plugin Name: Google Maps Widget
 Plugin URI: http://www.googlemapswidget.com/
 Description: Display a single-image super-fast loading Google map in a widget. A larger, full featured map is available on click in a lightbox.
 Author: Web factory Ltd
-Version: 1.36
+Version: 1.40
 Author URI: http://www.webfactoryltd.com/
 Text Domain: google-maps-widget
 Domain Path: lang
@@ -31,7 +31,7 @@ if (!defined('ABSPATH')) {
 }
 
 
-define('GMW_VER', '1.36');
+define('GMW_VER', '1.37');
 define('GMW_OPTIONS', 'gmw_options');
 define('GMW_CRON', 'gmw_cron');
 
@@ -47,6 +47,8 @@ class GMW {
      if (is_admin()) {
       // check if minimal required WP version is used
       self::check_wp_version(3.3);
+
+      self::upgrade();
 
       // aditional links in plugin description
       add_filter('plugin_action_links_' . basename(dirname(__FILE__)) . '/' . basename(__FILE__),
@@ -165,8 +167,8 @@ class GMW {
    // enqueue frontend scripts if necessary
    static function enqueue_scripts() {
      if (is_active_widget(false, false, 'googlemapswidget', true)) {
-       wp_enqueue_style('gmw', plugins_url('/css/gmw.css', __FILE__), array(), GMW_VER);
-       wp_enqueue_script('gmw-fancybox', plugins_url('/js/jquery.fancybox.pack.js', __FILE__), array('jquery'), GMW_VER, true);
+       wp_enqueue_style('gmw', plugins_url('/css/jquery.fancybox-1.3.4.css', __FILE__), array(), GMW_VER);
+       wp_enqueue_script('gmw-fancybox', plugins_url('/js/jquery.fancybox-1.3.4.pack.js', __FILE__), array('jquery'), GMW_VER, true);
        wp_enqueue_script('gmw', plugins_url('/js/gmw.js', __FILE__), array('jquery'), GMW_VER, true);
      }
     } // enqueue_scripts
@@ -255,6 +257,17 @@ class GMW {
     return $data;
   } // get_coordinates
 
+
+  // activate doesn't get fired on upgrades so we have to compensate
+  public static function upgrade() {
+    $options = get_option(GMW_OPTIONS);
+
+    if (!isset($options['first_version']) || !isset($options['first_install'])) {
+      $options['first_version'] = GMW_VER;
+      $options['first_install'] = current_time('timestamp');
+      update_option(GMW_OPTIONS, $options);
+    }
+  } // upgrade
 
   // write down a few things on plugin activation
   // NO DATA is sent anywhere unless user explicitly agrees to it!

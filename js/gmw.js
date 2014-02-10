@@ -1,7 +1,6 @@
 /*
  * Google Maps Widget
- * Front-end JS init functions
- * (c) Web factory Ltd, 2012 - 2013
+ * (c) Web factory Ltd, 2012 - 2014
  */
 
 jQuery(function($) {
@@ -16,7 +15,8 @@ jQuery(function($) {
       var content = $(dialog.html());
       content.filter('.gmw-map').html('<iframe width="' + map_width + 'px" height="' + map_height + 'px" src="' + map_url + '"></iframe>');
 
-      $.fancybox( { 'wrapCSS': map_skin, 'type': 'html', 'content': content, 'title': map_title, 'autoSize': true, 'minWidth': map_width, 'minHeight': map_height } );
+      $.fancybox( { 'wrapCSS': map_skin, 'content': content, 'title': map_title, 'autoDimensions': true, onComplete: function() { jQuery('#fancybox-wrap').width(jQuery('#fancybox-wrap').outerWidth() - 20); } } );
+      
 
       return false;
     });
