@@ -104,8 +104,8 @@ class GoogleMapsWidget extends WP_Widget {
       $zoom_levels[] = array('val' => $tmp, 'label' => $tmp);
     }
 
-    $lightbox_skins[] = array('val' => '', 'label' => __('White with rounded corners (default)', 'google-maps-widget'));
-    $lightbox_skins[] = array('val' => 'black-rounded', 'label' => __('Black with rounded corners', 'google-maps-widget'));
+    $lightbox_skins[] = array('val' => '', 'label' => __('Light (default)', 'google-maps-widget'));
+    $lightbox_skins[] = array('val' => 'dark', 'label' => __('Dark', 'google-maps-widget'));
     $lightbox_skins[] = array('val' => 'white-square', 'label' => __('White with square corners', 'google-maps-widget'));
     $lightbox_skins[] = array('val' => 'black-square', 'label' => __('Black with square corners', 'google-maps-widget'));
 
@@ -181,7 +181,7 @@ class GoogleMapsWidget extends WP_Widget {
     GMW::create_select_options($zoom_levels, $lightbox_zoom);
     echo '</select></p>';
 
-    /* temporarly removed
+    /* temporarily disabled
     echo '<p><label class="gmw-label" for="' . $this->get_field_id('lightbox_skin') . '">' . __('Skin', 'google-maps-widget') . ':</label>';
     echo '<select id="' . $this->get_field_id('lightbox_skin') . '" name="' . $this->get_field_name('lightbox_skin') . '">';
     GMW::create_select_options($lightbox_skins, $lightbox_skin);
@@ -192,7 +192,7 @@ class GoogleMapsWidget extends WP_Widget {
     echo '<input ' . checked('1', $lightbox_bubble, false) . ' value="1" type="checkbox" id="' . $this->get_field_id('lightbox_bubble') . '" name="' . $this->get_field_name('lightbox_bubble') . '">';
     echo '</p>';
 
-    echo '<p><label for="' . $this->get_field_id('lightbox_title') . '">' . __('Show Title Below Lightbox', 'google-maps-widget') . ':&nbsp;</label>';
+    echo '<p><label for="' . $this->get_field_id('lightbox_title') . '">' . __('Show Map Title Above Lightbox', 'google-maps-widget') . ':&nbsp;</label>';
     echo '<input ' . checked('1', $lightbox_title, false) . ' value="1" type="checkbox" id="' . $this->get_field_id('lightbox_title') . '" name="' . $this->get_field_name('lightbox_title') . '">';
     echo '</p>';
 

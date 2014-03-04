@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.3
 Tested up to: 3.8.1
-Stable tag: 1.40
+Stable tag: 1.45
 
 Displays a single-image super-fast loading Google map in a widget. A larger map with all the usual features is available on click in a lightbox.
 
@@ -99,6 +99,11 @@ If you can figure it out open a thread in the support forums.
 4. Widget options - lightbox map
 
 == Changelog ==
+= 1.45 =
+* 2014/03/04
+* switched to <a href="http://www.jacklmoore.com/colorbox/">Colorbox</a> lightbox script
+* lightbox skin is still temporarily unavailable
+
 = 1.40 =
 * 2014/02/10
 * due to licensing issues switched to FancyBox v1.3.4
