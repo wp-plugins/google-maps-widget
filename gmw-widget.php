@@ -105,9 +105,9 @@ class GoogleMapsWidget extends WP_Widget {
     }
 
     $lightbox_skins[] = array('val' => '', 'label' => __('Light (default)', 'google-maps-widget'));
-    $lightbox_skins[] = array('val' => 'dark', 'label' => __('Dark', 'google-maps-widget'));
-    $lightbox_skins[] = array('val' => 'white-square', 'label' => __('White with square corners', 'google-maps-widget'));
-    $lightbox_skins[] = array('val' => 'black-square', 'label' => __('Black with square corners', 'google-maps-widget'));
+    //$lightbox_skins[] = array('val' => 'dark', 'label' => __('Dark', 'google-maps-widget'));
+    //$lightbox_skins[] = array('val' => 'white-square', 'label' => __('White with square corners', 'google-maps-widget'));
+    //$lightbox_skins[] = array('val' => 'black-square', 'label' => __('Black with square corners', 'google-maps-widget'));
 
     $thumb_link_types[] = array('val' => 'lightbox', 'label' => __('Lightbox', 'google-maps-widget'));
     $thumb_link_types[] = array('val' => 'custom', 'label' => __('Custom link', 'google-maps-widget'));
@@ -181,12 +181,10 @@ class GoogleMapsWidget extends WP_Widget {
     GMW::create_select_options($zoom_levels, $lightbox_zoom);
     echo '</select></p>';
 
-    /* temporarily disabled
     echo '<p><label class="gmw-label" for="' . $this->get_field_id('lightbox_skin') . '">' . __('Skin', 'google-maps-widget') . ':</label>';
     echo '<select id="' . $this->get_field_id('lightbox_skin') . '" name="' . $this->get_field_name('lightbox_skin') . '">';
     GMW::create_select_options($lightbox_skins, $lightbox_skin);
     echo '</select></p>';
-    */
 
     echo '<p><label for="' . $this->get_field_id('lightbox_bubble') . '">' . __('Show Address Bubble', 'google-maps-widget') . ':&nbsp;</label>';
     echo '<input ' . checked('1', $lightbox_bubble, false) . ' value="1" type="checkbox" id="' . $this->get_field_id('lightbox_bubble') . '" name="' . $this->get_field_name('lightbox_bubble') . '">';
@@ -231,7 +229,7 @@ class GoogleMapsWidget extends WP_Widget {
     $instance['lightbox_title'] = isset($new_instance['lightbox_title']);
     $instance['lightbox_header'] = trim($new_instance['lightbox_header']);
     $instance['lightbox_footer'] = trim($new_instance['lightbox_footer']);
-    //$instance['lightbox_skin'] = $new_instance['lightbox_skin'];
+    $instance['lightbox_skin'] = $new_instance['lightbox_skin'];
 
     return $instance;
   }
