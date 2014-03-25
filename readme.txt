@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.3
 Tested up to: 3.8.1
-Stable tag: 1.47
+Stable tag: 1.50
 
 Displays a single-image super-fast loading Google map in a widget. A larger map with all the usual features is available on click in a lightbox.
 
@@ -44,7 +44,7 @@ http://www.youtube.com/watch?v=y1siX9ha7Pw&hd=1
 * header text
 * footer text
 
-> If you need a Google Maps shortcode plugin you might be interested in purchasing our premium <a title="5sec Google Maps" href="http://5sec-gmap.webfactoryltd.com/">5sec Google Maps</a> plugin.
+> If you need a Google Maps shortcode plugin you might be interested in purchasing our premium <a title="5sec Google Maps" href="http://5sec-google-maps-pro.webfactoryltd.com/">5sec Google Maps PRO</a> plugin.
 
 The plugin was voted on the <a href="http://themesplugins.com/Plugin-detail/google-maps-widget-google-map-free-plugin-for-wordpress/" title="Top 100 WordPressian plugin">Top 100 List</a> by WordPressian and made it on the <a href="http://tidyrepo.com/google-maps-widget/">Tidy Repo</a> list.
 
@@ -99,6 +99,12 @@ If you can figure it out open a thread in the support forums.
 4. Widget options - lightbox map
 
 == Changelog ==
+= 1.50 =
+* 2014/03/25
+* minor bug fixes
+* new Spanish translation - thank you Jesus!
+* still working on those lightbox skins, sorry :(
+
 = 1.47 =
 * 2014/03/05
 * minor bug fix

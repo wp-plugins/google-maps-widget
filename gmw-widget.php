@@ -260,18 +260,18 @@ class GoogleMapsWidget extends WP_Widget {
                              'address' => $instance['address'],
                              'zoom' => $instance['lightbox_zoom'],
                              'type' => $instance['lightbox_type'],
-                             'skin' => $instance['lightbox_skin'],
+                             'skin' => @$instance['lightbox_skin'], // todo bad fix
                              'bubble' => $instance['lightbox_bubble'],
                              'll' => $ll,
                              'id' => $widget_id);
 
     $out .= $before_widget;
 
-    if (!$instance['thumb_link_type']) {
+    if (!isset($instance['thumb_link_type']) || !$instance['thumb_link_type']) {
       $instance['thumb_link_type'] = 'lightbox';
     }
 
-    if ($instance['thumb_new_colors']) {
+    if (isset($instance['thumb_new_colors']) && $instance['thumb_new_colors']) {
       $instance['thumb_new_colors'] = 'true';
     } else {
       $instance['thumb_new_colors'] = 'false';
@@ -282,7 +282,7 @@ class GoogleMapsWidget extends WP_Widget {
       $out .= $before_title . $title . $after_title;
     }
 
-    if ($instance['thumb_header']) {
+    if (isset($instance['thumb_header']) && $instance['thumb_header']) {
       $tmp .= wpautop($instance['thumb_header']);
       // todo, test -  do_shortcode
     }
@@ -301,7 +301,7 @@ class GoogleMapsWidget extends WP_Widget {
       $tmp .= '</a>';
     }
     $tmp .= '</p>';
-    if ($instance['thumb_footer']) {
+    if (isset($instance['thumb_footer']) && $instance['thumb_footer']) {
       $tmp .= wpautop($instance['thumb_footer']);
       // todo, test -  do_shortcode
     }
