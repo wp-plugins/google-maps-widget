@@ -4,7 +4,7 @@ Plugin Name: Google Maps Widget
 Plugin URI: http://www.googlemapswidget.com/
 Description: Display a single-image super-fast loading Google map in a widget. A larger, full featured map is available on click in a lightbox.
 Author: Web factory Ltd
-Version: 1.50
+Version: 1.55
 Author URI: http://www.webfactoryltd.com/
 Text Domain: google-maps-widget
 Domain Path: lang
@@ -31,7 +31,7 @@ if (!defined('ABSPATH')) {
 }
 
 
-define('GMW_VER', '1.47');
+define('GMW_VER', '1.55');
 define('GMW_OPTIONS', 'gmw_options');
 define('GMW_CRON', 'gmw_cron');
 
@@ -89,7 +89,7 @@ class GMW {
 
   // add links to plugin's description in plugins table
   static function plugin_meta_links($links, $file) {
-    // todo - write proper docs
+    // todo - write proper docs someday :(
     //$documentation_link = '<a target="_blank" href="' . plugin_dir_url(__FILE__) . '#" title="' . __('View Google Maps Widget documentation', 'google-maps-widget') . '">'. __('Documentation', 'google-maps-widget') . '</a>';
     $support_link = '<a target="_blank" href="http://wordpress.org/support/plugin/google-maps-widget" title="' . __('Problems? We are here to help!', 'google-maps-widget') . '">' . __('Support', 'google-maps-widget') . '</a>';
     $review_link = '<a target="_blank" href="http://wordpress.org/support/view/plugin-reviews/google-maps-widget" title="' . __('If you like it, please review the plugin', 'google-maps-widget') . '">' . __('Review the plugin', 'google-maps-widget') . '</a>';
@@ -151,11 +151,11 @@ class GMW {
 
          $out .= '<div class="gmw-dialog" style="display: none;" data-map-height="' . $widget['height'] . '" data-map-width="' . $widget['width'] . '" data-map-skin="' . $widget['skin'] . '" data-map-iframe-url="' . $map_url . '" id="gmw-dialog-' . $widget['id'] . '" title="' . esc_attr($widget['title']) . '">';
          if ($widget['header']) {
-          $out .= '<div class="gmw-header"><i>' . do_shortcode($widget['header']) . '</i></div>';
+          $out .= '<div class="gmw-header">' . wpautop(do_shortcode($widget['header'])) . '</div>';
          }
          $out .= '<div class="gmw-map"></div>';
          if ($widget['footer']) {
-          $out .= '<div class="gmw-footer"><i>' . do_shortcode($widget['footer']) . '</i></div>';
+          $out .= '<div class="gmw-footer">' . wpautop(do_shortcode($widget['footer'])) . '</div>';
          }
          $out .= "</div>\n";
        } // foreach $widgets

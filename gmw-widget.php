@@ -46,6 +46,7 @@ class GoogleMapsWidget extends WP_Widget {
                                     'lightbox_footer' => ''));
 
     // todo - use extract() to make code nicer
+    // extract($instance, EXTR_SKIP); - not very smart, other plugins can add keys to $instance
     $title = $instance['title'];
     $address = $instance['address'];
     $thumb_pin_color = $instance['thumb_pin_color'];
@@ -277,14 +278,13 @@ class GoogleMapsWidget extends WP_Widget {
       $instance['thumb_new_colors'] = 'false';
     }
 
-    $title = empty($instance['title']) ? ' ' : apply_filters('widget_title', $instance['title']);
+    $title = empty($instance['title'])? ' ' : apply_filters('widget_title', $instance['title']);
     if (!empty($title)) {
       $out .= $before_title . $title . $after_title;
     }
 
     if (isset($instance['thumb_header']) && $instance['thumb_header']) {
-      $tmp .= wpautop($instance['thumb_header']);
-      // todo, test -  do_shortcode
+      $tmp .= wpautop(do_shortcode($instance['thumb_header']));
     }
     $tmp .= '<p>';
     if ($instance['thumb_link_type'] == 'lightbox') {
@@ -302,8 +302,7 @@ class GoogleMapsWidget extends WP_Widget {
     }
     $tmp .= '</p>';
     if (isset($instance['thumb_footer']) && $instance['thumb_footer']) {
-      $tmp .= wpautop($instance['thumb_footer']);
-      // todo, test -  do_shortcode
+      $tmp .= wpautop(do_shortcode($instance['thumb_footer']));
     }
     $out .= apply_filters('google_maps_widget_content', $tmp);
 
