@@ -4,12 +4,12 @@ Plugin Name: Google Maps Widget
 Plugin URI: http://www.googlemapswidget.com/
 Description: Display a single-image super-fast loading Google map in a widget. A larger, full featured map is available on click in a lightbox.
 Author: Web factory Ltd
-Version: 1.56
+Version: 1.60
 Author URI: http://www.webfactoryltd.com/
 Text Domain: google-maps-widget
 Domain Path: lang
 
-  Copyright 2012 - 2014  Web factory Ltd  (email : info@webfactoryltd.com)
+  Copyright 2012 - 2014  Web factory Ltd  (email : gmw@webfactoryltd.com)
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License, version 2, as
@@ -31,9 +31,10 @@ if (!defined('ABSPATH')) {
 }
 
 
-define('GMW_VER', '1.56');
+define('GMW_VER', '1.60');
 define('GMW_OPTIONS', 'gmw_options');
 define('GMW_CRON', 'gmw_cron');
+
 
 require_once 'gmw-widget.php';
 require_once 'gmw-tracking.php';
@@ -57,6 +58,7 @@ class GMW {
 
       // enqueue admin scripts
       add_action('admin_enqueue_scripts', array(__CLASS__, 'admin_enqueue_scripts'));
+      add_action('customize_controls_enqueue_scripts', array(__CLASS__, 'admin_enqueue_scripts'));
     } else {
       // enqueue frontend scripts
       add_action('wp_enqueue_scripts', array(__CLASS__, 'enqueue_scripts'));
@@ -176,7 +178,9 @@ class GMW {
 
     // enqueue CSS and JS scripts on widgets page
     static function admin_enqueue_scripts() {
-      if (self::is_plugin_admin_page()) {
+      global $wp_customize;
+
+      if (self::is_plugin_admin_page() || isset($wp_customize)) {
         wp_enqueue_script('jquery-ui-tabs');
         wp_enqueue_script('gmw-cookie', plugins_url('js/jquery.cookie.js', __FILE__), array('jquery'), GMW_VER, true);
         wp_enqueue_script('gmw-admin', plugins_url('js/gmw-admin.js', __FILE__), array('jquery'), GMW_VER, true);
