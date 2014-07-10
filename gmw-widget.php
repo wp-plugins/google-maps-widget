@@ -11,6 +11,8 @@ if (!defined('ABSPATH')) {
   die();
 }
 
+
+// main widget class, extends WP widget interface/class
 class GoogleMapsWidget extends WP_Widget {
   static $widgets = array();
 
@@ -18,7 +20,7 @@ class GoogleMapsWidget extends WP_Widget {
     $widget_ops = array('classname' => 'google-maps-widget', 'description' => __('Displays a map image thumbnail with a larger map available in a lightbox.', 'google-maps-widget'));
     $control_ops = array('width' => 450, 'height' => 350);
     $this->WP_Widget('GoogleMapsWidget', __('Google Maps Widget', 'google-maps-widget'), $widget_ops, $control_ops);
-  }
+  } // GoogleMapsWidget
 
   function form($instance) {
     $instance = wp_parse_args((array) $instance,
@@ -45,30 +47,7 @@ class GoogleMapsWidget extends WP_Widget {
                                     'lightbox_header' => '',
                                     'lightbox_footer' => ''));
 
-    // todo - use extract() to make code nicer
-    // extract($instance, EXTR_SKIP); - not very smart, other plugins can add keys to $instance
-    $title = $instance['title'];
-    $address = $instance['address'];
-    $thumb_pin_color = $instance['thumb_pin_color'];
-    $thumb_pin_size = $instance['thumb_pin_size'];
-    $thumb_width = $instance['thumb_width'];
-    $thumb_height = $instance['thumb_height'];
-    $thumb_type = $instance['thumb_type'];
-    $thumb_zoom = $instance['thumb_zoom'];
-    $thumb_header = $instance['thumb_header'];
-    $thumb_footer = $instance['thumb_footer'];
-    $thumb_new_colors = $instance['thumb_new_colors'];
-    $thumb_link_type = $instance['thumb_link_type'];
-    $thumb_link = $instance['thumb_link'];
-    $lightbox_width = $instance['lightbox_width'];
-    $lightbox_height = $instance['lightbox_height'];
-    $lightbox_type = $instance['lightbox_type'];
-    $lightbox_zoom = $instance['lightbox_zoom'];
-    $lightbox_bubble = $instance['lightbox_bubble'];
-    $lightbox_title = $instance['lightbox_title'];
-    $lightbox_skin = $instance['lightbox_skin'];
-    $lightbox_footer = $instance['lightbox_footer'];
-    $lightbox_header = $instance['lightbox_header'];
+    extract($instance, EXTR_SKIP);
 
     if(!$thumb_link_type) {
       $thumb_link_type = 'lightbox';
@@ -106,9 +85,10 @@ class GoogleMapsWidget extends WP_Widget {
     }
 
     $lightbox_skins[] = array('val' => '', 'label' => __('Light (default)', 'google-maps-widget'));
-    //$lightbox_skins[] = array('val' => 'dark', 'label' => __('Dark', 'google-maps-widget'));
-    //$lightbox_skins[] = array('val' => 'white-square', 'label' => __('White with square corners', 'google-maps-widget'));
-    //$lightbox_skins[] = array('val' => 'black-square', 'label' => __('Black with square corners', 'google-maps-widget'));
+    // todo add skins
+    // $lightbox_skins[] = array('val' => 'dark', 'label' => __('Dark', 'google-maps-widget'));
+    // $lightbox_skins[] = array('val' => 'white-square', 'label' => __('White with square corners', 'google-maps-widget'));
+    // $lightbox_skins[] = array('val' => 'black-square', 'label' => __('Black with square corners', 'google-maps-widget'));
 
     $thumb_link_types[] = array('val' => 'lightbox', 'label' => __('Lightbox', 'google-maps-widget'));
     $thumb_link_types[] = array('val' => 'custom', 'label' => __('Custom link', 'google-maps-widget'));
@@ -204,7 +184,7 @@ class GoogleMapsWidget extends WP_Widget {
     echo '</div>'; // lightbox tab
     echo '</div>'; // tabs
     echo '<p><i>' . __('If you like the plugin give us a shout. Thanks!', 'google-maps-widget') . ' <a title="WebFactory on Twitter" target="_blank" href="http://twitter.com/WebFactoryLtd">@WebFactoryLtd</a></i></p>';
-  }
+  } // form
 
   function update($new_instance, $old_instance) {
     $instance = $old_instance;
@@ -233,7 +213,7 @@ class GoogleMapsWidget extends WP_Widget {
     $instance['lightbox_skin'] = $new_instance['lightbox_skin'];
 
     return $instance;
-  }
+  } // update
 
   function widget($args, $instance) {
     $out = $tmp = '';
@@ -268,7 +248,7 @@ class GoogleMapsWidget extends WP_Widget {
 
     $out .= $before_widget;
 
-    if (!isset($instance['thumb_link_type']) || !$instance['thumb_link_type']) {
+    if (!isset($instance['thumb_link_type']) || empty($instance['thumb_link_type'])) {
       $instance['thumb_link_type'] = 'lightbox';
     }
 
@@ -287,12 +267,19 @@ class GoogleMapsWidget extends WP_Widget {
       $tmp .= wpautop(do_shortcode($instance['thumb_header']));
     }
     $tmp .= '<p>';
+    
+    if ($instance['thumb_link_type'] == 'lightbox') {
+      $alt = __('Click to open larger map', 'google-maps-widget');
+    } else {
+      $alt = esc_attr($instance['address']);
+    }
+    
     if ($instance['thumb_link_type'] == 'lightbox') {
       $tmp .= '<a class="gmw-thumbnail-map gmw-lightbox-enabled" href="#gmw-dialog-' . $widget_id . '" title="' . __('Click to open larger map', 'google-maps-widget') . '">';
     } elseif ($instance['thumb_link_type'] == 'custom') {
-      $tmp .= '<a class="gmw-thumbnail-map" href="' . $instance['thumb_link'] . '">';
+      $tmp .= '<a class="gmw-thumbnail-map" title="' . esc_attr($instance['address']) . '" href="' . $instance['thumb_link'] . '">';
     }
-    $tmp .= '<img title="' . __('Click to open larger map', 'google-maps-widget') . '" alt="' . __('Click to open larger map', 'google-maps-widget') . '" src="//maps.googleapis.com/maps/api/staticmap?center=' .
+    $tmp .= '<img alt="' . $alt . '" title="' . $alt . '" src="//maps.googleapis.com/maps/api/staticmap?center=' .
          urlencode($instance['address']) . '&amp;zoom=' . $instance['thumb_zoom'] .
          '&amp;size=' . $instance['thumb_width'] . 'x' . $instance['thumb_height'] . '&amp;maptype=' . $instance['thumb_type'] .
          '&amp;sensor=false&amp;scale=1&amp;markers=size:' . $instance['thumb_pin_size'] . '%7Ccolor:' . $instance['thumb_pin_color'] . '%7Clabel:A%7C' .
@@ -309,5 +296,5 @@ class GoogleMapsWidget extends WP_Widget {
     $out .= $after_widget;
 
     echo $out;
-  }
+  } // widget
 } // class GoogleMapsWidget
