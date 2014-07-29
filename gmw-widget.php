@@ -42,15 +42,19 @@ class GoogleMapsWidget extends WP_Widget {
                                     'lightbox_type' => 'roadmap',
                                     'lightbox_zoom' => '14',
                                     'lightbox_bubble' => '1',
-                                    'lightbox_skin' => '',
+                                    'lightbox_skin' => 'light',
                                     'lightbox_title' => '1',
                                     'lightbox_header' => '',
                                     'lightbox_footer' => ''));
 
     extract($instance, EXTR_SKIP);
 
+    // legacy fixes for older versions; it's auto-fixed on first widget save but has to be here
     if(!$thumb_link_type) {
       $thumb_link_type = 'lightbox';
+    }
+    if(!$lightbox_skin) {
+      $lightbox_skin = 'light';
     }
 
     $map_types_thumb = array(array('val' => 'roadmap', 'label' => __('Road (default)', 'google-maps-widget')),
@@ -84,13 +88,10 @@ class GoogleMapsWidget extends WP_Widget {
       $zoom_levels[] = array('val' => $tmp, 'label' => $tmp);
     }
 
-    $lightbox_skins[] = array('val' => '', 'label' => __('Light (default)', 'google-maps-widget'));
-    // todo add skins
-    // $lightbox_skins[] = array('val' => 'dark', 'label' => __('Dark', 'google-maps-widget'));
-    // $lightbox_skins[] = array('val' => 'white-square', 'label' => __('White with square corners', 'google-maps-widget'));
-    // $lightbox_skins[] = array('val' => 'black-square', 'label' => __('Black with square corners', 'google-maps-widget'));
+    $lightbox_skins[] = array('val' => 'light', 'label' => __('Light (default)', 'google-maps-widget'));
+    $lightbox_skins[] = array('val' => 'dark', 'label' => __('Dark', 'google-maps-widget'));
 
-    $thumb_link_types[] = array('val' => 'lightbox', 'label' => __('Lightbox', 'google-maps-widget'));
+    $thumb_link_types[] = array('val' => 'lightbox', 'label' => __('Lightbox (default)', 'google-maps-widget'));
     $thumb_link_types[] = array('val' => 'custom', 'label' => __('Custom link', 'google-maps-widget'));
     $thumb_link_types[] = array('val' => 'nolink', 'label' => __('Disable link', 'google-maps-widget'));
 
@@ -232,6 +233,11 @@ class GoogleMapsWidget extends WP_Widget {
     if (!$lang) {
       $lang = 'en';
     }
+    
+    // legacy fix for older versions; it's auto-fixed on first widget save but has to be here
+    if(!$instance['lightbox_skin']) {
+      $instance['lightbox_skin'] = 'light';
+    }
 
     self::$widgets[] = array('title' => ($instance['lightbox_title']? $instance['title']: ''),
                              'width' => $instance['lightbox_width'],
@@ -241,7 +247,7 @@ class GoogleMapsWidget extends WP_Widget {
                              'address' => $instance['address'],
                              'zoom' => $instance['lightbox_zoom'],
                              'type' => $instance['lightbox_type'],
-                             'skin' => @$instance['lightbox_skin'], // todo bad fix
+                             'skin' => $instance['lightbox_skin'],
                              'bubble' => $instance['lightbox_bubble'],
                              'll' => $ll,
                              'id' => $widget_id);

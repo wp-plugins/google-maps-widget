@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.3
 Tested up to: 3.9
-Stable tag: 1.70
+Stable tag: 1.75
 
 Displays a single-image super-fast loading Google map in a widget. A larger map with all the usual features is available on click in a lightbox.
 
@@ -38,7 +38,7 @@ http://www.youtube.com/watch?v=y1siX9ha7Pw&hd=1
 * map size - width & height
 * map type - road, satellite, map or hybrid
 * zoom level
-* skin - black, white, rounded & squared
+* skin - light & dark
 * show/hide address bubble
 * show/hide map title
 * header text
@@ -100,6 +100,11 @@ If you can figure it out open a thread in the support forums.
 4. Widget options - lightbox map
 
 == Changelog ==
+= 1.75 =
+* 2014/07/29
+* lightbox skins are back; light and dark for now, more coming soon
+* updated lightbox jS
+
 = 1.70 =
 * 2014/07/10
 * fixed a small bug on thumbnail

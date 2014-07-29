@@ -15,7 +15,7 @@ jQuery(function($) {
       var content = $(dialog.html());
       content.filter('.gmw-map').html('<iframe width="' + map_width + 'px" height="' + map_height + 'px" src="' + map_url + '"></iframe>');
 
-      $.colorbox({ html: content, title: map_title, x_className: map_skin, closeButton: false });
+      $.colorbox({ html: content, title: map_title, className: 'gmw-' + map_skin, closeButton: false });
 
       return false;
     });
