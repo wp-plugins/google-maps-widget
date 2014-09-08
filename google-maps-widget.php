@@ -4,7 +4,7 @@ Plugin Name: Google Maps Widget
 Plugin URI: http://www.googlemapswidget.com/
 Description: Display a single-image super-fast loading Google map in a widget. A larger, full featured map is available on click in a lightbox.
 Author: Web factory Ltd
-Version: 1.75
+Version: 1.80
 Author URI: http://www.webfactoryltd.com/
 Text Domain: google-maps-widget
 Domain Path: lang
@@ -31,7 +31,7 @@ if (!defined('ABSPATH')) {
 }
 
 
-define('GMW_VER', '1.75');
+define('GMW_VER', '1.80');
 define('GMW_OPTIONS', 'gmw_options');
 define('GMW_CRON', 'gmw_cron');
 
@@ -42,10 +42,10 @@ require_once 'gmw-tracking.php';
 
 class GMW {
   // hook everything up
-   static function init() {
-     GMW_tracking::init();
+  static function init() {
+    GMW_tracking::init();
 
-     if (is_admin()) {
+    if (is_admin()) {
       // check if minimal required WP version is used
       self::check_wp_version(3.3);
 
@@ -166,59 +166,59 @@ class GMW {
    } // run_scroller
 
 
-   // enqueue frontend scripts if necessary
-   static function enqueue_scripts() {
-     if (is_active_widget(false, false, 'googlemapswidget', true)) {
-       wp_enqueue_style('gmw', plugins_url('/css/gmw.css', __FILE__), array(), GMW_VER);
-       wp_enqueue_script('gmw-colorbox', plugins_url('/js/jquery.colorbox-min.js', __FILE__), array('jquery'), GMW_VER, true);
-       wp_enqueue_script('gmw', plugins_url('/js/gmw.js', __FILE__), array('jquery'), GMW_VER, true);
-     }
-    } // enqueue_scripts
+  // enqueue frontend scripts if necessary
+  static function enqueue_scripts() {
+    if (is_active_widget(false, false, 'googlemapswidget', true)) {
+      wp_enqueue_style('gmw', plugins_url('/css/gmw.css', __FILE__), array(), GMW_VER);
+      wp_enqueue_script('gmw-colorbox', plugins_url('/js/jquery.colorbox-min.js', __FILE__), array('jquery'), GMW_VER, true);
+      wp_enqueue_script('gmw', plugins_url('/js/gmw.js', __FILE__), array('jquery'), GMW_VER, true);
+    }
+  } // enqueue_scripts
 
 
-    // enqueue CSS and JS scripts on widgets page
-    static function admin_enqueue_scripts() {
-      global $wp_customize;
+  // enqueue CSS and JS scripts on widgets page
+  static function admin_enqueue_scripts() {
+    global $wp_customize;
 
-      if (self::is_plugin_admin_page() || isset($wp_customize)) {
-        wp_enqueue_script('jquery-ui-tabs');
-        wp_enqueue_script('gmw-cookie', plugins_url('js/jquery.cookie.js', __FILE__), array('jquery'), GMW_VER, true);
-        wp_enqueue_script('gmw-admin', plugins_url('js/gmw-admin.js', __FILE__), array('jquery'), GMW_VER, true);
-        wp_enqueue_style('gmw-admin', plugins_url('css/gmw-admin.css', __FILE__), array(), GMW_VER);
-      } // if
-    } // admin_enqueue_scripts
+    if (self::is_plugin_admin_page() || isset($wp_customize)) {
+      wp_enqueue_script('jquery-ui-tabs');
+      wp_enqueue_script('gmw-cookie', plugins_url('js/jquery.cookie.js', __FILE__), array('jquery'), GMW_VER, true);
+      wp_enqueue_script('gmw-admin', plugins_url('js/gmw-admin.js', __FILE__), array('jquery'), GMW_VER, true);
+      wp_enqueue_style('gmw-admin', plugins_url('css/gmw-admin.css', __FILE__), array(), GMW_VER);
+    } // if
+  } // admin_enqueue_scripts
 
 
-    // check if plugin's admin page is shown
-    static function is_plugin_admin_page() {
-      $current_screen = get_current_screen();
+  // check if plugin's admin page is shown
+  static function is_plugin_admin_page() {
+    $current_screen = get_current_screen();
 
-      if ($current_screen->id == 'widgets') {
-        return true;
+    if ($current_screen->id == 'widgets') {
+      return true;
+    } else {
+      return false;
+    }
+  } // is_plugin_admin_page
+
+
+  // helper function for creating dropdowns
+  static function create_select_options($options, $selected = null, $output = true) {
+    $out = "\n";
+
+    foreach ($options as $tmp) {
+      if ($selected == $tmp['val']) {
+        $out .= "<option selected=\"selected\" value=\"{$tmp['val']}\">{$tmp['label']}&nbsp;</option>\n";
       } else {
-        return false;
+        $out .= "<option value=\"{$tmp['val']}\">{$tmp['label']}&nbsp;</option>\n";
       }
-    } // is_plugin_admin_page
+    } // foreach
 
-
-    // helper function for creating dropdowns
-    static function create_select_options($options, $selected = null, $output = true) {
-        $out = "\n";
-
-        foreach ($options as $tmp) {
-            if ($selected == $tmp['val']) {
-                $out .= "<option selected=\"selected\" value=\"{$tmp['val']}\">{$tmp['label']}&nbsp;</option>\n";
-            } else {
-                $out .= "<option value=\"{$tmp['val']}\">{$tmp['label']}&nbsp;</option>\n";
-            }
-        } // foreach
-
-        if ($output) {
-            echo $out;
-        } else {
-            return $out;
-        }
-    } // create_select_options
+    if ($output) {
+      echo $out;
+    } else {
+      return $out;
+    }
+  } // create_select_options
 
   
   // fetch coordinates based on the address
@@ -267,6 +267,7 @@ class GMW {
       update_option(GMW_OPTIONS, $options);
     }
   } // upgrade
+
 
   // write down a few things on plugin activation
   // NO DATA is sent anywhere unless user explicitly agrees to it!

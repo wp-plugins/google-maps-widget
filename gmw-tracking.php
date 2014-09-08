@@ -13,6 +13,7 @@ if (!defined('ABSPATH')) {
 
 
 class GMW_tracking {
+  // set things up
   public static function init() {
     $options = get_option(GMW_OPTIONS);
 

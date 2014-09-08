@@ -16,12 +16,16 @@ if (!defined('ABSPATH')) {
 class GoogleMapsWidget extends WP_Widget {
   static $widgets = array();
 
+
+  // constructor method
   function GoogleMapsWidget() {
     $widget_ops = array('classname' => 'google-maps-widget', 'description' => __('Displays a map image thumbnail with a larger map available in a lightbox.', 'google-maps-widget'));
     $control_ops = array('width' => 450, 'height' => 350);
     $this->WP_Widget('GoogleMapsWidget', __('Google Maps Widget', 'google-maps-widget'), $widget_ops, $control_ops);
   } // GoogleMapsWidget
 
+
+  // widget edit form HTML
   function form($instance) {
     $instance = wp_parse_args((array) $instance,
                               array('title' => __('Map', 'google-maps-widget'),
@@ -187,6 +191,8 @@ class GoogleMapsWidget extends WP_Widget {
     echo '<p><i>' . __('If you like the plugin give us a shout. Thanks!', 'google-maps-widget') . ' <a title="WebFactory on Twitter" target="_blank" href="http://twitter.com/WebFactoryLtd">@WebFactoryLtd</a></i></p>';
   } // form
 
+
+  // update/save widget options
   function update($new_instance, $old_instance) {
     $instance = $old_instance;
 
@@ -216,6 +222,8 @@ class GoogleMapsWidget extends WP_Widget {
     return $instance;
   } // update
 
+
+  // echo widget
   function widget($args, $instance) {
     $out = $tmp = '';
 
