@@ -31,7 +31,9 @@ class GoogleMapsWidget extends WP_Widget {
                               array('title' => __('Map', 'google-maps-widget'),
                                     'address' => __('New York, USA', 'google-maps-widget'),
                                     'thumb_pin_color' => 'red',
+                                    'thumb_pin_type' => 'predefined',
                                     'thumb_pin_size' => 'default',
+                                    'thumb_pin_img' => '',
                                     'thumb_width' => '250',
                                     'thumb_height' => '250',
                                     'thumb_type' => 'roadmap',
@@ -54,6 +56,9 @@ class GoogleMapsWidget extends WP_Widget {
     extract($instance, EXTR_SKIP);
 
     // legacy fixes for older versions; it's auto-fixed on first widget save but has to be here
+    if(!$thumb_pin_type) {
+      $thumb_pin_type = 'predefined';
+    }
     if(!$thumb_link_type) {
       $thumb_link_type = 'lightbox';
     }
@@ -94,6 +99,9 @@ class GoogleMapsWidget extends WP_Widget {
 
     $lightbox_skins[] = array('val' => 'light', 'label' => __('Light (default)', 'google-maps-widget'));
     $lightbox_skins[] = array('val' => 'dark', 'label' => __('Dark', 'google-maps-widget'));
+    
+    $thumb_pin_types[] = array('val' => 'predefined', 'label' => __('Predefined (default)', 'google-maps-widget'));
+    $thumb_pin_types[] = array('val' => 'custom', 'label' => __('Custom', 'google-maps-widget'));
 
     $thumb_link_types[] = array('val' => 'lightbox', 'label' => __('Lightbox (default)', 'google-maps-widget'));
     $thumb_link_types[] = array('val' => 'custom', 'label' => __('Custom link', 'google-maps-widget'));
@@ -115,16 +123,24 @@ class GoogleMapsWidget extends WP_Widget {
     echo '<select id="' . $this->get_field_id('thumb_type') . '" name="' . $this->get_field_name('thumb_type') . '">';
     GMW::create_select_options($map_types_thumb, $thumb_type);
     echo '</select></p>';
+    
+    echo '<p><label class="gmw-label" for="' . $this->get_field_id('thumb_pin_type') . '">' . __('Pin Type', 'google-maps-widget') . ':</label>';
+    echo '<select class="gmw_thumb_pin_type" id="' . $this->get_field_id('thumb_pin_type') . '" name="' . $this->get_field_name('thumb_pin_type') . '">';
+    GMW::create_select_options($thumb_pin_types, $thumb_pin_type);
+    echo '</select></p>';
 
-    echo '<p><label class="gmw-label" for="' . $this->get_field_id('thumb_pin_color') . '">' . __('Pin Color', 'google-maps-widget') . ':</label>';
+    echo '<p class="gmw_thumb_pin_type_predefined_section"><label class="gmw-label" for="' . $this->get_field_id('thumb_pin_color') . '">' . __('Pin Color', 'google-maps-widget') . ':</label>';
     echo '<select id="' . $this->get_field_id('thumb_pin_color') . '" name="' . $this->get_field_name('thumb_pin_color') . '">';
     GMW::create_select_options($pin_colors, $thumb_pin_color);
     echo '</select></p>';
 
-    echo '<p><label class="gmw-label" for="' . $this->get_field_id('thumb_pin_size') . '">' . __('Pin Size', 'google-maps-widget') . ':</label>';
+    echo '<p class="gmw_thumb_pin_type_predefined_section"><label class="gmw-label" for="' . $this->get_field_id('thumb_pin_size') . '">' . __('Pin Size', 'google-maps-widget') . ':</label>';
     echo '<select id="' . $this->get_field_id('thumb_pin_size') . '" name="' . $this->get_field_name('thumb_pin_size') . '">';
     GMW::create_select_options($pin_sizes, $thumb_pin_size);
     echo '</select></p>';
+    
+    echo '<p class="gmw_thumb_pin_type_custom_section"><label class="gmw-label gmw-label-wide" for="' . $this->get_field_id('thumb_pin_img') . '">' . __('Custom Pin Image URL', 'google-maps-widget') . ':</label>';
+    echo '<input type="text" class="regular-text" id="' . $this->get_field_id('thumb_pin_img') . '" name="' . $this->get_field_name('thumb_pin_img') . '" value="' . esc_attr($thumb_pin_img) . '">';
 
     echo '<p><label class="gmw-label" for="' . $this->get_field_id('thumb_zoom') . '">' . __('Zoom Level', 'google-maps-widget') . ':</label>';
     echo '<select id="' . $this->get_field_id('thumb_zoom') . '" name="' . $this->get_field_name('thumb_zoom') . '">';
@@ -198,8 +214,10 @@ class GoogleMapsWidget extends WP_Widget {
 
     $instance['title'] = $new_instance['title'];
     $instance['address'] = $new_instance['address'];
+    $instance['thumb_pin_type'] = $new_instance['thumb_pin_type'];
     $instance['thumb_pin_color'] = $new_instance['thumb_pin_color'];
     $instance['thumb_pin_size'] = $new_instance['thumb_pin_size'];
+    $instance['thumb_pin_img'] = trim($new_instance['thumb_pin_img']);
     $instance['thumb_width'] = (int) $new_instance['thumb_width'];
     $instance['thumb_height'] = (int) $new_instance['thumb_height'];
     $instance['thumb_zoom'] = $new_instance['thumb_zoom'];
@@ -262,6 +280,10 @@ class GoogleMapsWidget extends WP_Widget {
 
     $out .= $before_widget;
 
+    if (!isset($instance['thumb_pin_type']) || empty($instance['thumb_pin_type'])) {
+      $instance['thumb_pin_type'] = 'predefined';
+    }
+    
     if (!isset($instance['thumb_link_type']) || empty($instance['thumb_link_type'])) {
       $instance['thumb_link_type'] = 'lightbox';
     }
@@ -296,8 +318,13 @@ class GoogleMapsWidget extends WP_Widget {
     $tmp .= '<img alt="' . $alt . '" title="' . $alt . '" src="//maps.googleapis.com/maps/api/staticmap?center=' .
          urlencode($instance['address']) . '&amp;zoom=' . $instance['thumb_zoom'] .
          '&amp;size=' . $instance['thumb_width'] . 'x' . $instance['thumb_height'] . '&amp;maptype=' . $instance['thumb_type'] .
-         '&amp;sensor=false&amp;scale=1&amp;markers=size:' . $instance['thumb_pin_size'] . '%7Ccolor:' . $instance['thumb_pin_color'] . '%7Clabel:A%7C' .
-         urlencode($instance['address']) . '&amp;language=' . $lang . '&amp;visual_refresh=' . $instance['thumb_new_colors'] .'">';
+         '&amp;sensor=false&amp;scale=1&amp;';
+    if ($instance['thumb_pin_type'] != 'custom') {
+      $tmp .= 'markers=size:' . $instance['thumb_pin_size'] . '%7Ccolor:' . $instance['thumb_pin_color'];
+    } else {
+      $tmp .= 'markers=icon:' . urlencode($instance['thumb_pin_img']);
+    }
+    $tmp .= '%7Clabel:A%7C' . urlencode($instance['address']) . '&amp;language=' . $lang . '&amp;visual_refresh=' . $instance['thumb_new_colors'] .'">';
     if ($instance['thumb_link_type'] == 'lightbox' || $instance['thumb_link_type'] == 'custom') {
       $tmp .= '</a>';
     }

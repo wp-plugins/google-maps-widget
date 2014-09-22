@@ -8,6 +8,10 @@
   display: inline-block;
 }
 
+.gmw-label-wide {
+  width: 90%;
+}
+
 .gmw-tabs {
   border-bottom: 1px solid #CCCCCC !important;
 }

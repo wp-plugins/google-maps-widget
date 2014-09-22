@@ -5,13 +5,14 @@
 
 jQuery(function($) {
   $('.gmw-tabs').each(function(i, el) {
+    change_pin_type(el);
     change_link_type(el);
+    $('.gmw_thumb_pin_type', el).on('change', function() { change_pin_type(el) });
     $('.gmw_thumb_link_type', el).on('change', function() { change_link_type(el) });
     el_id = $(el).attr('id');
     $(el).tabs({ active: get_active_tab(el_id),
                  activate: function(event, ui) { save_active_tab(this); }
     });
-
   });
 
   // get active tab index from cookie
@@ -34,11 +35,24 @@ jQuery(function($) {
       $('.gmw_thumb_link_section', widget).hide();
     }
   } // link_type
+  
+  // show/hide custom pin URL field based on user's pin type choice
+  function change_pin_type(widget) {
+    if ($('.gmw_thumb_pin_type', widget).val() == 'custom') {
+      $('.gmw_thumb_pin_type_custom_section', widget).show();
+      $('.gmw_thumb_pin_type_predefined_section', widget).hide();
+    } else {
+      $('.gmw_thumb_pin_type_custom_section', widget).hide();
+      $('.gmw_thumb_pin_type_predefined_section', widget).show();
+    }
+  } // pin_type
 
   // re-tab on GUI rebuild
   $('div[id*="googlemapswidget"]').ajaxSuccess(function(event, request, option) {
     $('.gmw-tabs').each(function(i, el) {
+      change_pin_type(el);
       change_link_type(el);
+      $('.gmw_thumb_pin_type', el).on('change', function() { change_pin_type(el) });
       $('.gmw_thumb_link_type', el).on('change', function() { change_link_type(el) });
       el_id = $(el).attr('id');
       $(el).tabs({ active: get_active_tab(el_id),
