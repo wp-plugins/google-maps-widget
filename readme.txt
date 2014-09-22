@@ -27,6 +27,7 @@ http://www.youtube.com/watch?v=y1siX9ha7Pw&hd=1
 * map type - road, satellite, map or hybrid
 * pin color
 * pin size
+* custom pin icon
 * zoom level
 * link type - lightbox, custom URL or disable link
 * map color scheme - new & old
