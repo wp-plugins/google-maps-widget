@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.3
 Tested up to: 4.0
-Stable tag: 1.86
+Stable tag: 1.90
 
 Displays a single-image super-fast loading Google map in a widget. A larger map with all the usual features is available on click in a lightbox.
 
@@ -54,13 +54,14 @@ The plugin was voted on the <a href="http://themesplugins.com/Plugin-detail/goog
 * English - original :)
 * Swedish - Sofia Asklund
 * Spanish - Jesus Garica
-* Croatian - Gordan
+* Croatian - Gordan from <a href="http://www.webfactoryltd.com/">Web factory Ltd</a>
 * German - Karimba
 * French - Karimba
 * Chinese simplified  - Wyeoh
 * Chinese traditional - Wyeoh
 * Dutch - Arno
 * Ukrainian - Victor Shutovskiy
+* Serbian - Ogi Djuraskovic from <a href="http://firstsiteguide.com/">FirstSiteGuide</a> 
 
 == Installation ==
 
@@ -101,6 +102,10 @@ If you can figure it out open a thread in the support forums.
 4. Widget options - lightbox map
 
 == Changelog ==
+= 1.90 =
+* 2014/10/20
+* added Serbian translation; thanks Ogi!
+
 = 1.86 =
 * 2014/10/12
 * updated POT file
