@@ -47,7 +47,16 @@ http://www.youtube.com/watch?v=y1siX9ha7Pw&hd=1
 
 > If you need a Google Maps shortcode plugin you might be interested in purchasing our premium <a title="5sec Google Maps" href="http://5sec-google-maps-pro.webfactoryltd.com/">5sec Google Maps PRO</a> plugin.
 
-The plugin was voted on the <a href="http://themesplugins.com/Plugin-detail/google-maps-widget-google-map-free-plugin-for-wordpress/" title="Top 100 WordPressian plugin">Top 100 List</a> by WordPressian and made it on the <a href="http://tidyrepo.com/google-maps-widget/">Tidy Repo</a> list.
+
+**What others say about the plugin**
+
+* voted on the <a href="http://themesplugins.com/Plugin-detail/google-maps-widget-google-map-free-plugin-for-wordpress/" title="Top 100 WordPressian plugin">Top 100 List</a> by WordPressian
+* made it on the <a href="http://tidyrepo.com/google-maps-widget/">Tidy Repo</a> list
+* reviewed 5/5 by <a href="http://websmush.com/google-maps-widget-plugin-review/">Web Smush</a>
+* one of 3 best map plugins by <a href="http://torquemag.io/the-3-best-map-plugins-for-wordpress/">The Torque Mag</a>
+* "an easier way to add Google maps to your site" says <a href="http://www.wpbeginner.com/wp-tutorials/how-to-add-google-maps-in-wordpress/">WP Beginner</a>
+* <a href="http://designscrazed.org/wordpress-google-map-plugins/">Design Crazed</a> puts in on the top 20 Google maps list
+* <a href="http://www.inkthemes.com/easily-integrate-google-map-in-your-wordpress-themes-widget-area/09/">InkThemes</a> shows how easy it is to use GMW
 
 **Translators (thank you!)**
 
