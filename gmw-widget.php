@@ -318,7 +318,7 @@ class GoogleMapsWidget extends WP_Widget {
     $tmp .= '<img alt="' . $alt . '" title="' . $alt . '" src="//maps.googleapis.com/maps/api/staticmap?center=' .
          urlencode($instance['address']) . '&amp;zoom=' . $instance['thumb_zoom'] .
          '&amp;size=' . $instance['thumb_width'] . 'x' . $instance['thumb_height'] . '&amp;maptype=' . $instance['thumb_type'] .
-         '&amp;sensor=false&amp;scale=1&amp;';
+         '&amp;scale=1&amp;';
     if ($instance['thumb_pin_type'] != 'custom') {
       $tmp .= 'markers=size:' . $instance['thumb_pin_size'] . '%7Ccolor:' . $instance['thumb_pin_color'];
     } else {
