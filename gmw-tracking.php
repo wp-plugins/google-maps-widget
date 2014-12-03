@@ -85,7 +85,7 @@ class GMW_tracking {
     $optout_url = add_query_arg('gmw_tracking', 'opt_out');
 
     echo '<div class="updated"><p>';
-    echo __( 'Please help us improve <strong>Google Maps Widget</strong> by allowing us to track anonymous usage data. Absolutely <strong>no sensitive data is tracked</strong> (<a href="http://www.googlemapswidget.com/plugin-tracking-info/" target="_blank">complete disclosure &amp; details of our tracking policy</a>). As a thank you we\'ll email you a 25% discount coupon for all our premium plugins &amp; themes.', 'google-maps-widget');
+    echo __( 'Please help us improve <strong>Google Maps Widget</strong> by allowing us to track anonymous usage data. Absolutely <strong>no sensitive data is tracked</strong> (<a href="http://www.googlemapswidget.com/plugin-tracking-info/" target="_blank">complete disclosure &amp; details of our tracking policy</a>).', 'google-maps-widget');
     echo '<br /><a href="' . esc_url($optin_url) . '" style="vertical-align: baseline;" class="button-primary">' . __('Allow', 'google-maps-widget') . '</a>';
     echo '&nbsp;&nbsp;<a href="' . esc_url($optout_url) . '" class="">' . __('Do not allow tracking', 'google-maps-widget') . '</a>';
     echo '</p></div>';
