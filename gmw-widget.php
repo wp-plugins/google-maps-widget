@@ -97,15 +97,15 @@ class GoogleMapsWidget extends WP_Widget {
       $zoom_levels[] = array('val' => $tmp, 'label' => $tmp);
     }
 
-    $lightbox_skins[] = array('val' => 'light', 'label' => __('Light (default)', 'google-maps-widget'));
-    $lightbox_skins[] = array('val' => 'dark', 'label' => __('Dark', 'google-maps-widget'));
+    $lightbox_skins = array(array('val' => 'light', 'label' => __('Light (default)', 'google-maps-widget')),
+                            array('val' => 'dark', 'label' => __('Dark', 'google-maps-widget')));
     
-    $thumb_pin_types[] = array('val' => 'predefined', 'label' => __('Predefined (default)', 'google-maps-widget'));
-    $thumb_pin_types[] = array('val' => 'custom', 'label' => __('Custom', 'google-maps-widget'));
+    $thumb_pin_types = array(array('val' => 'predefined', 'label' => __('Predefined (default)', 'google-maps-widget')),
+                              array('val' => 'custom', 'label' => __('Custom', 'google-maps-widget')));
 
-    $thumb_link_types[] = array('val' => 'lightbox', 'label' => __('Lightbox (default)', 'google-maps-widget'));
-    $thumb_link_types[] = array('val' => 'custom', 'label' => __('Custom link', 'google-maps-widget'));
-    $thumb_link_types[] = array('val' => 'nolink', 'label' => __('Disable link', 'google-maps-widget'));
+    $thumb_link_types = array(array('val' => 'lightbox', 'label' => __('Lightbox (default)', 'google-maps-widget')),
+                               array('val' => 'custom', 'label' => __('Custom link', 'google-maps-widget')),
+                               array('val' => 'nolink', 'label' => __('Disable link', 'google-maps-widget')));
 
 
     echo '<p><label for="' . $this->get_field_id('title') . '">' . __('Title', 'google-maps-widget') . ':</label><input class="widefat" id="' . $this->get_field_id('title') . '" name="' . $this->get_field_name('title') . '" type="text" value="' . esc_attr($title) . '" /></p>';

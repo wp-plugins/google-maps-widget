@@ -5,8 +5,8 @@ Tags: google maps, maps, gmaps, widget, lightbox, map, google map, fancybox, fan
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.3
-Tested up to: 4.0.1
-Stable tag: 1.93
+Tested up to: 4.1
+Stable tag: 1.95
 
 Displays a single-image super-fast loading Google map in a widget. A larger map with all the usual features is available on click in a lightbox.
 
@@ -111,6 +111,10 @@ If you can figure it out open a thread in the support forums.
 4. Widget options - lightbox map
 
 == Changelog ==
+= 1.95 =
+* 2014/12/19
+* minor WP v4.1 updates
+
 = 1.93 =
 * 2014/12/03
 * due to someone being a huge cun* we can no longer offer discounts for our Envato products in GMW
