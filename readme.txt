@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.3
 Tested up to: 4.1
-Stable tag: 2.0
+Stable tag: 2.01
 
 Displays a single-image super-fast loading Google map in a widget. A larger map with all the usual features is available on click in a lightbox.
 
@@ -111,8 +111,12 @@ If you can figure it out open a thread in the support forums.
 4. Widget options - lightbox map
 
 == Changelog ==
+= 2.01 =
+* 2015/01/13
+* somehow one JS file got renamed :(
+
 = 2.0 =
-* 2015/01/10
+* 2015/01/13
 * lots of rewrites
 * additional features can now be activated by subscribing to our newsletter
 
