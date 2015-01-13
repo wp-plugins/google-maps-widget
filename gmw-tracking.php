@@ -2,7 +2,7 @@
 /*
  * Google Maps Widget
  * Plugin usage tracking
- * (c) Web factory Ltd, 2012 - 2014
+ * (c) Web factory Ltd, 2012 - 2015
  */
 
 

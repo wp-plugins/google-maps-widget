@@ -1,10 +1,10 @@
 /*
  * Google Maps Widget
- * (c) Web factory Ltd, 2012 - 2014
+ * (c) Web factory Ltd, 2012 - 2015
  */
 
 .gmw-label {
-  width: 80px;
+  width: 115px;
   display: inline-block;
 }
 
@@ -22,7 +22,48 @@
 }
 
 .gmw-tabs select {
-  min-width: 200px;
+  min-width: 230px;
+}
+
+option.promo {
+  color: #e14d43;
+}
+
+#gmw_promo_dialog ul {
+  list-style-position: inside;
+  list-style-type: circle;
+}
+
+#gmw_promo_dialog #gmw_email {
+  margin-bottom: 10px;
+}
+
+#gmw_promo_dialog .error {
+  color: #dd3d36;
+}
+
+#gmw_promo_dialog .center {
+  text-align: center;
+}
+
+#gmw_promo_dialog h3 {
+  margin-top: 0;
+}
+
+#gmw_dialog_activate {
+  display: none;
+}
+
+#gmw_dialog_subscribe {
+  display: block;
+}
+
+#gmw-info h3 {
+  margin: 25px 0 5px 0;
+}
+
+#gmw-info p {
+  margin-top: 5px;
 }
 
 /*

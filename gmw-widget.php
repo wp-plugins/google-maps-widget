@@ -2,11 +2,11 @@
 /*
  * Google Maps Widget
  * Widget definition, admin GUI and front-end functions
- * (c) Web factory Ltd, 2012 - 2014
+ * (c) Web factory Ltd, 2012 - 2015
  */
 
 
-// include only file
+// this is an include only file
 if (!defined('ABSPATH')) {
   die();
 }
@@ -40,7 +40,7 @@ class GoogleMapsWidget extends WP_Widget {
                                     'thumb_zoom' => '13',
                                     'thumb_header' => '',
                                     'thumb_footer' => '',
-                                    'thumb_new_colors' => '1',
+                                    'thumb_color_scheme' => '',
                                     'thumb_link_type' => 'lightbox',
                                     'thumb_link' => '',
                                     'lightbox_width' => '550',
@@ -99,19 +99,35 @@ class GoogleMapsWidget extends WP_Widget {
 
     $lightbox_skins = array(array('val' => 'light', 'label' => __('Light (default)', 'google-maps-widget')),
                             array('val' => 'dark', 'label' => __('Dark', 'google-maps-widget')));
-    
+
+    $lightbox_bubbles = array(array('val' => '0', 'label' => __('Hide', 'google-maps-widget')),
+                            array('val' => '1', 'label' => __('Show (default)', 'google-maps-widget')));
+
+    $lightbox_titles = array(array('val' => '0', 'label' => __('Do not show map title on lightbox', 'google-maps-widget')),
+                            array('val' => '1', 'label' => __('Show map title on lightbox (default)', 'google-maps-widget')));
+
     $thumb_pin_types = array(array('val' => 'predefined', 'label' => __('Predefined (default)', 'google-maps-widget')),
-                              array('val' => 'custom', 'label' => __('Custom', 'google-maps-widget')));
+                             array('val' => 'custom', 'label' => __('Custom', 'google-maps-widget')));
 
     $thumb_link_types = array(array('val' => 'lightbox', 'label' => __('Lightbox (default)', 'google-maps-widget')),
-                               array('val' => 'custom', 'label' => __('Custom link', 'google-maps-widget')),
-                               array('val' => 'nolink', 'label' => __('Disable link', 'google-maps-widget')));
+                              array('val' => 'custom', 'label' => __('Custom URL', 'google-maps-widget')),
+                              array('val' => 'nolink', 'label' => __('Disable link', 'google-maps-widget')));
 
+    $thumb_color_schemes = array(array('val' => 'default', 'label' => __('Default', 'gmw')),
+                                 array('val' => 'new', 'label' => __('Refreshed by Google', 'gmw')));
+
+    if (GMW::is_activated()) {
+      array_push($thumb_color_schemes, array('val' => 'apple', 'label' => __('Apple', 'google-maps-widget')),
+                                       array('val' => 'gray', 'label' => __('Gray', 'google-maps-widget')),
+                                       array('val' => 'paper', 'label' => __('Paper', 'google-maps-widget')));
+      array_push($lightbox_skins, array('val' => 'noimage-blue', 'label' => __('Blue', 'google-maps-widget')),
+                                  array('val' => 'noimage-rounded', 'label' => __('Rounded', 'google-maps-widget')));
+    }
 
     echo '<p><label for="' . $this->get_field_id('title') . '">' . __('Title', 'google-maps-widget') . ':</label><input class="widefat" id="' . $this->get_field_id('title') . '" name="' . $this->get_field_name('title') . '" type="text" value="' . esc_attr($title) . '" /></p>';
     echo '<p><label for="' . $this->get_field_id('address') . '">' . __('Address', 'google-maps-widget') . ':</label><input class="widefat" id="' . $this->get_field_id('address') . '" name="' . $this->get_field_name('address') . '" type="text" value="' . esc_attr($address) . '" /></p>';
 
-    echo '<div class="gmw-tabs" id="tab-' . $this->id . '"><ul><li><a href="#gmw-thumb">' . __('Thumbnail map', 'google-maps-widget') . '</a></li><li><a href="#gmw-lightbox">' . __('Lightbox map', 'google-maps-widget') . '</a></li></ul>';
+    echo '<div class="gmw-tabs" id="tab-' . $this->id . '"><ul><li><a href="#gmw-thumb">' . __('Thumbnail map', 'google-maps-widget') . '</a></li><li><a href="#gmw-lightbox">' . __('Lightbox map', 'google-maps-widget') . '</a></li><li><a href="#gmw-info">' . __('Info &amp; Support', 'google-maps-widget') . '</a></li></ul>';
     echo '<div id="gmw-thumb">';
 
     echo '<p><label class="gmw-label" for="' . $this->get_field_id('thumb_width') . '">' . __('Map Size', 'google-maps-widget') . ':</label>';
@@ -123,7 +139,7 @@ class GoogleMapsWidget extends WP_Widget {
     echo '<select id="' . $this->get_field_id('thumb_type') . '" name="' . $this->get_field_name('thumb_type') . '">';
     GMW::create_select_options($map_types_thumb, $thumb_type);
     echo '</select></p>';
-    
+
     echo '<p><label class="gmw-label" for="' . $this->get_field_id('thumb_pin_type') . '">' . __('Pin Type', 'google-maps-widget') . ':</label>';
     echo '<select class="gmw_thumb_pin_type" id="' . $this->get_field_id('thumb_pin_type') . '" name="' . $this->get_field_name('thumb_pin_type') . '">';
     GMW::create_select_options($thumb_pin_types, $thumb_pin_type);
@@ -138,7 +154,7 @@ class GoogleMapsWidget extends WP_Widget {
     echo '<select id="' . $this->get_field_id('thumb_pin_size') . '" name="' . $this->get_field_name('thumb_pin_size') . '">';
     GMW::create_select_options($pin_sizes, $thumb_pin_size);
     echo '</select></p>';
-    
+
     echo '<p class="gmw_thumb_pin_type_custom_section"><label class="gmw-label gmw-label-wide" for="' . $this->get_field_id('thumb_pin_img') . '">' . __('Custom Pin Image URL', 'google-maps-widget') . ':</label>';
     echo '<input type="text" class="regular-text" id="' . $this->get_field_id('thumb_pin_img') . '" name="' . $this->get_field_name('thumb_pin_img') . '" value="' . esc_attr($thumb_pin_img) . '">';
 
@@ -152,18 +168,22 @@ class GoogleMapsWidget extends WP_Widget {
     GMW::create_select_options($thumb_link_types, $thumb_link_type);
     echo '</select></p>';
 
-    echo '<p class="gmw_thumb_link_section"><label class="gmw-label" for="' . $this->get_field_id('thumb_link') . '">' . __('Custom Link', 'google-maps-widget') . ':</label>';
+    echo '<p class="gmw_thumb_link_section"><label class="gmw-label" for="' . $this->get_field_id('thumb_link') . '">' . __('Custom URL', 'google-maps-widget') . ':</label>';
     echo '<input class="regular-text" id="' . $this->get_field_id('thumb_link') . '" name="' . $this->get_field_name('thumb_link') . '" type="text" value="' . esc_attr($thumb_link) . '" /></p>';
 
-    echo '<p><label for="' . $this->get_field_id('thumb_new_colors') . '">' . __('Use New Color Scheme', 'google-maps-widget') . ':&nbsp;</label>';
-    echo '<input ' . checked('1', $thumb_new_colors, false) . ' value="1" type="checkbox" id="' . $this->get_field_id('thumb_new_colors') . '" name="' . $this->get_field_name('thumb_new_colors') . '">';
-    echo '</p>';
+    echo '<p><label class="gmw-label" for="' . $this->get_field_id('thumb_color_scheme') . '">' . __('Color Scheme', 'google-maps-widget') . ':</label>';
+    echo '<select class="gmw_thumb_color_scheme" id="' . $this->get_field_id('thumb_color_scheme') . '" name="' . $this->get_field_name('thumb_color_scheme') . '">';
+    GMW::create_select_options($thumb_color_schemes, $thumb_color_scheme);
+    if (!GMW::is_activated()) {
+      echo '<option class="promo" value="-1">' . __('Add more schemes for free', 'google-maps-widget') . '</option>';
+    }
+    echo '</select></p>';
 
     echo '<p><label for="' . $this->get_field_id('thumb_header') . '">' . __('Text Above Map', 'google-maps-widget') . ':</label>';
-    echo '<textarea class="widefat" rows="3" cols="20" id="' . $this->get_field_id('thumb_header') . '" name="' . $this->get_field_name('thumb_header') . '">'. $thumb_header . '</textarea></p>';
+    echo '<textarea class="widefat" rows="3" cols="20" id="' . $this->get_field_id('thumb_header') . '" name="' . $this->get_field_name('thumb_header') . '">'. esc_textarea($thumb_header) . '</textarea></p>';
 
     echo '<p><label for="' . $this->get_field_id('thumb_footer') . '">' . __('Text Below Map', 'google-maps-widget') . ':</label>';
-    echo '<textarea class="widefat" rows="3" cols="20" id="' . $this->get_field_id('thumb_footer') . '" name="' . $this->get_field_name('thumb_footer') . '">'. $thumb_footer . '</textarea></p>';
+    echo '<textarea class="widefat" rows="3" cols="20" id="' . $this->get_field_id('thumb_footer') . '" name="' . $this->get_field_name('thumb_footer') . '">'. esc_textarea($thumb_footer) . '</textarea></p>';
 
     echo '</div>'; // thumbnail tab
     echo '<div id="gmw-lightbox">';
@@ -183,28 +203,49 @@ class GoogleMapsWidget extends WP_Widget {
     GMW::create_select_options($zoom_levels, $lightbox_zoom);
     echo '</select></p>';
 
-    echo '<p><label class="gmw-label" for="' . $this->get_field_id('lightbox_skin') . '">' . __('Skin', 'google-maps-widget') . ':</label>';
-    echo '<select id="' . $this->get_field_id('lightbox_skin') . '" name="' . $this->get_field_name('lightbox_skin') . '">';
+    echo '<p><label class="gmw-label" for="' . $this->get_field_id('lightbox_skin') . '">' . __('Lightbox Skin', 'google-maps-widget') . ':</label>';
+    echo '<select class="gmw_lightbox_skin" id="' . $this->get_field_id('lightbox_skin') . '" name="' . $this->get_field_name('lightbox_skin') . '">';
     GMW::create_select_options($lightbox_skins, $lightbox_skin);
+    if (!GMW::is_activated()) {
+      echo '<option class="promo" value="-1">' . __('Add more skins for free', 'google-maps-widget') . '</option>';
+    }
     echo '</select></p>';
 
-    echo '<p><label for="' . $this->get_field_id('lightbox_bubble') . '">' . __('Show Address Bubble', 'google-maps-widget') . ':&nbsp;</label>';
-    echo '<input ' . checked('1', $lightbox_bubble, false) . ' value="1" type="checkbox" id="' . $this->get_field_id('lightbox_bubble') . '" name="' . $this->get_field_name('lightbox_bubble') . '">';
-    echo '</p>';
+    echo '<p><label class="gmw-label" for="' . $this->get_field_id('lightbox_bubble') . '">' . __('Address Bubble', 'google-maps-widget') . ':</label>';
+    echo '<select id="' . $this->get_field_id('lightbox_bubble') . '" name="' . $this->get_field_name('lightbox_bubble') . '">';
+    GMW::create_select_options($lightbox_bubbles, $lightbox_bubble);
+    echo '</select></p>';
 
-    echo '<p><label for="' . $this->get_field_id('lightbox_title') . '">' . __('Show Map Title Above Lightbox', 'google-maps-widget') . ':&nbsp;</label>';
-    echo '<input ' . checked('1', $lightbox_title, false) . ' value="1" type="checkbox" id="' . $this->get_field_id('lightbox_title') . '" name="' . $this->get_field_name('lightbox_title') . '">';
-    echo '</p>';
+    echo '<p><label class="gmw-label" for="' . $this->get_field_id('lightbox_title') . '">' . __('Map Title', 'google-maps-widget') . ':&nbsp;</label>';
+    echo '<select id="' . $this->get_field_id('lightbox_title') . '" name="' . $this->get_field_name('lightbox_title') . '">';
+    GMW::create_select_options($lightbox_titles, $lightbox_title);
+    echo '</select></p>';
 
     echo '<p><label for="' . $this->get_field_id('lightbox_header') . '">' . __('Header Text', 'google-maps-widget') . ':</label>';
-    echo '<textarea class="widefat" rows="3" cols="20" id="' . $this->get_field_id('lightbox_header') . '" name="' . $this->get_field_name('lightbox_header') . '">'. $lightbox_header . '</textarea></p>';
+    echo '<textarea class="widefat" rows="3" cols="20" id="' . $this->get_field_id('lightbox_header') . '" name="' . $this->get_field_name('lightbox_header') . '">'. esc_textarea($lightbox_header) . '</textarea></p>';
 
     echo '<p><label for="' . $this->get_field_id('lightbox_footer') . '">' . __('Footer Text', 'google-maps-widget') . ':</label>';
-    echo '<textarea class="widefat" rows="3" cols="20" id="' . $this->get_field_id('lightbox_footer') . '" name="' . $this->get_field_name('lightbox_footer') . '">'. $lightbox_footer . '</textarea></p>';
+    echo '<textarea class="widefat" rows="3" cols="20" id="' . $this->get_field_id('lightbox_footer') . '" name="' . $this->get_field_name('lightbox_footer') . '">'. esc_textarea($lightbox_footer) . '</textarea></p>';
 
     echo '</div>'; // lightbox tab
-    echo '</div>'; // tabs
-    echo '<p><i>' . __('If you like the plugin give us a shout. Thanks!', 'google-maps-widget') . ' <a title="WebFactory on Twitter" target="_blank" href="http://twitter.com/WebFactoryLtd">@WebFactoryLtd</a></i></p>';
+
+    echo '<div id="gmw-info">';
+    echo '<h3>Support</h3><p>If you have any problems, questions or would like a new feature added post it on the <a href="https://wordpress.org/support/plugin/google-maps-widget" target="_blank">official support forum</a>. It\'s the only place to get support. Since it\'s free and community powered please be patient. <a target="_blank" href="https://www.paypal.com/cgi-bin/webscr?business=gordan@webfactoryltd.com&cmd=_xclick&currency_code=USD&amount=19&item_name=Premium%20support%20for%20Google%20Maps%20Widget">Premium support</a> is available for $19.</p>';
+    echo '<h3>Activate extra features &amp; options</h3><p>If you subscribe to our mailing list we\'ll instantly activate additional features in the plugin! At the moment those features are 3 additional thumbnail map skins and 2 additional lightbox skins. More <i>activate by subscribing</i> features will be available soon!<br>';
+    if (GMW::is_activated()) {
+      echo 'You\'ve already subscribed and activated extra features. Thank you!';
+    } else {
+      echo 'Subscribe and <a class="open_promo_dialog" href="#">activate extra features</a>.';
+    }
+    echo '</p>';
+    echo '<h3>Rate the plugin &amp; spread the word</h3><p>It won\'t take you more than a minute but it will help us immensely. So please - <a href="https://wordpress.org/support/view/plugin-reviews/google-maps-widget" target="_blank">rate the plugin</a>. Or spread the word by <a href="https://twitter.com/intent/tweet?via=WebFactoryLtd&amp;text=' . urlencode('I\'m using the #free Google Maps Widget for #wordpress. You can grab it too at http://goo.gl/2qcbbf') . '" target="_blank">tweeting about it</a>. Thank you!</p>';
+    echo '</div>'; // info tab
+
+    echo '</div><p></p>'; // tabs
+
+    if (!GMW::is_activated()) {
+      echo '<p><i>' . __('Subscribe to our newsletter and <a href="#" class="open_promo_dialog">get extra features</a> for free.', 'google-maps-widget') . '</i></p>';
+    }
   } // form
 
 
@@ -226,13 +267,13 @@ class GoogleMapsWidget extends WP_Widget {
     $instance['thumb_link'] = trim($new_instance['thumb_link']);
     $instance['thumb_header'] = trim($new_instance['thumb_header']);
     $instance['thumb_footer'] = trim($new_instance['thumb_footer']);
-    $instance['thumb_new_colors'] = isset($new_instance['thumb_new_colors']);
+    $instance['thumb_color_scheme'] = $new_instance['thumb_color_scheme'];
     $instance['lightbox_width'] = (int) $new_instance['lightbox_width'];
     $instance['lightbox_height'] = (int) $new_instance['lightbox_height'];
     $instance['lightbox_type'] = $new_instance['lightbox_type'];
     $instance['lightbox_zoom'] = $new_instance['lightbox_zoom'];
-    $instance['lightbox_bubble'] = isset($new_instance['lightbox_bubble']);
-    $instance['lightbox_title'] = isset($new_instance['lightbox_title']);
+    $instance['lightbox_bubble'] = $new_instance['lightbox_bubble'];
+    $instance['lightbox_title'] = $new_instance['lightbox_title'];
     $instance['lightbox_header'] = trim($new_instance['lightbox_header']);
     $instance['lightbox_footer'] = trim($new_instance['lightbox_footer']);
     $instance['lightbox_skin'] = $new_instance['lightbox_skin'];
@@ -244,6 +285,11 @@ class GoogleMapsWidget extends WP_Widget {
   // echo widget
   function widget($args, $instance) {
     $out = $tmp = '';
+
+    $thumb_styles = array(
+    'apple' => 'style=feature:water|element:geometry|color:0xa2daf2|&style=feature:landscape.man_made|element:geometry|color:0xf7f1df|&style=feature:landscape.natural|element:geometry|color:0xd0e3b4|&style=feature:landscape.natural.terrain|element:geometry|visibility:off|&style=feature:poi.park|element:geometry|color:0xbde6ab|&style=feature:poi|element:labels|visibility:off|&style=feature:poi.medical|element:geometry|color:0xfbd3da|&style=feature:poi.business|element:all|visibility:off|&style=feature:road|element:geometry.stroke|visibility:off|&style=feature:road|element:labels|visibility:off|&style=feature:road.highway|element:geometry.fill|color:0xffe15f|&style=feature:road.highway|element:geometry.stroke|color:0xefd151|&style=feature:road.arterial|element:geometry.fill|color:0xffffff|&style=feature:road.local|element:geometry.fill|color:black|&style=feature:transit.station.airport|element:geometry.fill|color:0xcfb2db|',
+    'gray' => 'style=feature:landscape|element:all|saturation:-100|lightness:65|visibility:on|&style=feature:poi|element:all|saturation:-100|lightness:51|visibility:simplified|&style=feature:road.highway|element:all|saturation:-100|visibility:simplified|&style=feature:road.arterial|element:all|saturation:-100|lightness:30|visibility:on|&style=feature:road.local|element:all|saturation:-100|lightness:40|visibility:on|&style=feature:transit|element:all|saturation:-100|visibility:simplified|&style=feature:administrative.province|element:all|visibility:off|&style=feature:water|element:labels|visibility:on|lightness:-25|saturation:-100|&style=feature:water|element:geometry|hue:0xffff00|lightness:-25|saturation:-97|',
+    'paper' => 'style=feature:landscape|element:all|hue:0xF1FF00|saturation:-27.4|lightness:9.4|gamma:1|&style=feature:road.highway|element:all|hue:0x0099FF|saturation:-20|lightness:36.4|gamma:1|&style=feature:road.arterial|element:all|hue:0x00FF4F|saturation:0|lightness:0|gamma:1|&style=feature:road.local|element:all|hue:0xFFB300|saturation:-38|lightness:11.2|gamma:1|&style=feature:water|element:all|hue:0x00B6FF|saturation:4.2|lightness:-63.4|gamma:1|&style=feature:poi|element:all|hue:0x9FFF00|saturation:0|lightness:0|gamma:1|');
 
     extract($args, EXTR_SKIP);
 
@@ -259,7 +305,7 @@ class GoogleMapsWidget extends WP_Widget {
     if (!$lang) {
       $lang = 'en';
     }
-    
+
     // legacy fix for older versions; it's auto-fixed on first widget save but has to be here
     if(!$instance['lightbox_skin']) {
       $instance['lightbox_skin'] = 'light';
@@ -283,15 +329,9 @@ class GoogleMapsWidget extends WP_Widget {
     if (!isset($instance['thumb_pin_type']) || empty($instance['thumb_pin_type'])) {
       $instance['thumb_pin_type'] = 'predefined';
     }
-    
+
     if (!isset($instance['thumb_link_type']) || empty($instance['thumb_link_type'])) {
       $instance['thumb_link_type'] = 'lightbox';
-    }
-
-    if (isset($instance['thumb_new_colors']) && $instance['thumb_new_colors']) {
-      $instance['thumb_new_colors'] = 'true';
-    } else {
-      $instance['thumb_new_colors'] = 'false';
     }
 
     $title = empty($instance['title'])? ' ' : apply_filters('widget_title', $instance['title']);
@@ -303,13 +343,13 @@ class GoogleMapsWidget extends WP_Widget {
       $tmp .= wpautop(do_shortcode($instance['thumb_header']));
     }
     $tmp .= '<p>';
-    
+
     if ($instance['thumb_link_type'] == 'lightbox') {
       $alt = __('Click to open larger map', 'google-maps-widget');
     } else {
       $alt = esc_attr($instance['address']);
     }
-    
+
     if ($instance['thumb_link_type'] == 'lightbox') {
       $tmp .= '<a class="gmw-thumbnail-map gmw-lightbox-enabled" href="#gmw-dialog-' . $widget_id . '" title="' . __('Click to open larger map', 'google-maps-widget') . '">';
     } elseif ($instance['thumb_link_type'] == 'custom') {
@@ -324,7 +364,15 @@ class GoogleMapsWidget extends WP_Widget {
     } else {
       $tmp .= 'markers=icon:' . urlencode($instance['thumb_pin_img']);
     }
-    $tmp .= '%7Clabel:A%7C' . urlencode($instance['address']) . '&amp;language=' . $lang . '&amp;visual_refresh=' . $instance['thumb_new_colors'] .'">';
+    $tmp .= '%7Clabel:A%7C' . urlencode($instance['address']) . '&amp;language=' . $lang;
+    if (!isset($instance['thumb_color_scheme']) || $instance['thumb_color_scheme'] == 'default') {
+      $tmp .= '&amp;visual_refresh=false';
+    } elseif ($instance['thumb_color_scheme'] == 'new') {
+      $tmp .= '&amp;visual_refresh=true';
+    } elseif (GMW::is_activated()) {
+      $tmp .= '&amp;' . str_replace('&', '&amp;', $thumb_styles[$instance['thumb_color_scheme']]);
+    }
+    $tmp .= '">';
     if ($instance['thumb_link_type'] == 'lightbox' || $instance['thumb_link_type'] == 'custom') {
       $tmp .= '</a>';
     }
