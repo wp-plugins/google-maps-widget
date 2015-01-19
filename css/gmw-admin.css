@@ -29,34 +29,97 @@ option.promo {
   color: #e14d43;
 }
 
+#gmw_promo_dialog {
+  padding: 0;
+  display: none;
+}
+
+.gmw-dialog .ui-dialog-titlebar {
+  height: 60px;
+  background-color: rgb(48, 48, 48);
+  text-align: center;
+}
+
+.gmw-dialog .footer {
+  padding: 30px 135px;
+  background-color: rgb(48, 48, 48);
+  color: rgb(137, 137, 137);
+}
+
+.gmw-dialog .content {
+  padding: 30px 135px;
+  background-color: #FFF;
+}
+
+.gmw-dialog h3 b {
+  color: rgb(225, 77, 67);
+}
+
+.gmw-dialog h3 {
+  line-height: 150%;
+  font-weight: normal;
+  margin: 0 0 30px 0;
+}
+
+.gmw-dialog .ui-dialog-title {
+  line-height: 60px;
+  color: rgb(137, 137, 137);
+}
+
+.gmw-dialog .ui-dialog-titlebar-close {
+  top: 12px;
+}
+
 #gmw_promo_dialog ul {
   list-style-position: inside;
-  list-style-type: circle;
+  list-style-type: disc;
 }
 
-#gmw_promo_dialog #gmw_email {
-  margin-bottom: 10px;
+.gmw-dialog input {
+  width: 100%;
+  height: 45px;
 }
 
-#gmw_promo_dialog .error {
+.gmw-dialog input.error {
+  border-color: rgb(225, 77, 67);
+  outline-color: rgb(225, 77, 67);
+  -webkit-box-shadow: rgba(225, 77, 67, 0.8) 0px 0px 2px 0px;
+}
+
+.gmw-dialog .input_row {
+  margin-bottom: 16px;
+}
+
+.gmw-dialog .big-button {
+  height: 54px;
+  line-height: 53px;
+  width: 100%;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-top: 5px;
+}
+
+.gmw-dialog #gmw_already_subscribed {
+  margin-top: 18px;
+  display: inline-block;
+  color: #999;
+}
+
+#gmw_promo_dialog span.error {
   color: #dd3d36;
+  padding: 8px 0 0 1px;
+  display: inline-block;
+
 }
 
 #gmw_promo_dialog .center {
   text-align: center;
 }
 
-#gmw_promo_dialog h3 {
-  margin-top: 0;
-}
-
 #gmw_dialog_activate {
   display: none;
 }
 
-#gmw_dialog_subscribe {
-  display: block;
-}
 
 #gmw-info h3 {
   margin: 25px 0 5px 0;

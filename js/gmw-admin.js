@@ -80,16 +80,27 @@ jQuery(function($) {
   $('#gmw_subscribe').on('click', function(e) {
     e.preventDefault();
 
+    $err = 0;
+    $('#gmw_promo_dialog input.error').removeClass('error');
+    $('#gmw_promo_dialog span.error').hide();
+
     if ($('#gmw_name').val().length < 3) {
-      alert('Please double-check your name.');
+      $('#gmw_name').addClass('error');
+      $('#gmw_promo_dialog span.error.name').show();
       $('#gmw_name').focus().select();
-      return false;
+
+      $err = 1;
     }
 
     re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!re.test($('#gmw_email').val())) {
-      alert('Please double-check your email address.');
+      $('#gmw_email').addClass('error');
+      $('#gmw_promo_dialog span.error.email').show();
       $('#gmw_email').focus().select();
+      return false;
+    }
+
+    if ($err) {
       return false;
     }
 
@@ -115,6 +126,9 @@ jQuery(function($) {
   $('#gmw_activate').on('click', function(e) {
     e.preventDefault();
 
+    $('#gmw_promo_dialog input.error').removeClass('error');
+    $('#gmw_promo_dialog span.error').hide();
+
     $.get(ajaxurl, { action: 'gmw_activate', 'code': $('#gmw_code').val()}, function(data) {
       if (data == '1') {
         alert('Superb! Extra features are active ;)');
@@ -123,7 +137,7 @@ jQuery(function($) {
         }
         $('#gmw_promo_dialog').dialog('close');
       } else {
-        alert('Please double-check the code. It does not appear to be valid.');
+        $('#gmw_promo_dialog span.error.gmw_code').show();
         $('#gmw_code').focus().select();
       }
     });
@@ -137,12 +151,12 @@ jQuery(function($) {
     $('#gmw_dialog_activate').hide();
 
     $('#gmw_promo_dialog').dialog({
-        'dialogClass' : 'wp-dialog',
+        'dialogClass' : 'wp-dialog gmw-dialog',
         'modal' : true,
         'width': 650,
-        'title': 'Google Maps Widget - activate extra features',
-        'autoOpen' : false,
-        'closeOnEscape' : true,
+        'title': 'GOOGLE MAPS WIDGET - Activate Extra Features',
+        'autoOpen': false,
+        'closeOnEscape': true,
         close: function(event, ui) { $('#gmw_promo_dialog').data('widget-id', '') }
     }).dialog('open');
 

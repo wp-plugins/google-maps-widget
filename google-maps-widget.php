@@ -4,7 +4,7 @@ Plugin Name: Google Maps Widget
 Plugin URI: http://www.googlemapswidget.com/
 Description: Display a single-image super-fast loading Google map in a widget. A larger, full featured map is available on click in a lightbox.
 Author: Web factory Ltd
-Version: 2.01
+Version: 2.05
 Author URI: http://www.webfactoryltd.com/
 Text Domain: google-maps-widget
 Domain Path: lang
@@ -31,7 +31,7 @@ if (!defined('ABSPATH')) {
 }
 
 
-define('GMW_VER', '2.01');
+define('GMW_VER', '2.05');
 define('GMW_OPTIONS', 'gmw_options');
 define('GMW_CRON', 'gmw_cron');
 
@@ -217,7 +217,7 @@ class GMW {
     $options = get_option(GMW_OPTIONS);
 
     if (isset($options['activated']) && $options['activated'] === true) {
-      return false;
+      return true;
     } else {
       return false;
     }
@@ -230,16 +230,22 @@ class GMW {
       return false;
     }
 
-    $out = '<div id="gmw_promo_dialog" style="display: none;">';
-    $out .= '<div id="gmw_dialog_subscribe"><h3 class="center">Subscribe to our newsletter and get extra features &amp; options for free</h3>';
-    $out .= '<p class="center"><input type="text" id="gmw_name" name="gmw_name" placeholder="Your name"> <input type="text" name="gmw_email" id="gmw_email" placeholder="Your email"></p>';
-    //$out .= '<p class="error center">Error message that is not always visible</p>';
-    $out .= '<p class="center"><a id="gmw_subscribe" href="#" class="button button-primary">Subscribe &amp; activate features</a>&nbsp;&nbsp;&nbsp; <a href="#" class="button button-secondary" id="gmw_already_subscribed">I\'m already subscribed</a></p>';
-    $out .= '<p><b>Why subscribe?</b></p><ul><li>we\'ll never share your email address</li><li>we won\'t spam you or overwhelm with emails</li><li>be the first to get notified about new features</li><li>you\'ll get all future upgrades for free as well</li><li>you\'ll get discounts for our premium WP plugins</li></ul>';
-    $out .= '</div>';
-    $out .= '<div id="gmw_dialog_activate"><h3 class="center">Enter your code and activate extra features</h3><p class="center"><input type="text" id="gmw_code" name="gmw_code" placeholder="Your activation code"> &nbsp;&nbsp; <a href="#" class="button button-primary" id="gmw_activate">Activate</a></p>';
-    //$out .= '<p class="error center">Error message</p>';
-    $out .= '<p><b>FAQ</b></p><ul><li>Already subscribed? Enter your activation code above.</li><li>Didn\'t receive the email? Check your SPAM folder.</li><li>Lost your code or having other problems? <a href="mailto:gmw@webfactoryltd.com?subject=Lost+activation+code">Email us</a>.</li><li>Code is valid for an unlimited number of plugin installations.</li></ul>';
+    $current_user = wp_get_current_user();
+    if (empty($current_user->user_firstname)) {
+      $name = $current_user->display_name;
+    } else {
+      $name = $current_user->user_firstname;
+    }
+
+    $out = '<div id="gmw_promo_dialog">';
+    $out .= '<div id="gmw_dialog_subscribe"><div class="content"><h3 class="center">Subscribe to our newsletter<br>and get extra features &amp; options <b>for FREE</b>!</h3>';
+    $out .= '<p class="input_row"><input value="' . $name . '" type="text" id="gmw_name" name="gmw_name" placeholder="Your name"><span class="error name" style="display: none;">Please enter your name.</span></p>';
+    $out .= '<p class="input_row"><input value="' . $current_user->user_email . '" type="text" name="gmw_email" id="gmw_email" placeholder="Your email address"><span style="display: none;" class="error email">Please double check your email address.</span></p>';
+    $out .= '<p class="center"><a id="gmw_subscribe" href="#" class="button button-primary big-button">Subscribe &amp; activate extra features</a><br><a href="#" class="" id="gmw_already_subscribed">I\'m already subscribed</a></p></div>';
+    $out .= '<div class="footer"><p><b>Why subscribe?</b></p><ul><li>We\'ll never share your email address</li><li>We won\'t spam you or overwhelm with emails</li><li>Be the first to get notified about new features</li><li>You\'ll get all future upgrades for free as well</li><li>You\'ll get discounts for our premium WP plugins</li></ul></div>';
+    $out .= '</div>'; // dialog subscribe
+    $out .= '<div id="gmw_dialog_activate"><div class="content"><h3 class="center">Enter your code and activate extra features</h3><p class="input_row"><input type="text" id="gmw_code" name="gmw_code" placeholder="Your activation code"><span style="display: none;" class="error gmw_code">Please double check the activation code.</span></p><p class="center"><a href="#" class="button button-primary big-button" id="gmw_activate">Activate extra features</a></p></div>';
+    $out .= '<div class="footer"><p><b>FAQ</b></p><ul><li>Already subscribed? Enter your activation code above.</li><li>Didn\'t receive the email? Check your SPAM folder.</li><li>Lost your code or having other problems? <a href="mailto:gmw@webfactoryltd.com?subject=Lost%20activation%20code">Email us</a>.</li><li>Code is valid for an unlimited number of plugin installations.</li></ul></div>';
     $out .= '</div>'; // activate screen
     $out .= '</div>'; // dialog
 

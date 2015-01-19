@@ -6,13 +6,13 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.3
 Tested up to: 4.1
-Stable tag: 2.01
+Stable tag: 2.05
 
 Displays a single-image super-fast loading Google map in a widget. A larger map with all the usual features is available on click in a lightbox.
 
 == Description ==
 
-Check out some examples on the <a href="http://www.googlemapswidget.com/">official plugin site</a>, view the [Google Maps Widget video](http://www.youtube.com/watch?v=y1siX9ha7Pw) or give us a shout <a href="http://twitter.com/WebFactoryLtd">@WebFactoryLtd</a>.
+Check out some examples on the <a href="http://www.googlemapswidget.com/">official plugin site</a>, view the [Google Maps Widget video](http://www.youtube.com/watch?v=y1siX9ha7Pw) or give us a shout on Twitter <a href="http://twitter.com/WebFactoryLtd">@WebFactoryLtd</a>.
 
 http://www.youtube.com/watch?v=y1siX9ha7Pw&hd=1
 
@@ -27,10 +27,10 @@ http://www.youtube.com/watch?v=y1siX9ha7Pw&hd=1
 * map type - road, satellite, map or hybrid
 * pin color
 * pin size
-* custom pin icon
+* custom pin icon - any image can be used
 * zoom level
 * link type - lightbox, custom URL or disable link
-* map color scheme - new & old
+* map color scheme - default, refreshed, apple, gray, paper
 * text above map
 * text below map
 
@@ -39,7 +39,7 @@ http://www.youtube.com/watch?v=y1siX9ha7Pw&hd=1
 * map size - width & height
 * map type - road, satellite, map or hybrid
 * zoom level
-* skin - light & dark
+* skin - light, dark, blue, rounded
 * show/hide address bubble
 * show/hide map title
 * header text
@@ -57,6 +57,8 @@ http://www.youtube.com/watch?v=y1siX9ha7Pw&hd=1
 * "an easier way to add Google maps to your site" says <a href="http://www.wpbeginner.com/wp-tutorials/how-to-add-google-maps-in-wordpress/">WP Beginner</a>
 * <a href="http://designscrazed.org/wordpress-google-map-plugins/">Design Crazed</a> puts in on the top 20 Google maps list
 * <a href="http://www.inkthemes.com/easily-integrate-google-map-in-your-wordpress-themes-widget-area/09/">InkThemes</a> shows how easy it is to use GMW
+* <a href="http://www.indexwp.com/google-maps-widget/">IndexWP</a> calls it a "handy map plugin"
+
 
 **Translators (thank you!)**
 
@@ -70,7 +72,7 @@ http://www.youtube.com/watch?v=y1siX9ha7Pw&hd=1
 * Chinese traditional - Wyeoh
 * Dutch - Arno
 * Ukrainian - Victor Shutovskiy
-* Serbian - Ogi Djuraskovic from <a href="http://firstsiteguide.com/">FirstSiteGuide</a> 
+* Serbian - Ogi Djuraskovic from <a href="http://firstsiteguide.com/">FirstSiteGuide</a>
 
 == Installation ==
 
@@ -111,6 +113,11 @@ If you can figure it out open a thread in the support forums.
 4. Widget options - lightbox map
 
 == Changelog ==
+= 2.05 =
+* 2015/01/19
+* code rewriting
+* minor bug fixes
+
 = 2.01 =
 * 2015/01/13
 * somehow one JS file got renamed :(
