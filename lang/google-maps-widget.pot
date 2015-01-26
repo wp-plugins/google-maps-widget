@@ -2,303 +2,296 @@
 # This file is distributed under the same license as the Google Maps Widget package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Google Maps Widget 1.85\n"
+"Project-Id-Version: Google Maps Widget 2.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/google-maps-widget\n"
-"POT-Creation-Date: 2014-10-12 09:08:36+00:00\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2015-01-24 18:01+0100\n"
+"Last-Translator: Web factory Ltd <gmw@webfactoryltd.com>\n"
+"Language-Team: LANGUAGE <gmw@webfactoryltd.com>\n"
+"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.7.3\n"
 
-#: gmw-tracking.php:88
-msgid ""
-"Please help us improve <strong>Google Maps Widget</strong> by allowing us to "
-"track anonymous usage data. Absolutely <strong>no sensitive data is tracked</"
-"strong> (<a href=\"http://www.googlemapswidget.com/plugin-tracking-info/\" "
-"target=\"_blank\">complete disclosure &amp; details of our tracking policy</"
-"a>). As a thank you we'll email you a 25% discount coupon for all our "
-"premium plugins &amp; themes."
-msgstr ""
-
-#: gmw-tracking.php:89
-msgid "Allow"
-msgstr ""
-
-#: gmw-tracking.php:90
-msgid "Do not allow tracking"
-msgstr ""
-
-#: gmw-widget.php:22
-msgid ""
-"Displays a map image thumbnail with a larger map available in a lightbox."
-msgstr ""
-
-#. #-#-#-#-#  plugin.pot (Google Maps Widget 1.85)  #-#-#-#-#
-#. Plugin Name of the plugin/theme
-#: gmw-widget.php:24
-msgid "Google Maps Widget"
-msgstr ""
-
-#: gmw-widget.php:31
-msgid "Map"
-msgstr ""
-
-#: gmw-widget.php:32
-msgid "New York, USA"
-msgstr ""
-
-#: gmw-widget.php:69 gmw-widget.php:74
-msgid "Road (default)"
-msgstr ""
-
-#: gmw-widget.php:70 gmw-widget.php:75
-msgid "Satellite"
-msgstr ""
-
-#: gmw-widget.php:71 gmw-widget.php:76
-msgid "Terrain"
-msgstr ""
-
-#: gmw-widget.php:72 gmw-widget.php:77
-msgid "Hybrid"
-msgstr ""
-
-#: gmw-widget.php:79
-msgid "Black"
-msgstr ""
-
-#: gmw-widget.php:80
-msgid "Brown"
-msgstr ""
-
-#: gmw-widget.php:81
-msgid "Green"
-msgstr ""
-
-#: gmw-widget.php:82
-msgid "Purple"
-msgstr ""
-
-#: gmw-widget.php:83
-msgid "Yellow"
-msgstr ""
-
-#: gmw-widget.php:84
-msgid "Blue"
-msgstr ""
-
-#: gmw-widget.php:85
-msgid "Gray"
-msgstr ""
-
-#: gmw-widget.php:86
-msgid "Orange"
-msgstr ""
-
-#: gmw-widget.php:87
-msgid "Red (default)"
-msgstr ""
-
-#: gmw-widget.php:88
-msgid "White"
-msgstr ""
-
-#: gmw-widget.php:90
-msgid "Tiny"
-msgstr ""
-
-#: gmw-widget.php:91
-msgid "Small"
-msgstr ""
-
-#: gmw-widget.php:92
-msgid "Medium"
-msgstr ""
-
-#: gmw-widget.php:93
-msgid "Large (default)"
-msgstr ""
-
-#: gmw-widget.php:95
 msgid "0 - entire world"
 msgstr ""
 
-#: gmw-widget.php:100
-msgid "Light (default)"
+# gmw-widget.php:235
+msgid "Activate extra features &amp; options"
 msgstr ""
 
-#: gmw-widget.php:101
-msgid "Dark"
+# gmw-widget.php:178
+msgid "Add more schemes for free"
 msgstr ""
 
-#: gmw-widget.php:103
-msgid "Predefined (default)"
+# gmw-widget.php:210
+msgid "Add more skins for free"
 msgstr ""
 
-#: gmw-widget.php:104
-msgid "Custom"
-msgstr ""
-
-#: gmw-widget.php:106
-msgid "Lightbox (default)"
-msgstr ""
-
-#: gmw-widget.php:107
-msgid "Custom link"
-msgstr ""
-
-#: gmw-widget.php:108
-msgid "Disable link"
-msgstr ""
-
-#: gmw-widget.php:111
-msgid "Title"
-msgstr ""
-
-#: gmw-widget.php:112
 msgid "Address"
 msgstr ""
 
-#: gmw-widget.php:114
-msgid "Thumbnail map"
+# gmw-widget.php:214
+msgid "Address Bubble"
 msgstr ""
 
-#: gmw-widget.php:114
-msgid "Lightbox map"
+# gmw-widget.php:120
+msgid "Apple"
 msgstr ""
 
-#: gmw-widget.php:117 gmw-widget.php:171
-msgid "Map Size"
+msgid "Black"
 msgstr ""
 
-#: gmw-widget.php:122 gmw-widget.php:176
-msgid "Map Type"
+msgid "Blue"
 msgstr ""
 
-#: gmw-widget.php:127
-msgid "Pin Type"
+msgid "Brown"
 msgstr ""
 
-#: gmw-widget.php:132
-msgid "Pin Color"
-msgstr ""
-
-#: gmw-widget.php:137
-msgid "Pin Size"
-msgstr ""
-
-#: gmw-widget.php:142
-msgid "Custom Pin Image URL"
-msgstr ""
-
-#: gmw-widget.php:145 gmw-widget.php:181
-msgid "Zoom Level"
-msgstr ""
-
-#: gmw-widget.php:150
-msgid "Link To"
-msgstr ""
-
-#: gmw-widget.php:155
-msgid "Custom Link"
-msgstr ""
-
-#: gmw-widget.php:158
-msgid "Use New Color Scheme"
-msgstr ""
-
-#: gmw-widget.php:162
-msgid "Text Above Map"
-msgstr ""
-
-#: gmw-widget.php:165
-msgid "Text Below Map"
-msgstr ""
-
-#: gmw-widget.php:186
-msgid "Skin"
-msgstr ""
-
-#: gmw-widget.php:191
-msgid "Show Address Bubble"
-msgstr ""
-
-#: gmw-widget.php:195
-msgid "Show Map Title Above Lightbox"
-msgstr ""
-
-#: gmw-widget.php:199
-msgid "Header Text"
-msgstr ""
-
-#: gmw-widget.php:202
-msgid "Footer Text"
-msgstr ""
-
-#: gmw-widget.php:207
-msgid "If you like the plugin give us a shout. Thanks!"
-msgstr ""
-
-#: gmw-widget.php:308 gmw-widget.php:314
 msgid "Click to open larger map"
 msgstr ""
 
-#: google-maps-widget.php:85
+# gmw-widget.php:174
+msgid "Color Scheme"
+msgstr ""
+
 msgid "Configure Google Maps Widget"
 msgstr ""
 
-#: google-maps-widget.php:85
-msgid "Widgets"
+msgid "Custom"
 msgstr ""
 
-#: google-maps-widget.php:94
-msgid "View Google Maps Widget documentation"
+msgid "Custom Pin Image URL"
 msgstr ""
 
-#: google-maps-widget.php:94
+# gmw-widget.php:113
+# gmw-widget.php:171
+msgid "Custom URL"
+msgstr ""
+
+msgid "Dark"
+msgstr ""
+
+# gmw-widget.php:116
+msgid "Default"
+msgstr ""
+
+msgid "Disable link"
+msgstr ""
+
+msgid "Displays a map image thumbnail with a larger map available in a lightbox."
+msgstr ""
+
+# gmw-widget.php:106
+msgid "Do not show map title on lightbox"
+msgstr ""
+
+#, fuzzy
 msgid "Documentation"
-msgstr ""
+msgstr "Documentation"
 
-#: google-maps-widget.php:95
-msgid "Problems? We are here to help!"
-msgstr ""
-
-#: google-maps-widget.php:95
-msgid "Support"
-msgstr ""
-
-#: google-maps-widget.php:96
-msgid "If you like it, please review the plugin"
-msgstr ""
-
-#: google-maps-widget.php:96
-msgid "Review the plugin"
-msgstr ""
-
-#: google-maps-widget.php:97
-msgid "If you feel we deserve it, buy us coffee"
-msgstr ""
-
-#: google-maps-widget.php:97
 msgid "Donate"
 msgstr ""
 
-#. Plugin URI of the plugin/theme
-msgid "http://www.googlemapswidget.com/"
+# google-maps-widget.php:247
+msgid "Enter your code and activate extra features"
 msgstr ""
 
-#. Description of the plugin/theme
+msgid "Footer Text"
+msgstr ""
+
+msgid "Google Maps Widget"
+msgstr ""
+
+msgid "Gray"
+msgstr ""
+
+msgid "Green"
+msgstr ""
+
+msgid "Header Text"
+msgstr ""
+
+# gmw-widget.php:103
+msgid "Hide"
+msgstr ""
+
+msgid "Hybrid"
+msgstr ""
+
+msgid "If you feel we deserve it, buy us coffee"
+msgstr ""
+
+msgid "If you like it, please review the plugin"
+msgstr ""
+
+# gmw-widget.php:236
 msgid ""
-"Display a single-image super-fast loading Google map in a widget. A larger, "
-"full featured map is available on click in a lightbox."
+"If you subscribe to our mailing list we'll instantly activate additional features "
+"in the plugin! At the moment those features are 3 additional thumbnail map skins "
+"and 2 additional lightbox skins. More <i>activate by subscribing</i> features "
+"will be available soon!"
 msgstr ""
 
-#. Author of the plugin/theme
-msgid "Web factory Ltd"
+# gmw-widget.php:130
+msgid "Info &amp; Support"
 msgstr ""
 
-#. Author URI of the plugin/theme
-msgid "http://www.webfactoryltd.com/"
+msgid "Large (default)"
+msgstr ""
+
+msgid "Light (default)"
+msgstr ""
+
+msgid "Lightbox (default)"
+msgstr ""
+
+# gmw-widget.php:206
+msgid "Lightbox Skin"
+msgstr ""
+
+msgid "Lightbox map"
+msgstr ""
+
+msgid "Link To"
+msgstr ""
+
+msgid "Map"
+msgstr ""
+
+msgid "Map Size"
+msgstr ""
+
+# gmw-widget.php:219
+msgid "Map Title"
+msgstr ""
+
+msgid "Map Type"
+msgstr ""
+
+msgid "Medium"
+msgstr ""
+
+msgid "New York, USA"
+msgstr ""
+
+msgid "Orange"
+msgstr ""
+
+# gmw-widget.php:122
+msgid "Paper"
+msgstr ""
+
+msgid "Pin Color"
+msgstr ""
+
+msgid "Pin Size"
+msgstr ""
+
+msgid "Pin Type"
+msgstr ""
+
+msgid "Predefined (default)"
+msgstr ""
+
+msgid "Problems? We are here to help!"
+msgstr ""
+
+msgid "Purple"
+msgstr ""
+
+# gmw-widget.php:243
+msgid "Rate the plugin &amp; spread the word"
+msgstr ""
+
+msgid "Red (default)"
+msgstr ""
+
+# gmw-widget.php:117
+msgid "Refreshed by Google"
+msgstr ""
+
+msgid "Review the plugin"
+msgstr ""
+
+msgid "Road (default)"
+msgstr ""
+
+# gmw-widget.php:124
+msgid "Rounded"
+msgstr ""
+
+msgid "Satellite"
+msgstr ""
+
+# gmw-widget.php:104
+msgid "Show (default)"
+msgstr ""
+
+# gmw-widget.php:107
+msgid "Show map title on lightbox (default)"
+msgstr ""
+
+msgid "Small"
+msgstr ""
+
+# gmw-widget.php:240
+msgid ""
+"Subscribe and <a class=\"open_promo_dialog\" href=\"#\">activate extra features</"
+"a>."
+msgstr ""
+
+# gmw-widget.php:250
+msgid ""
+"Subscribe to our newsletter and <a href=\"#\" class=\"open_promo_dialog\">get "
+"extra features</a> for free."
+msgstr ""
+
+# google-maps-widget.php:241
+msgid ""
+"Subscribe to our newsletter<br>and get extra features &amp; options <b>for FREE</"
+"b>!"
+msgstr ""
+
+#, fuzzy
+msgid "Support"
+msgstr "Support"
+
+msgid "Terrain"
+msgstr ""
+
+msgid "Text Above Map"
+msgstr ""
+
+msgid "Text Below Map"
+msgstr ""
+
+msgid "Thumbnail map"
+msgstr ""
+
+msgid "Tiny"
+msgstr ""
+
+msgid "Title"
+msgstr ""
+
+msgid "View Google Maps Widget documentation"
+msgstr ""
+
+msgid "White"
+msgstr ""
+
+msgid "Widgets"
+msgstr ""
+
+msgid "Yellow"
+msgstr ""
+
+# gmw-widget.php:238
+msgid "You've already subscribed and activated extra features. Thank you!"
+msgstr ""
+
+msgid "Zoom Level"
 msgstr ""

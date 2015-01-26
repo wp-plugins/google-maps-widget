@@ -230,15 +230,18 @@ class GoogleMapsWidget extends WP_Widget {
     echo '</div>'; // lightbox tab
 
     echo '<div id="gmw-info">';
-    echo '<h3>Support</h3><p>If you have any problems, questions or would like a new feature added post it on the <a href="https://wordpress.org/support/plugin/google-maps-widget" target="_blank">official support forum</a>. It\'s the only place to get support. Since it\'s free and community powered please be patient. <a target="_blank" href="https://www.paypal.com/cgi-bin/webscr?business=gordan@webfactoryltd.com&cmd=_xclick&currency_code=USD&amount=19&item_name=Premium%20support%20for%20Google%20Maps%20Widget">Premium support</a> is available for $19.</p>';
-    echo '<h3>Activate extra features &amp; options</h3><p>If you subscribe to our mailing list we\'ll instantly activate additional features in the plugin! At the moment those features are 3 additional thumbnail map skins and 2 additional lightbox skins. More <i>activate by subscribing</i> features will be available soon!<br>';
+    echo '<h3>' . __('Support', 'google-maps-widget') . '</h3>';
+    echo '<p>If you have any problems, questions or would like a new feature added post it on the <a href="https://wordpress.org/support/plugin/google-maps-widget" target="_blank">official support forum</a>. It\'s the only place to get support. Since it\'s free and community powered please be patient. <a target="_blank" href="https://www.paypal.com/cgi-bin/webscr?business=gordan@webfactoryltd.com&cmd=_xclick&currency_code=USD&amount=19&item_name=Premium%20support%20for%20Google%20Maps%20Widget">Premium support</a> is available for $19.</p>';
+    echo '<h3>' . __('Activate extra features &amp; options', 'google-maps-widget') . '</h3>';
+    echo '<p>' . __('If you subscribe to our mailing list we\'ll instantly activate additional features in the plugin! At the moment those features are 3 additional thumbnail map skins and 2 additional lightbox skins. More <i>activate by subscribing</i> features will be available soon!', 'google-maps-widget') . '<br>';
     if (GMW::is_activated()) {
-      echo 'You\'ve already subscribed and activated extra features. Thank you!';
+      echo __('You\'ve already subscribed and activated extra features. Thank you!', 'google-maps-widget');
     } else {
-      echo 'Subscribe and <a class="open_promo_dialog" href="#">activate extra features</a>.';
+      echo __('Subscribe and <a class="open_promo_dialog" href="#">activate extra features</a>.', 'google-maps-widget');
     }
     echo '</p>';
-    echo '<h3>Rate the plugin &amp; spread the word</h3><p>It won\'t take you more than a minute but it will help us immensely. So please - <a href="https://wordpress.org/support/view/plugin-reviews/google-maps-widget" target="_blank">rate the plugin</a>. Or spread the word by <a href="https://twitter.com/intent/tweet?via=WebFactoryLtd&amp;text=' . urlencode('I\'m using the #free Google Maps Widget for #wordpress. You can grab it too at http://goo.gl/2qcbbf') . '" target="_blank">tweeting about it</a>. Thank you!</p>';
+    echo '<h3>' . __('Rate the plugin &amp; spread the word', 'google-maps-widget') . '</h3>';
+    echo '<p>It won\'t take you more than a minute but it will help us immensely. So please - <a href="https://wordpress.org/support/view/plugin-reviews/google-maps-widget" target="_blank">rate the plugin</a>. Or spread the word by <a href="https://twitter.com/intent/tweet?via=WebFactoryLtd&amp;text=' . urlencode('I\'m using the #free Google Maps Widget for #wordpress. You can grab it too at http://goo.gl/2qcbbf') . '" target="_blank">tweeting about it</a>. Thank you!</p>';
     echo '</div>'; // info tab
 
     echo '</div><p></p>'; // tabs
