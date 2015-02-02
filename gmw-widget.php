@@ -280,6 +280,7 @@ class GoogleMapsWidget extends WP_Widget {
     $instance['lightbox_header'] = trim($new_instance['lightbox_header']);
     $instance['lightbox_footer'] = trim($new_instance['lightbox_footer']);
     $instance['lightbox_skin'] = $new_instance['lightbox_skin'];
+    $instance['core_ver'] = GMW_VER;
 
     return $instance;
   } // update

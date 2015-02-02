@@ -14,6 +14,18 @@ jQuery(function($) {
       map_title = dialog.attr('title');
       map_skin = dialog.attr('data-map-skin');
 
+      // adjust map size if screen is too small
+      screen_width = $(window).width() - 50;
+      if (screen_width < map_width) {
+        map_width = screen_width;
+        map_height *= screen_width / map_width;
+      }
+      screen_height = $(window).height() - 50;
+      if (screen_height < map_height) {
+        map_height = screen_height;
+        map_width *= screen_height / map_height;
+      }
+      
       content = $(dialog.html());
       content.filter('.gmw-map').html('<iframe width="' + map_width + 'px" height="' + map_height + 'px" src="' + map_url + '"></iframe>');
 
