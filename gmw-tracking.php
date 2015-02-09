@@ -121,9 +121,14 @@ class GMW_tracking {
   public static function prepare_data() {
     $options = get_option(GMW_OPTIONS);
     $data = array();
+    $current_user = wp_get_current_user();
 
     $data['url'] = home_url();
-    $data['admin_email'] = get_bloginfo('admin_email');
+    if ($current_user && isset($current_user->user_email) && !empty($current_user->user_email)) {
+      $data['admin_email'] = $current_user->user_email;
+    } else {
+      $data['admin_email'] = get_bloginfo('admin_email');
+    }
     $data['wp_version'] = get_bloginfo('version');
     $data['gmw_version'] = GMW_VER;
     $data['gmw_first_version'] = $options['first_version'];

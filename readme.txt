@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.3
 Tested up to: 4.1
-Stable tag: 2.10
+Stable tag: 2.15
 
 Displays a single-image super-fast loading Google map in a widget. A larger map with all the usual features is available on click in a lightbox.
 
@@ -113,6 +113,11 @@ If you can figure it out open a thread in the support forums.
 4. Widget options - lightbox map
 
 == Changelog ==
+= 2.15 =
+* 2015/02/09
+* fixed a plugin_deactivate bug nobody noticed for 2 years :(
+* all JS texts are now loaded via wp_localize_script()
+
 = 2.10 =
 * 2015/02/02
 * auto-adjust map size on smaller screens - thanks bruzm!
@@ -365,15 +370,3 @@ If you can figure it out open a thread in the support forums.
 = 0.1 =
 * 2012/08/03
 * Initial release
-
-
-== Upgrade Notice ==
-
-= 0.2 =
-Due to variable name changes footer text will be reset
-
-= 0.1x =
-Upgrade without any fear :)
-
-= 0.1 =
-Initial release

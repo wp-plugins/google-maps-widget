@@ -4,7 +4,7 @@ Plugin Name: Google Maps Widget
 Plugin URI: http://www.googlemapswidget.com/
 Description: Display a single-image super-fast loading Google map in a widget. A larger, full featured map is available on click in a lightbox.
 Author: Web factory Ltd
-Version: 2.10
+Version: 2.15
 Author URI: http://www.webfactoryltd.com/
 Text Domain: google-maps-widget
 Domain Path: lang
@@ -31,7 +31,7 @@ if (!defined('ABSPATH')) {
 }
 
 
-define('GMW_VER', '2.10');
+define('GMW_VER', '2.15');
 define('GMW_OPTIONS', 'gmw_options');
 define('GMW_CRON', 'gmw_cron');
 
@@ -196,6 +196,13 @@ class GMW {
 
       wp_enqueue_style('wp-jquery-ui-dialog');
       wp_enqueue_style('gmw-admin', plugins_url('css/gmw-admin.css', __FILE__), array(), GMW_VER);
+
+      $js_localize = array('subscribe_ok' => __('Check your inbox. Email with activation code is on its way.', 'google-maps-widget'),
+                           'subscribe_duplicate' => __('You are already subscribed to our list. One activation code is valid for all sites so just use the code you already have.', 'google-maps-widget'),
+                           'subscribe_error' => __('Something is not right on our end. Sorry :( Try again later.', 'google-maps-widget'),
+                           'activate_ok' => __('Superb! Extra features are active ;)', 'google-maps-widget'),
+                           'dialog_title' => __('GOOGLE MAPS WIDGET - Activate Extra Features', 'google-maps-widget'));
+      wp_localize_script('gmw-admin', 'gmw', $js_localize);
     } // if
   } // admin_enqueue_scripts
 
@@ -399,19 +406,27 @@ class GMW {
   static function deactivate() {
     $options = get_option(GMW_OPTIONS);
 
-    if (isset($options['allow_tracking']) && $options['allow_tracking'] === false) {
-      unset($options['allow_tracking']);
-      update_option(GMW_OPTIONS, $options);
-    } elseif (isset($options['allow_tracking']) && $options['allow_tracking'] === true) {
+    if (isset($options['allow_tracking']) && $options['allow_tracking'] === true) {
       GMW_tracking::clear_cron();
     }
-  } // activate
+  } // deactivate
+
+
+  // clean up on uninstall / delete
+  static function uninstall() {
+    if (!defined('WP_UNINSTALL_PLUGIN')) {
+      return;
+    }
+
+    delete_option(GMW_OPTIONS);
+  } // uninstall
 } // class GMW
 
 
 // hook everything up
 register_activation_hook(__FILE__, array('GMW', 'activate'));
 register_deactivation_hook(__FILE__, array('GMW', 'deactivate'));
+register_uninstall_hook(__FILE__, array('GMW', 'uninstall'));
 add_action('init', array('GMW', 'init'));
 add_action('plugins_loaded', array('GMW', 'plugins_loaded'));
 add_action('widgets_init', array('GMW', 'widgets_init'));

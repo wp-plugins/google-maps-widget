@@ -247,7 +247,7 @@ class GoogleMapsWidget extends WP_Widget {
     echo '</div><p></p>'; // tabs
 
     if (!GMW::is_activated()) {
-      echo '<p><i>' . __('Subscribe to our newsletter and <a href="#" class="open_promo_dialog">get extra features</a> for free.', 'google-maps-widget') . '</i></p>';
+      echo '<p><i>' . __('Subscribe to our newsletter and <a href="#" class="open_promo_dialog">get extra features</a> <b>for free</b>.', 'google-maps-widget') . '</i></p>';
     }
   } // form
 

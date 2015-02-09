@@ -108,13 +108,13 @@ jQuery(function($) {
       if (data == 'ok') {
         $('#gmw_dialog_subscribe').hide();
         $('#gmw_dialog_activate').show();
-        alert('Check your inbox. Email with activation code is on its way.');
+        alert(gmw.subscribe_ok);
       } else if (data == 'duplicate') {
         $('#gmw_dialog_subscribe').hide();
         $('#gmw_dialog_activate').show();
-        alert('You are already subscribed to our list. One activation code is valid for all sites so just use the code you already have.');
+        alert(gmw.subscribe_duplicate);
       } else {
-        alert('Something is not right on our end. Sorry :( Try again later.');
+        alert(gmw.subscribe_error);
       }
     });
 
@@ -131,7 +131,7 @@ jQuery(function($) {
 
     $.get(ajaxurl, { action: 'gmw_activate', 'code': $('#gmw_code').val()}, function(data) {
       if (data == '1') {
-        alert('Superb! Extra features are active ;)');
+        alert(gmw.activate_ok);
         if ($('#gmw_promo_dialog').data('widget-id')) {
           $('#' + $('#gmw_promo_dialog').data('widget-id') + ' .widget-control-save').trigger('click');
         }
@@ -154,7 +154,7 @@ jQuery(function($) {
         'dialogClass' : 'wp-dialog gmw-dialog',
         'modal' : true,
         'width': 650,
-        'title': 'GOOGLE MAPS WIDGET - Activate Extra Features',
+        'title': gmw.dialog_title,
         'autoOpen': false,
         'closeOnEscape': true,
         close: function(event, ui) { $('#gmw_promo_dialog').data('widget-id', '') }

@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: Google Maps Widget 2.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/google-maps-widget\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2015-01-24 18:01+0100\n"
-"Last-Translator: Web factory Ltd <gmw@webfactoryltd.com>\n"
+"PO-Revision-Date: 2015-02-08 20:17+0100\n"
+"Last-Translator: Web factory Ltd <info@webfactoryltd.com>\n"
 "Language-Team: LANGUAGE <gmw@webfactoryltd.com>\n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
@@ -48,6 +48,10 @@ msgid "Blue"
 msgstr ""
 
 msgid "Brown"
+msgstr ""
+
+# google-maps-widget.php:200
+msgid "Check your inbox. Email with activation code is on its way."
 msgstr ""
 
 msgid "Click to open larger map"
@@ -100,6 +104,10 @@ msgid "Enter your code and activate extra features"
 msgstr ""
 
 msgid "Footer Text"
+msgstr ""
+
+# google-maps-widget.php:204
+msgid "GOOGLE MAPS WIDGET - Activate Extra Features"
 msgstr ""
 
 msgid "Google Maps Widget"
@@ -237,6 +245,10 @@ msgstr ""
 msgid "Small"
 msgstr ""
 
+# google-maps-widget.php:202
+msgid "Something is not right on our end. Sorry :( Try again later."
+msgstr ""
+
 # gmw-widget.php:240
 msgid ""
 "Subscribe and <a class=\"open_promo_dialog\" href=\"#\">activate extra features</"
@@ -246,13 +258,17 @@ msgstr ""
 # gmw-widget.php:250
 msgid ""
 "Subscribe to our newsletter and <a href=\"#\" class=\"open_promo_dialog\">get "
-"extra features</a> for free."
+"extra features</a> <b>for free</b>."
 msgstr ""
 
 # google-maps-widget.php:241
 msgid ""
 "Subscribe to our newsletter<br>and get extra features &amp; options <b>for FREE</"
 "b>!"
+msgstr ""
+
+# google-maps-widget.php:203
+msgid "Superb! Extra features are active ;)"
 msgstr ""
 
 #, fuzzy
@@ -287,6 +303,12 @@ msgid "Widgets"
 msgstr ""
 
 msgid "Yellow"
+msgstr ""
+
+# google-maps-widget.php:201
+msgid ""
+"You are already subscribed to our list. One activation code is valid for all "
+"sites so just use the code you already have."
 msgstr ""
 
 # gmw-widget.php:238
