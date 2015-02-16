@@ -2,9 +2,9 @@
 /*
 Plugin Name: Google Maps Widget
 Plugin URI: http://www.googlemapswidget.com/
-Description: Display a single-image super-fast loading Google map in a widget. A larger, full featured map is available on click in a lightbox.
+Description: Display a single-image super-fast loading Google map in a widget. A larger, full featured map is available on click in a lightbox. Includes shortcode support and numerous options.
 Author: Web factory Ltd
-Version: 2.15
+Version: 2.20
 Author URI: http://www.webfactoryltd.com/
 Text Domain: google-maps-widget
 Domain Path: lang
@@ -31,7 +31,7 @@ if (!defined('ABSPATH')) {
 }
 
 
-define('GMW_VER', '2.15');
+define('GMW_VER', '2.20');
 define('GMW_OPTIONS', 'gmw_options');
 define('GMW_CRON', 'gmw_cron');
 
@@ -72,6 +72,9 @@ class GMW {
       add_action('wp_enqueue_scripts', array(__CLASS__, 'enqueue_scripts'));
       add_action('wp_footer', array(__CLASS__, 'dialogs_markup'));
     }
+
+    // add shortcode support
+    self::add_shortcode();
   } // init
 
 
@@ -172,6 +175,13 @@ class GMW {
 
        echo $out;
    } // dialogs_markup
+
+
+  // check availability and register shortcode
+  // todo - add check fot already registered shortcodes and display error
+  static function add_shortcode() {
+    add_shortcode('gmw', array(__CLASS__, 'do_shortcode'));
+  } // add_shortcode
 
 
   // enqueue frontend scripts if necessary
@@ -374,6 +384,31 @@ class GMW {
 
     return $data;
   } // get_coordinates
+
+
+  // shortcode support for any GMW instance
+  static function do_shortcode($atts, $content = null) {
+    if (!self::is_activated()) {
+      return;
+    }
+
+    global $wp_widget_factory;
+    $atts = shortcode_atts(array('id' => 0), $atts);
+    $id = (int) $atts['id'];
+    $widgets = get_option('widget_googlemapswidget');
+
+    if (!$id || !isset($widgets[$id]) || empty($widgets[$id])) {
+      echo '<span class="gmw-error">Google Maps Widget shortcode error - please double-check the widget ID.</span>';
+    } else {
+      $widget_args = $widgets[$id];
+      $widget_instance['widget_id'] = 'googlemapswidget-' . $id;
+      $widget_instance['widget_name'] = 'Google Maps Widget';
+
+      echo '<span class="gmw-shortcode-widget">';
+      the_widget('GoogleMapsWidget', $widget_args, $widget_instance);
+      echo '</span>';
+    }
+  } // do_shortcode
 
 
   // activate doesn't get fired on upgrades so we have to compensate

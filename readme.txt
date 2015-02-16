@@ -1,12 +1,12 @@
 === Google Maps Widget ===
 Contributors: WebFactory
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=gordan%40webfactoryltd%2ecom&lc=US&item_name=Google%20Maps%20Widget&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
-Tags: google maps, maps, gmaps, widget, lightbox, map, google map, fancybox, fancybox2, multilingual, sidebar, chinese
+Tags: google maps, maps, gmaps, widget, lightbox, map, google map, fancybox, fancybox2, multilingual, sidebar, chinese, shortcode, gmw, fast
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.3
 Tested up to: 4.1
-Stable tag: 2.15
+Stable tag: 2.20
 
 Displays a single-image super-fast loading Google map in a widget. A larger map with all the usual features is available on click in a lightbox.
 
@@ -44,6 +44,11 @@ http://www.youtube.com/watch?v=y1siX9ha7Pw&hd=1
 * show/hide map title
 * header text
 * footer text
+
+** Shortcode **
+
+* by using the _[gmw id="#"]_ shortcode you can display the map in any page, post, or custom post type
+
 
 > If you need a Google Maps shortcode plugin you might be interested in purchasing our premium <a title="5sec Google Maps" href="http://5sec-google-maps-pro.webfactoryltd.com/">5sec Google Maps PRO</a> plugin.
 
@@ -94,7 +99,7 @@ Or if needed, upload manually;
 
 = Who is this plugin for? =
 
-For just about anyone who needs a map on their site.
+For just about anyone who needs a map on their site in 5 seconds.
 
 = Thumbnail map works but lightbox won't open on click =
 
@@ -102,8 +107,8 @@ You most probably have Fancybox JS and CSS files included twice; once by the the
 
 = It's not working!!! Arrrrrrrrr =
 
-A more detailed help is coming soon. Till then check 2 things: does your theme have wp_footer() function call in the footer and if there are any jQuery errors on the site.
-If you can figure it out open a thread in the support forums.
+A more detailed help is coming soon. Till then check 2 things: does your theme have _wp_footer()_ function call in the footer and if there are any jQuery errors on the site.
+If you can't figure it out open a thread in the support forums.
 
 == Screenshots ==
 
@@ -113,9 +118,13 @@ If you can figure it out open a thread in the support forums.
 4. Widget options - lightbox map
 
 == Changelog ==
+= 2.20 =
+* 2015/02/16
+* added shortcode support
+
 = 2.15 =
 * 2015/02/09
-* fixed a plugin_deactivate bug nobody noticed for 2 years :(
+* fixed a _plugin_deactivate_ bug nobody noticed for 2 years :(
 * all JS texts are now loaded via wp_localize_script()
 
 = 2.10 =

@@ -127,7 +127,7 @@ class GoogleMapsWidget extends WP_Widget {
     echo '<p><label for="' . $this->get_field_id('title') . '">' . __('Title', 'google-maps-widget') . ':</label><input class="widefat" id="' . $this->get_field_id('title') . '" name="' . $this->get_field_name('title') . '" type="text" value="' . esc_attr($title) . '" /></p>';
     echo '<p><label for="' . $this->get_field_id('address') . '">' . __('Address', 'google-maps-widget') . ':</label><input class="widefat" id="' . $this->get_field_id('address') . '" name="' . $this->get_field_name('address') . '" type="text" value="' . esc_attr($address) . '" /></p>';
 
-    echo '<div class="gmw-tabs" id="tab-' . $this->id . '"><ul><li><a href="#gmw-thumb">' . __('Thumbnail map', 'google-maps-widget') . '</a></li><li><a href="#gmw-lightbox">' . __('Lightbox map', 'google-maps-widget') . '</a></li><li><a href="#gmw-info">' . __('Info &amp; Support', 'google-maps-widget') . '</a></li></ul>';
+    echo '<div class="gmw-tabs" id="tab-' . $this->id . '"><ul><li><a href="#gmw-thumb">' . __('Thumbnail map', 'google-maps-widget') . '</a></li><li><a href="#gmw-lightbox">' . __('Lightbox map', 'google-maps-widget') . '</a></li><li><a href="#gmw-shortcode">' . __('Shortcode', 'google-maps-widget') . '</a></li><li><a href="#gmw-info">' . __('Info &amp; Support', 'google-maps-widget') . '</a></li></ul>';
     echo '<div id="gmw-thumb">';
 
     echo '<p><label class="gmw-label" for="' . $this->get_field_id('thumb_width') . '">' . __('Map Size', 'google-maps-widget') . ':</label>';
@@ -229,11 +229,27 @@ class GoogleMapsWidget extends WP_Widget {
 
     echo '</div>'; // lightbox tab
 
+    // shortcode tab
+    echo '<div id="gmw-shortcode">';
+    if (GMW::is_activated()) {
+      $id = str_replace('googlemapswidget-', '', $this->id);
+
+      if (!$id || !is_numeric($id)) {
+        echo __('Please save the widget so that the shortcode can be generated.', 'google-maps-widget');
+      } else {
+        echo '<p><code>[gmw id="' . $id . '"]</code><br></p>';
+        echo '<p>' . __('Use the above shortcode to display this Google Maps Widget instance in any page or post. <br>Please note that your theme might style the widget in the post as if it is placed in a sidebar. In that case use the <code>span.gmw-shortcode-widget</code> class to target the shortcode and make  necessary changes via CSS.', 'google-maps-widget') . '</p>';
+      }
+    } else {
+      echo '<p>Shortcode support is an extra feature. You can activate it <b>for free</b> and get more features &amp; options for free as well.<br><br><a class="button open_promo_dialog" href="#">Activate extra features</a></p>';
+    }
+    echo '</div>'; // shortcode tab
+
     echo '<div id="gmw-info">';
     echo '<h3>' . __('Support', 'google-maps-widget') . '</h3>';
     echo '<p>If you have any problems, questions or would like a new feature added post it on the <a href="https://wordpress.org/support/plugin/google-maps-widget" target="_blank">official support forum</a>. It\'s the only place to get support. Since it\'s free and community powered please be patient. <a target="_blank" href="https://www.paypal.com/cgi-bin/webscr?business=gordan@webfactoryltd.com&cmd=_xclick&currency_code=USD&amount=19&item_name=Premium%20support%20for%20Google%20Maps%20Widget">Premium support</a> is available for $19.</p>';
     echo '<h3>' . __('Activate extra features &amp; options', 'google-maps-widget') . '</h3>';
-    echo '<p>' . __('If you subscribe to our mailing list we\'ll instantly activate additional features in the plugin! At the moment those features are 3 additional thumbnail map skins and 2 additional lightbox skins. More <i>activate by subscribing</i> features will be available soon!', 'google-maps-widget') . '<br>';
+    echo '<p>' . __('If you subscribe to our mailing list we\'ll instantly activate additional features in the plugin! At the moment those features are: shortcode support, 3 additional thumbnail map skins and 2 additional lightbox skins. More <i>activate by subscribing</i> features will be available soon!', 'google-maps-widget') . '<br>';
     if (GMW::is_activated()) {
       echo __('You\'ve already subscribed and activated extra features. Thank you!', 'google-maps-widget');
     } else {
