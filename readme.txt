@@ -45,7 +45,7 @@ http://www.youtube.com/watch?v=y1siX9ha7Pw&hd=1
 * header text
 * footer text
 
-** Shortcode **
+**Shortcode**
 
 * by using the _[gmw id="#"]_ shortcode you can display the map in any page, post, or custom post type
 
