@@ -13,7 +13,9 @@
 }
 
 .gmw-tabs {
-  border-bottom: 1px solid #CCCCCC !important;
+  border-bottom: 1px solid #e5e5e5 !important;
+  margin-left: -15px;
+  margin-right: -15px;
 }
 
 .gmw-tabs input.small-text {
@@ -23,6 +25,12 @@
 
 .gmw-tabs select {
   min-width: 230px;
+  max-width: 331px;
+  width: 100%;
+}
+
+.gmw-tabs input {
+  max-width: 331px;
 }
 
 option.promo {
@@ -121,8 +129,10 @@ option.promo {
 }
 
 
-#gmw-info h3 {
+#gmw-info h3, #gmw-info h4, #gmw-info h5 {
   margin: 25px 0 5px 0;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 
 #gmw-info p {
@@ -138,8 +148,8 @@ option.promo {
  *
  * http://docs.jquery.com/UI/Tabs#theming
  */
-.ui-tabs { position: relative; padding: .2em; zoom: 1;margin-top:25px } /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
-.ui-tabs .ui-tabs-nav { margin: 0; padding: .2em .2em 0; }
+.ui-tabs { position: relative; padding: 0; zoom: 1;margin-top:25px } /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
+.ui-tabs .ui-tabs-nav { margin: 0; padding: 0 0 0 5px; box-sizing: border-box; }
 .ui-tabs .ui-tabs-nav li { list-style: none; float: left; position: relative; top: 1px; margin: 0 .2em 1px 0; border-bottom: 0 !important; padding: 0; white-space: nowrap; }
 .ui-tabs .ui-tabs-nav li a { text-decoration: none; }
 .ui-tabs .ui-tabs-nav li.ui-tabs-selected { margin-bottom: 0; border-bottom: 1px solid white !important; }
@@ -147,7 +157,7 @@ option.promo {
 .ui-tabs .ui-tabs-nav li.ui-tabs-active a { outline: none;}
 .ui-tabs .ui-tabs-nav li.ui-tabs-selected a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-state-processing a { cursor: text; }
 .ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a { cursor: pointer; } /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
-.ui-tabs .ui-tabs-panel { display: block; border-width: 0; padding: 0.3em 1.4em; background: none; }
+.ui-tabs .ui-tabs-panel { display: block; border-width: 0; padding: 0 15px; background: none; }
 .ui-tabs .ui-tabs-hide { display: none !important; }
 
 .ui-tabs .ui-tabs-nav li a {
@@ -173,7 +183,7 @@ option.promo {
 
 ul.ui-tabs-nav{
   float: left;
-  border-bottom: 1px solid #CCCCCC;
+  border-bottom: 1px solid #e5e5e5;
   padding-bottom: 0;
   width: 100%;
   margin-bottom: 20px !important

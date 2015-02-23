@@ -4,7 +4,7 @@ Plugin Name: Google Maps Widget
 Plugin URI: http://www.googlemapswidget.com/
 Description: Display a single-image super-fast loading Google map in a widget. A larger, full featured map is available on click in a lightbox. Includes shortcode support and numerous options.
 Author: Web factory Ltd
-Version: 2.20
+Version: 2.25
 Author URI: http://www.webfactoryltd.com/
 Text Domain: google-maps-widget
 Domain Path: lang
@@ -31,7 +31,7 @@ if (!defined('ABSPATH')) {
 }
 
 
-define('GMW_VER', '2.20');
+define('GMW_VER', '2.25');
 define('GMW_OPTIONS', 'gmw_options');
 define('GMW_CRON', 'gmw_cron');
 
@@ -174,14 +174,29 @@ class GMW {
        } // foreach $widgets
 
        echo $out;
-   } // dialogs_markup
+  } // dialogs_markup
 
 
   // check availability and register shortcode
-  // todo - add check fot already registered shortcodes and display error
   static function add_shortcode() {
-    add_shortcode('gmw', array(__CLASS__, 'do_shortcode'));
+    global $shortcode_tags;
+
+    if (isset($shortcode_tags['gmw'])) {
+      add_action('admin_notices', array(__CLASS__, 'notice_sc_conflict_error'));
+    } else {
+      add_shortcode('gmw', array(__CLASS__, 'do_shortcode'));
+    }
   } // add_shortcode
+
+
+  // display notice if shortcode name is already taken
+  static function notice_sc_conflict_error() {
+    if (!self::is_activated()) {
+      return;
+    }
+
+    echo '<div class="error"><p><strong>' . __('Google Maps Widget shortcode is not active!', 'google-maps-widget') . '</strong>' . __(' Shortcode <i>[gmw]</i> is already in use by another plugin or theme. Please deactivate that theme or plugin.', 'google-maps-widget') . '</p></div>';
+  } // notice_sc_conflict_error
 
 
   // enqueue frontend scripts if necessary

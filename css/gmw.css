@@ -17,6 +17,11 @@
   color: red;
 }
 
+.gmw-powered-by {
+  color: #666;
+  font-size: x-small;
+}
+
 /* Colorbox Core Style */
 #colorbox, #cboxOverlay, #cboxWrapper{position:absolute; top:0; left:0; z-index:9999; overflow:hidden;}
 #cboxWrapper {max-width:none;}

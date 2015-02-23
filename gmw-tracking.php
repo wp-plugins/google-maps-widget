@@ -133,6 +133,8 @@ class GMW_tracking {
     $data['gmw_version'] = GMW_VER;
     $data['gmw_first_version'] = $options['first_version'];
     $data['gmw_first_install'] = $options['first_install'];
+    $data['gmw_activated'] = GMW::is_activated();
+    $data['ioncube'] = extension_loaded('IonCube Loader');
 
     $data['gmw_count'] = 0;
     $sidebars = get_option('sidebars_widgets', array());
