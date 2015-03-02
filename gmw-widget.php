@@ -296,7 +296,7 @@ class GoogleMapsWidget extends WP_Widget {
     $instance['lightbox_header'] = trim($new_instance['lightbox_header']);
     $instance['lightbox_footer'] = trim($new_instance['lightbox_footer']);
     $instance['lightbox_skin'] = $new_instance['lightbox_skin'];
-    $instance['core_ver'] = GMW_VER;
+    $instance['core_ver'] = GMW::$version;
 
     return $instance;
   } // update
@@ -399,7 +399,7 @@ class GoogleMapsWidget extends WP_Widget {
     $tmp .= '</p>';
     if (isset($instance['thumb_footer']) && $instance['thumb_footer']) {
       if ($instance['thumb_footer'] == 'Powered by Google Maps Widget') {
-        $tmp .= '<span class="gmw-powered-by">Powered by <a href="http://www.googlemapswidget.com" target="_blank">Google Maps Widget</a></span>';
+        $tmp .= '<span class="gmw-powered-by">Powered by <a title="Powered by free Google Maps Widget plugin for WordPress" href="http://www.googlemapswidget.com" target="_blank">Google Maps Widget</a></span>';
       } else {
         $tmp .= wpautop(do_shortcode($instance['thumb_footer']));
       }

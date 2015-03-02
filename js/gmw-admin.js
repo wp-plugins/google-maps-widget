@@ -105,18 +105,18 @@ jQuery(function($) {
     }
 
     $.post(ajaxurl, { action: 'gmw_subscribe', 'name': $('#gmw_name').val(), 'email': $('#gmw_email').val()}, function(data) {
-      if (data == 'ok') {
+      if (data && data.success == true) {
         $('#gmw_dialog_subscribe').hide();
         $('#gmw_dialog_activate').show();
         alert(gmw.subscribe_ok);
-      } else if (data == 'duplicate') {
+      } else if (data && data.success == false && data.data == 'duplicate') {
         $('#gmw_dialog_subscribe').hide();
         $('#gmw_dialog_activate').show();
         alert(gmw.subscribe_duplicate);
       } else {
         alert(gmw.subscribe_error);
       }
-    });
+    }, 'json');
 
     return false;
   });
@@ -129,8 +129,8 @@ jQuery(function($) {
     $('#gmw_promo_dialog input.error').removeClass('error');
     $('#gmw_promo_dialog span.error').hide();
 
-    $.get(ajaxurl, { action: 'gmw_activate', 'code': $('#gmw_code').val()}, function(data) {
-      if (data == '1') {
+    $.post(ajaxurl, { action: 'gmw_activate', 'code': $('#gmw_code').val()}, function(data) { console.log(data);
+      if (data && data.success == true) {
         alert(gmw.activate_ok);
         if ($('#gmw_promo_dialog').data('widget-id')) {
           $('#' + $('#gmw_promo_dialog').data('widget-id') + ' .widget-control-save').trigger('click');
@@ -140,7 +140,7 @@ jQuery(function($) {
         $('#gmw_promo_dialog span.error.gmw_code').show();
         $('#gmw_code').focus().select();
       }
-    });
+    }, 'json');
 
     return false;
   });

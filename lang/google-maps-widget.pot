@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Google Maps Widget 2.15\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/google-maps-widget\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2015-02-08 20:17+0100\n"
+"PO-Revision-Date: 2015-03-01 19:16+0100\n"
 "Last-Translator: Web factory Ltd <info@webfactoryltd.com>\n"
 "Language-Team: LANGUAGE <gmw@webfactoryltd.com>\n"
 "Language: en_US\n"
@@ -14,6 +14,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.7.3\n"
+
+# google-maps-widget.php:199
+msgid ""
+" Shortcode <i>[gmw]</i> is already in use by another plugin or theme. Please "
+"deactivate that theme or plugin."
+msgstr ""
 
 msgid "0 - entire world"
 msgstr ""
@@ -67,9 +73,6 @@ msgstr ""
 msgid "Custom"
 msgstr ""
 
-msgid "Custom Pin Image URL"
-msgstr ""
-
 # gmw-widget.php:113
 # gmw-widget.php:171
 msgid "Custom URL"
@@ -113,6 +116,16 @@ msgstr ""
 msgid "Google Maps Widget"
 msgstr ""
 
+# google-maps-widget.php:132
+msgid ""
+"Google Maps Widget <b>requires WordPress version 3.3</b> or higher to function "
+"properly. You are using WordPress version %s. Please <a href=\"%s\">update it</a>."
+msgstr ""
+
+# google-maps-widget.php:199
+msgid "Google Maps Widget shortcode is not active!"
+msgstr ""
+
 msgid "Gray"
 msgstr ""
 
@@ -135,12 +148,12 @@ msgstr ""
 msgid "If you like it, please review the plugin"
 msgstr ""
 
-# gmw-widget.php:236
+# gmw-widget.php:252
 msgid ""
 "If you subscribe to our mailing list we'll instantly activate additional features "
-"in the plugin! At the moment those features are 3 additional thumbnail map skins "
-"and 2 additional lightbox skins. More <i>activate by subscribing</i> features "
-"will be available soon!"
+"in the plugin! At the moment those features are: shortcode support, 3 additional "
+"thumbnail map skins and 2 additional lightbox skins. More <i>activate by "
+"subscribing</i> features will be available soon!"
 msgstr ""
 
 # gmw-widget.php:130
@@ -195,10 +208,18 @@ msgstr ""
 msgid "Pin Color"
 msgstr ""
 
+# gmw-widget.php:158
+msgid "Pin Image URL"
+msgstr ""
+
 msgid "Pin Size"
 msgstr ""
 
 msgid "Pin Type"
+msgstr ""
+
+# gmw-widget.php:238
+msgid "Please save the widget so that the shortcode can be generated."
 msgstr ""
 
 msgid "Predefined (default)"
@@ -232,6 +253,10 @@ msgid "Rounded"
 msgstr ""
 
 msgid "Satellite"
+msgstr ""
+
+# gmw-widget.php:130
+msgid "Shortcode"
 msgstr ""
 
 # gmw-widget.php:104
@@ -291,6 +316,14 @@ msgid "Tiny"
 msgstr ""
 
 msgid "Title"
+msgstr ""
+
+# gmw-widget.php:241
+msgid ""
+"Use the above shortcode to display this Google Maps Widget instance in any page "
+"or post. <br>Please note that your theme might style the widget in the post as if "
+"it is placed in a sidebar. In that case use the <code>span.gmw-shortcode-widget</"
+"code> class to target the shortcode and make  necessary changes via CSS."
 msgstr ""
 
 msgid "View Google Maps Widget documentation"

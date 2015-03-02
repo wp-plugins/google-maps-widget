@@ -4,7 +4,7 @@ Plugin Name: Google Maps Widget
 Plugin URI: http://www.googlemapswidget.com/
 Description: Display a single-image super-fast loading Google map in a widget. A larger, full featured map is available on click in a lightbox. Includes shortcode support and numerous options.
 Author: Web factory Ltd
-Version: 2.25
+Version: 2.30
 Author URI: http://www.webfactoryltd.com/
 Text Domain: google-maps-widget
 Domain Path: lang
@@ -31,7 +31,6 @@ if (!defined('ABSPATH')) {
 }
 
 
-define('GMW_VER', '2.25');
 define('GMW_OPTIONS', 'gmw_options');
 define('GMW_CRON', 'gmw_cron');
 
@@ -41,6 +40,8 @@ require_once 'gmw-tracking.php';
 
 
 class GMW {
+  static $version = 2.30;
+
   // hook everything up
   static function init() {
     GMW_tracking::init();
@@ -128,7 +129,7 @@ class GMW {
 
   // display error message if WP version is too low
   static function min_version_error() {
-    echo '<div class="error"><p>' . sprintf('Google Maps Widget <b>requires WordPress version 3.3</b> or higher to function properly. You are using WordPress version %s. Please <a href="%s">update it</a>.', get_bloginfo('version'), admin_url('update-core.php')) . '</p></div>';
+    echo '<div class="error"><p>' . sprintf(__('Google Maps Widget <b>requires WordPress version 3.3</b> or higher to function properly. You are using WordPress version %s. Please <a href="%s">update it</a>.', 'google-maps-widget'), get_bloginfo('version'), admin_url('update-core.php')) . '</p></div>';
   } // min_version_error
 
 
@@ -202,9 +203,9 @@ class GMW {
   // enqueue frontend scripts if necessary
   static function enqueue_scripts() {
     if (is_active_widget(false, false, 'googlemapswidget', true)) {
-      wp_enqueue_style('gmw', plugins_url('/css/gmw.css', __FILE__), array(), GMW_VER);
-      wp_enqueue_script('gmw-colorbox', plugins_url('/js/jquery.colorbox.min.js', __FILE__), array('jquery'), GMW_VER, true);
-      wp_enqueue_script('gmw', plugins_url('/js/gmw.js', __FILE__), array('jquery'), GMW_VER, true);
+      wp_enqueue_style('gmw', plugins_url('/css/gmw.css', __FILE__), array(), GMW::$version);
+      wp_enqueue_script('gmw-colorbox', plugins_url('/js/jquery.colorbox.min.js', __FILE__), array('jquery'), GMW::$version, true);
+      wp_enqueue_script('gmw', plugins_url('/js/gmw.js', __FILE__), array('jquery'), GMW::$version, true);
     }
   } // enqueue_scripts
 
@@ -216,11 +217,11 @@ class GMW {
     if (self::is_plugin_admin_page() || isset($wp_customize)) {
       wp_enqueue_script('jquery-ui-tabs');
       wp_enqueue_script('jquery-ui-dialog');
-      wp_enqueue_script('gmw-cookie', plugins_url('js/jquery.cookie.js', __FILE__), array('jquery'), GMW_VER, true);
-      wp_enqueue_script('gmw-admin', plugins_url('js/gmw-admin.js', __FILE__), array('jquery'), GMW_VER, true);
+      wp_enqueue_script('gmw-cookie', plugins_url('js/jquery.cookie.js', __FILE__), array('jquery'), GMW::$version, true);
+      wp_enqueue_script('gmw-admin', plugins_url('js/gmw-admin.js', __FILE__), array('jquery'), GMW::$version, true);
 
       wp_enqueue_style('wp-jquery-ui-dialog');
-      wp_enqueue_style('gmw-admin', plugins_url('css/gmw-admin.css', __FILE__), array(), GMW_VER);
+      wp_enqueue_style('gmw-admin', plugins_url('css/gmw-admin.css', __FILE__), array(), GMW::$version);
 
       $js_localize = array('subscribe_ok' => __('Check your inbox. Email with activation code is on its way.', 'google-maps-widget'),
                            'subscribe_duplicate' => __('You are already subscribed to our list. One activation code is valid for all sites so just use the code you already have.', 'google-maps-widget'),
@@ -300,27 +301,22 @@ class GMW {
 
     // something's wrong with our server
     if ($res['response']['code'] != 200 || is_wp_error($res)) {
-      echo 'err';
-      die();
+      wp_send_json_error('unknown');
     }
 
     if ($res['body'] == 'ok') {
-      echo "ok";
-      die();
+      wp_send_json_success();
     } elseif ($res['body'] == 'duplicate') {
-      echo "duplicate";
-      die();
+      wp_send_json_error('duplicate');
     } else {
-      // todo var_dump($res['body']);
-      echo 'err';
-      die();
+      wp_send_json_error('unknown');
     }
   } // email_subscribe
 
 
   // check activation code and save if valid
   static function activate_via_code() {
-    $code = trim($_GET['code']);
+    $code = trim($_POST['code']);
 
     if (self::validate_activation_code($code)) {
       $options = get_option(GMW_OPTIONS);
@@ -328,9 +324,9 @@ class GMW {
       $options['activated'] = true;
       update_option(GMW_OPTIONS, $options);
 
-      die("1");
+      wp_send_json_success();
     } else {
-      die("0");
+      wp_send_json_error();
     }
   } // email_activate
 
@@ -431,7 +427,7 @@ class GMW {
     $options = get_option(GMW_OPTIONS);
 
     if (!isset($options['first_version']) || !isset($options['first_install'])) {
-      $options['first_version'] = GMW_VER;
+      $options['first_version'] = GMW::$version;
       $options['first_install'] = current_time('timestamp');
       update_option(GMW_OPTIONS, $options);
     }
@@ -444,7 +440,7 @@ class GMW {
     $options = get_option(GMW_OPTIONS);
 
     if (!isset($options['first_version']) || !isset($options['first_install'])) {
-      $options['first_version'] = GMW_VER;
+      $options['first_version'] = GMW::$version;
       $options['first_install'] = current_time('timestamp');
       $options['last_tracking'] = false;
       update_option(GMW_OPTIONS, $options);

@@ -85,7 +85,7 @@ class GMW_tracking {
     $optout_url = add_query_arg('gmw_tracking', 'opt_out');
 
     echo '<div class="updated"><p>';
-    echo __( 'Please help us improve <strong>Google Maps Widget</strong> by allowing us to track anonymous usage data. Absolutely <strong>no sensitive data is tracked</strong> (<a href="http://www.googlemapswidget.com/plugin-tracking-info/" target="_blank">complete disclosure &amp; details of our tracking policy</a>).', 'google-maps-widget');
+    echo __('Please help us improve <strong>Google Maps Widget</strong> by allowing us to track anonymous usage data. Absolutely <strong>no sensitive data is tracked</strong> (<a href="http://www.googlemapswidget.com/plugin-tracking-info/" target="_blank">complete disclosure &amp; details of our tracking policy</a>).', 'google-maps-widget');
     echo '<br /><a href="' . esc_url($optin_url) . '" style="vertical-align: baseline;" class="button-primary">' . __('Allow', 'google-maps-widget') . '</a>';
     echo '&nbsp;&nbsp;<a href="' . esc_url($optout_url) . '" class="">' . __('Do not allow tracking', 'google-maps-widget') . '</a>';
     echo '</p></div>';
@@ -110,7 +110,7 @@ class GMW_tracking {
                               'redirection' => 3,
                               'httpversion' => '1.0',
                               'body' => $data,
-                              'user-agent' => 'GMW/' . GMW_VER));
+                              'user-agent' => 'GMW/' . GMW::$version));
 
     $options['last_tracking'] = current_time('timestamp');
     update_option(GMW_OPTIONS, $options);
@@ -130,7 +130,7 @@ class GMW_tracking {
       $data['admin_email'] = get_bloginfo('admin_email');
     }
     $data['wp_version'] = get_bloginfo('version');
-    $data['gmw_version'] = GMW_VER;
+    $data['gmw_version'] = GMW::$version;
     $data['gmw_first_version'] = $options['first_version'];
     $data['gmw_first_install'] = $options['first_install'];
     $data['gmw_activated'] = GMW::is_activated();
