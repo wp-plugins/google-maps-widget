@@ -175,7 +175,7 @@ class GoogleMapsWidget extends WP_Widget {
     echo '<select class="gmw_thumb_color_scheme" id="' . $this->get_field_id('thumb_color_scheme') . '" name="' . $this->get_field_name('thumb_color_scheme') . '">';
     GMW::create_select_options($thumb_color_schemes, $thumb_color_scheme);
     if (!GMW::is_activated()) {
-      echo '<option class="promo" value="-1">' . __('Add more schemes for free', 'google-maps-widget') . '</option>';
+      echo '<option class="promo" value="-1">' . __('Add more schemes for FREE', 'google-maps-widget') . '</option>';
     }
     echo '</select></p>';
 
@@ -207,7 +207,7 @@ class GoogleMapsWidget extends WP_Widget {
     echo '<select class="gmw_lightbox_skin" id="' . $this->get_field_id('lightbox_skin') . '" name="' . $this->get_field_name('lightbox_skin') . '">';
     GMW::create_select_options($lightbox_skins, $lightbox_skin);
     if (!GMW::is_activated()) {
-      echo '<option class="promo" value="-1">' . __('Add more skins for free', 'google-maps-widget') . '</option>';
+      echo '<option class="promo" value="-1">' . __('Add more skins for FREE', 'google-maps-widget') . '</option>';
     }
     echo '</select></p>';
 
@@ -263,7 +263,7 @@ class GoogleMapsWidget extends WP_Widget {
     echo '</div><p></p>'; // tabs
 
     if (!GMW::is_activated()) {
-      echo '<p><i>' . __('Subscribe to our newsletter and <a href="#" class="open_promo_dialog">get extra features</a> <b>for free</b>.', 'google-maps-widget') . '</i></p>';
+      echo '<p>' . __('Click to <a href="#" class="open_promo_dialog">get extra premium features</a> for Google Maps Widget! For <b><span style="color: #d54e21;">FREE</span></b>.', 'google-maps-widget') . '</p>';
     }
   } // form
 

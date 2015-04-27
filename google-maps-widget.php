@@ -4,7 +4,7 @@ Plugin Name: Google Maps Widget
 Plugin URI: http://www.googlemapswidget.com/
 Description: Display a single-image super-fast loading Google map in a widget. A larger, full featured map is available on click in a lightbox. Includes shortcode support and numerous options.
 Author: Web factory Ltd
-Version: 2.30
+Version: 2.35
 Author URI: http://www.webfactoryltd.com/
 Text Domain: google-maps-widget
 Domain Path: lang
@@ -40,7 +40,7 @@ require_once 'gmw-tracking.php';
 
 
 class GMW {
-  static $version = 2.30;
+  static $version = 2.35;
 
   // hook everything up
   static function init() {
@@ -68,6 +68,12 @@ class GMW {
       // register AJAX endpoints
       add_action('wp_ajax_gmw_subscribe', array(__CLASS__, 'email_subscribe'));
       add_action('wp_ajax_gmw_activate', array(__CLASS__, 'activate_via_code'));
+
+      // handle dismiss button for all notices
+      add_action('admin_action_gmw_dismiss_notice', array(__CLASS__, 'dismiss_notice'));
+
+      // ask users to upgrade
+      self::upgrade_incentive();
     } else {
       // enqueue frontend scripts
       add_action('wp_enqueue_scripts', array(__CLASS__, 'enqueue_scripts'));
@@ -122,15 +128,15 @@ class GMW {
   // check if user has the minimal WP version required by the plugin
   static function check_wp_version($min_version) {
     if (!version_compare(get_bloginfo('version'), $min_version,  '>=')) {
-        add_action('admin_notices', array(__CLASS__, 'min_version_error'));
+        add_action('admin_notices', array(__CLASS__, 'notice_min_version_error'));
     }
   } // check_wp_version
 
 
   // display error message if WP version is too low
-  static function min_version_error() {
+  static function notice_min_version_error() {
     echo '<div class="error"><p>' . sprintf(__('Google Maps Widget <b>requires WordPress version 3.3</b> or higher to function properly. You are using WordPress version %s. Please <a href="%s">update it</a>.', 'google-maps-widget'), get_bloginfo('version'), admin_url('update-core.php')) . '</p></div>';
-  } // min_version_error
+  } // notice_min_version_error
 
 
   // print dialogs markup in footer
@@ -198,6 +204,64 @@ class GMW {
 
     echo '<div class="error"><p><strong>' . __('Google Maps Widget shortcode is not active!', 'google-maps-widget') . '</strong>' . __(' Shortcode <i>[gmw]</i> is already in use by another plugin or theme. Please deactivate that theme or plugin.', 'google-maps-widget') . '</p></div>';
   } // notice_sc_conflict_error
+
+
+  // handle dismiss button for all notices
+  // todo - convert all notices
+  static function dismiss_notice() {
+    $options = get_option(GMW_OPTIONS, array());
+
+    if (isset($_GET['notice']) && $_GET['notice'] == 'upgrade') {
+      $options['dismiss_notice_upgrade'] = true;
+      update_option(GMW_OPTIONS, $options);
+    }
+
+    if ($_GET['redirect']) {
+      wp_redirect($_GET['redirect']);
+    } else {
+      wp_redirect(admin_url());
+    }
+    exit;
+  } // dismiss_notice
+
+
+  // maybe show upgrade notice
+  static function upgrade_incentive() {
+    $options = get_option(GMW_OPTIONS, array());
+
+    // if notice has already been dismissed - skip
+    if (isset($options['dismiss_notice_upgrade']) && $options['dismiss_notice_upgrade'] == true) {
+      return;
+    }
+
+    // if extra features are already active - skip
+    if (self::is_activated()) {
+      return;
+    }
+
+    // if there are no widgets and the plugin is used less than 3 days - skip
+    if (GMW_tracking::count_active_widgets() == 0 &&
+       (current_time('timestamp') - $options['first_install']) < (DAY_IN_SECONDS * 3)) {
+      return;
+    }
+
+    add_action('admin_notices', array(__CLASS__, 'notice_activate_extra_features'));
+  } // upgrade_incentive
+
+
+  // display message to get extra features for GMW
+  static function notice_activate_extra_features() {
+    $activate_url = admin_url('widgets.php?gmw_open_promo_dialog');
+    $dismiss_url = add_query_arg(array('action' => 'gmw_dismiss_notice', 'notice' => 'upgrade', 'redirect' => $_SERVER['REQUEST_URI']), admin_url('admin.php'));
+
+    // todo detect WP version and add support for "notice is-dismissible"
+    // todo remove style from HTML
+    echo '<div id="gmw_activate_notice" class="updated"><p>' . __('<b>Google Maps Widget</b> has extra premium features you can get for <b style="color: #d54e21;">FREE</b>. This is a limited time offer so act now!', 'google-maps-widget');
+
+    echo '<br /><a href="' . esc_url($activate_url) . '" style="vertical-align: baseline; margin-top: 15px;" class="button-primary">' . __('Activate premium features for <b>FREE</b>', 'google-maps-widget') . '</a>';
+    echo '&nbsp;&nbsp;<a href="' . esc_url($dismiss_url) . '" class="">' . __('Dismiss notice', 'google-maps-widget') . '</a>';
+    echo '</p></div>';
+  } // notice_activate_extra_features
 
 
   // enqueue frontend scripts if necessary
@@ -271,10 +335,10 @@ class GMW {
     }
 
     $out = '<div id="gmw_promo_dialog">';
-    $out .= '<div id="gmw_dialog_subscribe"><div class="content"><h3 class="center">' . __('Subscribe to our newsletter<br>and get extra features &amp; options <b>for FREE</b>!', 'google-maps-widget') . '</h3>';
+    $out .= '<div id="gmw_dialog_subscribe"><div class="content"><h3 class="center">' . __('Fill out the form and<br>get extra features &amp; options <b>for FREE</b> instantly!', 'google-maps-widget') . '</h3>';
     $out .= '<p class="input_row"><input value="' . $name . '" type="text" id="gmw_name" name="gmw_name" placeholder="Your name"><span class="error name" style="display: none;">Please enter your name.</span></p>';
     $out .= '<p class="input_row"><input value="' . $current_user->user_email . '" type="text" name="gmw_email" id="gmw_email" placeholder="Your email address"><span style="display: none;" class="error email">Please double check your email address.</span></p>';
-    $out .= '<p class="center"><a id="gmw_subscribe" href="#" class="button button-primary big-button">Subscribe &amp; activate extra features</a><br><a href="#" class="" id="gmw_already_subscribed">I\'m already subscribed</a></p></div>';
+    $out .= '<p class="center"><a id="gmw_subscribe" href="#" class="button button-primary big-button">Activate extra features</a><br><a href="#" class="" id="gmw_already_subscribed">I already have an activation code</a></p></div>';
     $out .= '<div class="footer"><p><b>Why subscribe?</b></p><ul><li>We\'ll never share your email address</li><li>We won\'t spam you or overwhelm with emails</li><li>Be the first to get notified about new features</li><li>You\'ll get all future upgrades for free as well</li><li>You\'ll get discounts for our premium WP plugins</li></ul></div>';
     $out .= '</div>'; // dialog subscribe
     $out .= '<div id="gmw_dialog_activate"><div class="content"><h3 class="center">' . __('Enter your code and activate extra features', 'google-maps-widget') . '</h3>';

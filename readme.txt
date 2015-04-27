@@ -1,12 +1,11 @@
 === Google Maps Widget ===
 Contributors: WebFactory
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=gordan%40webfactoryltd%2ecom&lc=US&item_name=Google%20Maps%20Widget&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
 Tags: google maps, maps, gmaps, widget, lightbox, map, google map, fancybox, fancybox2, multilingual, sidebar, chinese, shortcode, gmw, fast
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.3
-Tested up to: 4.1
-Stable tag: 2.30
+Tested up to: 4.2
+Stable tag: 2.35
 
 Displays a single-image super-fast loading Google map in a widget. A larger map with all the usual features is available on click in a lightbox.
 
@@ -120,6 +119,13 @@ If you can't figure it out open a thread in the support forums.
 6. Widget options - info & support
 
 == Changelog ==
+= 2.35 =
+* 2015/04/27
+* few small bugs fixed
+* WP v4.2 compatibility checked
+* remove_query_arg() security issue fixed
+* we broke 500,000 downloads ;)
+
 = 2.30 =
 * 2015/03/02
 * JS rewrites

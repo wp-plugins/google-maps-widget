@@ -68,12 +68,12 @@ class GMW_tracking {
       $options['allow_tracking'] = true;
       update_option(GMW_OPTIONS, $options);
       self::send_data(true);
-      wp_redirect(remove_query_arg('gmw_tracking'));
+      wp_redirect(esc_url_raw(remove_query_arg('gmw_tracking')));
       die();
     } else if (isset($_GET['gmw_tracking']) && $_GET['gmw_tracking'] == 'opt_out') {
       $options['allow_tracking'] = false;
       update_option(GMW_OPTIONS, $options);
-      wp_redirect(remove_query_arg('gmw_tracking'));
+      wp_redirect(esc_url_raw(remove_query_arg('gmw_tracking')));
       die();
     }
   } // check_opt_in_out
@@ -86,7 +86,7 @@ class GMW_tracking {
 
     echo '<div class="updated"><p>';
     echo __('Please help us improve <strong>Google Maps Widget</strong> by allowing us to track anonymous usage data. Absolutely <strong>no sensitive data is tracked</strong> (<a href="http://www.googlemapswidget.com/plugin-tracking-info/" target="_blank">complete disclosure &amp; details of our tracking policy</a>).', 'google-maps-widget');
-    echo '<br /><a href="' . esc_url($optin_url) . '" style="vertical-align: baseline;" class="button-primary">' . __('Allow', 'google-maps-widget') . '</a>';
+    echo '<br /><a href="' . esc_url($optin_url) . '" style="vertical-align: baseline; margin-top: 15px;" class="button-primary">' . __('Allow', 'google-maps-widget') . '</a>';
     echo '&nbsp;&nbsp;<a href="' . esc_url($optout_url) . '" class="">' . __('Do not allow tracking', 'google-maps-widget') . '</a>';
     echo '</p></div>';
   } // tracking_notice
@@ -135,21 +135,7 @@ class GMW_tracking {
     $data['gmw_first_install'] = $options['first_install'];
     $data['gmw_activated'] = GMW::is_activated();
     $data['ioncube'] = extension_loaded('IonCube Loader');
-
-    $data['gmw_count'] = 0;
-    $sidebars = get_option('sidebars_widgets', array());
-    foreach ($sidebars as $sidebar_name => $widgets) {
-      if (strpos($sidebar_name, 'inactive') !== false || strpos($sidebar_name, 'orphaned') !== false) {
-        continue;
-      }
-      if (is_array($widgets)) {
-        foreach ($widgets as $widget_name) {
-          if (strpos($widget_name, 'googlemapswidget') !== false) {
-            $data['gmw_count']++;
-          }
-        }
-      }
-    } // foreach sidebar
+    $data['gmw_count'] = self::count_active_widgets();
 
     if (get_bloginfo('version') < '3.4') {
       $theme = get_theme_data(get_stylesheet_directory() . '/style.css');
@@ -175,4 +161,26 @@ class GMW_tracking {
 
     return $data;
   } // prepare_data
+
+
+  // counts the number of active GMW widgets in sidebars
+  static function count_active_widgets() {
+    $count = 0;
+
+    $sidebars = get_option('sidebars_widgets', array());
+    foreach ($sidebars as $sidebar_name => $widgets) {
+      if (strpos($sidebar_name, 'inactive') !== false || strpos($sidebar_name, 'orphaned') !== false) {
+        continue;
+      }
+      if (is_array($widgets)) {
+        foreach ($widgets as $widget_name) {
+          if (strpos($widget_name, 'googlemapswidget') !== false) {
+            $count++;
+          }
+        }
+      }
+    } // foreach sidebar
+
+    return $count;
+  } // count_active_widgets
 } // class GMW_tracking

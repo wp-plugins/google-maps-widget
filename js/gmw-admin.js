@@ -4,6 +4,11 @@
  */
 
 jQuery(function($) {
+  // open promo dialog on load
+  if (window.location.search.search('gmw_open_promo_dialog') != -1) {
+    gmw_open_promo_dialog();
+  }
+
   $('.gmw-tabs').each(function(i, el) {
     change_pin_type(el);
     change_link_type(el);
@@ -134,8 +139,11 @@ jQuery(function($) {
         alert(gmw.activate_ok);
         if ($('#gmw_promo_dialog').data('widget-id')) {
           $('#' + $('#gmw_promo_dialog').data('widget-id') + ' .widget-control-save').trigger('click');
+          $('#gmw_activate_notice').hide();
+          $('#gmw_promo_dialog').dialog('close');
+        } else {
+          window.location = 'widgets.php';
         }
-        $('#gmw_promo_dialog').dialog('close');
       } else {
         $('#gmw_promo_dialog span.error.gmw_code').show();
         $('#gmw_code').focus().select();
