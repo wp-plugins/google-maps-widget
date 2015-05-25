@@ -4,7 +4,7 @@ Plugin Name: Google Maps Widget
 Plugin URI: http://www.googlemapswidget.com/
 Description: Display a single-image super-fast loading Google map in a widget. A larger, full featured map is available on click in a lightbox. Includes shortcode support and numerous options.
 Author: Web factory Ltd
-Version: 2.35
+Version: 2.40
 Author URI: http://www.webfactoryltd.com/
 Text Domain: google-maps-widget
 Domain Path: lang
@@ -40,7 +40,7 @@ require_once 'gmw-tracking.php';
 
 
 class GMW {
-  static $version = 2.35;
+  static $version = 2.40;
 
   // hook everything up
   static function init() {
@@ -72,8 +72,8 @@ class GMW {
       // handle dismiss button for all notices
       add_action('admin_action_gmw_dismiss_notice', array(__CLASS__, 'dismiss_notice'));
 
-      // ask users to upgrade
-      self::upgrade_incentive();
+      // display various notices
+      self::add_notices();
     } else {
       // enqueue frontend scripts
       add_action('wp_enqueue_scripts', array(__CLASS__, 'enqueue_scripts'));
@@ -112,13 +112,17 @@ class GMW {
     $documentation_link = '<a target="_blank" href="http://www.googlemapswidget.com/documentation/" title="' . __('View Google Maps Widget documentation', 'google-maps-widget') . '">'. __('Documentation', 'google-maps-widget') . '</a>';
     $support_link = '<a target="_blank" href="http://wordpress.org/support/plugin/google-maps-widget" title="' . __('Problems? We are here to help!', 'google-maps-widget') . '">' . __('Support', 'google-maps-widget') . '</a>';
     $review_link = '<a target="_blank" href="http://wordpress.org/support/view/plugin-reviews/google-maps-widget" title="' . __('If you like it, please review the plugin', 'google-maps-widget') . '">' . __('Review the plugin', 'google-maps-widget') . '</a>';
-    $donate_link = '<a target="_blank" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=gordan%40webfactoryltd%2ecom&lc=US&item_name=Google%20Maps%20Widget&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest" title="' . __('If you feel we deserve it, buy us coffee', 'google-maps-widget') . '">' . __('Donate', 'google-maps-widget') . '</a>';
+    $donate_link = '<a target="_blank" href="https://www.paypal.com/cgi-bin/webscr?business=gordan@webfactoryltd.com&cmd=_xclick&currency_code=USD&amount=&item_name=Google%20Maps%20Widget%20Donation" title="' . __('If you feel we deserve it, buy us coffee', 'google-maps-widget') . '">' . __('Donate', 'google-maps-widget') . '</a>';
+    $activate_link = '<a href="' . esc_url(admin_url('widgets.php?gmw_open_promo_dialog')) . '">' . __('Activate premium features for <b>FREE</b>', 'google-maps-widget') . '</a>';
 
     if ($file == plugin_basename(__FILE__)) {
       $links[] = $documentation_link;
       $links[] = $support_link;
       $links[] = $review_link;
       $links[] = $donate_link;
+      if (!self::is_activated()) {
+        $links[] = $activate_link;
+      }
     }
 
     return $links;
@@ -215,6 +219,10 @@ class GMW {
       $options['dismiss_notice_upgrade'] = true;
       update_option(GMW_OPTIONS, $options);
     }
+    if (isset($_GET['notice']) && $_GET['notice'] == 'rate') {
+      $options['dismiss_notice_rate'] = true;
+      update_option(GMW_OPTIONS, $options);
+    }
 
     if ($_GET['redirect']) {
       wp_redirect($_GET['redirect']);
@@ -225,28 +233,25 @@ class GMW {
   } // dismiss_notice
 
 
-  // maybe show upgrade notice
-  static function upgrade_incentive() {
+  // maybe show some notices
+  static function add_notices() {
     $options = get_option(GMW_OPTIONS, array());
+    $notice = false;
 
-    // if notice has already been dismissed - skip
-    if (isset($options['dismiss_notice_upgrade']) && $options['dismiss_notice_upgrade'] == true) {
-      return;
-    }
+    if ((!isset($options['dismiss_notice_upgrade']) || $options['dismiss_notice_upgrade'] == false) &&
+        !self::is_activated() &&
+        (GMW_tracking::count_active_widgets() > 0 || (current_time('timestamp') - $options['first_install']) > (DAY_IN_SECONDS * 3))) {
+      add_action('admin_notices', array(__CLASS__, 'notice_activate_extra_features'));
+      $notice = true;
+    } // show upgrade notice
 
-    // if extra features are already active - skip
-    if (self::is_activated()) {
-      return;
-    }
-
-    // if there are no widgets and the plugin is used less than 3 days - skip
-    if (GMW_tracking::count_active_widgets() == 0 &&
-       (current_time('timestamp') - $options['first_install']) < (DAY_IN_SECONDS * 3)) {
-      return;
-    }
-
-    add_action('admin_notices', array(__CLASS__, 'notice_activate_extra_features'));
-  } // upgrade_incentive
+    if (!$notice &&
+        (!isset($options['dismiss_notice_rate']) || $options['dismiss_notice_rate'] == false) &&
+        GMW_tracking::count_active_widgets() > 0 &&
+        (current_time('timestamp') - $options['first_install']) > (DAY_IN_SECONDS * 30)) {
+      add_action('admin_notices', array(__CLASS__, 'notice_rate_plugin'));
+    } // show rate notice
+  } // add_notices
 
 
   // display message to get extra features for GMW
@@ -254,14 +259,29 @@ class GMW {
     $activate_url = admin_url('widgets.php?gmw_open_promo_dialog');
     $dismiss_url = add_query_arg(array('action' => 'gmw_dismiss_notice', 'notice' => 'upgrade', 'redirect' => $_SERVER['REQUEST_URI']), admin_url('admin.php'));
 
-    // todo detect WP version and add support for "notice is-dismissible"
+    // todo detect WP version and add support for "is-dismissible"
     // todo remove style from HTML
-    echo '<div id="gmw_activate_notice" class="updated"><p>' . __('<b>Google Maps Widget</b> has extra premium features you can get for <b style="color: #d54e21;">FREE</b>. This is a limited time offer so act now!', 'google-maps-widget');
+    echo '<div id="gmw_activate_notice" class="updated notice"><p>' . __('<b>Google Maps Widget</b> has extra premium features you can get for <b style="color: #d54e21;">FREE</b>. This is a limited time offer so act now!', 'google-maps-widget');
 
     echo '<br /><a href="' . esc_url($activate_url) . '" style="vertical-align: baseline; margin-top: 15px;" class="button-primary">' . __('Activate premium features for <b>FREE</b>', 'google-maps-widget') . '</a>';
     echo '&nbsp;&nbsp;<a href="' . esc_url($dismiss_url) . '" class="">' . __('Dismiss notice', 'google-maps-widget') . '</a>';
     echo '</p></div>';
   } // notice_activate_extra_features
+
+
+  // display message to get extra features for GMW
+  static function notice_rate_plugin() {
+    $rate_url = 'https://wordpress.org/support/view/plugin-reviews/google-maps-widget?rate=5#postform';
+    $dismiss_url = add_query_arg(array('action' => 'gmw_dismiss_notice', 'notice' => 'rate', 'redirect' => $_SERVER['REQUEST_URI']), admin_url('admin.php'));
+
+    // todo detect WP version and add support for "is-dismissible"
+    // todo remove style from HTML
+    echo '<div id="gmw_rate_notice" class="updated notice"><p>' . __('Hi! We saw you\'ve been using <b>Google Maps Widget</b> for some time and wanted to ask for your help to make the plugin even better.<br>We don\'t need money :), just a minute of your time to rate the plugin. Thank you!', 'google-maps-widget');
+
+    echo '<br /><a target="_blank" href="' . esc_url($rate_url) . '" style="vertical-align: baseline; margin-top: 15px;" class="button-primary">' . __('Help us out &amp; rate the plugin', 'google-maps-widget') . '</a>';
+    echo '&nbsp;&nbsp;<a href="' . esc_url($dismiss_url) . '" class="">' . __('Dismiss notice', 'google-maps-widget') . '</a>';
+    echo '</p></div>';
+  } // notice_rate_plugin
 
 
   // enqueue frontend scripts if necessary
@@ -291,7 +311,9 @@ class GMW {
                            'subscribe_duplicate' => __('You are already subscribed to our list. One activation code is valid for all sites so just use the code you already have.', 'google-maps-widget'),
                            'subscribe_error' => __('Something is not right on our end. Sorry :( Try again later.', 'google-maps-widget'),
                            'activate_ok' => __('Superb! Extra features are active ;)', 'google-maps-widget'),
-                           'dialog_title' => __('GOOGLE MAPS WIDGET - Activate Extra Features', 'google-maps-widget'));
+                           'dialog_title' => __('GOOGLE MAPS WIDGET - Activate Extra Features', 'google-maps-widget'),
+                           'undocumented_error' => __('An undocumented error has occured. Please refresh the page and try again.', 'google-maps-widget'),
+                           'id_base' => 'googlemapswidget');
       wp_localize_script('gmw-admin', 'gmw', $js_localize);
     } // if
   } // admin_enqueue_scripts

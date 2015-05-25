@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
 
 class GMW_tracking {
   // set things up
-  public static function init() {
+  static function init() {
     $options = get_option(GMW_OPTIONS);
 
     self::check_opt_in_out();
@@ -31,7 +31,7 @@ class GMW_tracking {
 
 
   // register additional cron interval
-  public static function register_cron_intervals($schedules) {
+  static function register_cron_intervals($schedules) {
     $schedules['gmw_weekly'] = array(
       'interval' => DAY_IN_SECONDS * 7,
       'display' => 'Once a Week');
@@ -41,13 +41,13 @@ class GMW_tracking {
 
 
   // clear cron scheadule
-  public static function clear_cron() {
+  static function clear_cron() {
     wp_clear_scheduled_hook(GMW_CRON);
   } // clear_cron
 
 
   // setup cron job when user allows tracking
-  public static function setup_cron() {
+  static function setup_cron() {
     $options = get_option(GMW_OPTIONS);
 
     if (isset($options['allow_tracking']) && $options['allow_tracking'] === true) {
@@ -61,7 +61,7 @@ class GMW_tracking {
 
 
   // save user's choice for (not) allowing tracking
-  public static function check_opt_in_out() {
+  static function check_opt_in_out() {
     $options = get_option(GMW_OPTIONS);
 
     if (isset($_GET['gmw_tracking']) && $_GET['gmw_tracking'] == 'opt_in') {
@@ -80,7 +80,7 @@ class GMW_tracking {
 
 
   // display tracking notice
-  public static function tracking_notice() {
+  static function tracking_notice() {
     $optin_url = add_query_arg('gmw_tracking', 'opt_in');
     $optout_url = add_query_arg('gmw_tracking', 'opt_out');
 
@@ -93,7 +93,7 @@ class GMW_tracking {
 
 
   // send usage data once a week to our server
-  public static function send_data($force = false) {
+  static function send_data($force = false) {
     $options = get_option(GMW_OPTIONS);
 
     if ($force == false && (!isset($options['allow_tracking']) || $options['allow_tracking'] !== true)) {
@@ -118,7 +118,7 @@ class GMW_tracking {
 
 
   // get and prepare data that will be sent out
-  public static function prepare_data() {
+  static function prepare_data() {
     $options = get_option(GMW_OPTIONS);
     $data = array();
     $current_user = wp_get_current_user();
