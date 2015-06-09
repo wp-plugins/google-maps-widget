@@ -1,6 +1,7 @@
 === Google Maps Widget ===
 Contributors: WebFactory
-Tags: google maps, maps, gmaps, widget, lightbox, map, google map, fancybox, fancybox2, multilingual, sidebar, chinese, shortcode, gmw, fast
+Tags: address, best google maps, best maps, chinese, cross-browser, custom google map, custom google maps, custom marker, custom marker icons, directions, easy map, fancybox, fancybox2, fast, fully documented, gecode, geo, gmaps, gmw, google map, google map plugin, google map shortcode, google map widget, google maps, google maps api, google maps builder, google maps directions, google maps plugin, google maps v3, google maps widget, googlemaps, latitude, lightbox, location, location by address, location by latitude/longitude, longitude, map, map directions, map marker, map markers, map plugin, map shortcode, map styles, map widget, maps, marker, marker icons, multilingual, pin, place, placemarker, post map, posts, reverse geocode, shortcode, sidebar, streetview, traffic/bike lanes, widget, widget map, wp google map, wp google maps, wp map, wp maps
+Donate link: https://www.paypal.com/cgi-bin/webscr?business=gordan@webfactoryltd.com&cmd=_xclick&currency_code=USD&amount=&item_name=Google%20Maps%20Widget%20Donation
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.3
