@@ -4,7 +4,7 @@ Plugin Name: Google Maps Widget
 Plugin URI: http://www.googlemapswidget.com/
 Description: Display a single-image super-fast loading Google map in a widget. A larger, full featured map is available on click in a lightbox. Includes shortcode support and numerous options.
 Author: Web factory Ltd
-Version: 2.40
+Version: 2.45
 Author URI: http://www.webfactoryltd.com/
 Text Domain: google-maps-widget
 Domain Path: lang
@@ -40,7 +40,7 @@ require_once 'gmw-tracking.php';
 
 
 class GMW {
-  static $version = 2.40;
+  static $version = 2.45;
 
   // hook everything up
   static function init() {
@@ -248,7 +248,7 @@ class GMW {
     if (!$notice &&
         (!isset($options['dismiss_notice_rate']) || $options['dismiss_notice_rate'] == false) &&
         GMW_tracking::count_active_widgets() > 0 &&
-        (current_time('timestamp') - $options['first_install']) > (DAY_IN_SECONDS * 30)) {
+        (current_time('timestamp') - $options['first_install']) > (DAY_IN_SECONDS * 20)) {
       add_action('admin_notices', array(__CLASS__, 'notice_rate_plugin'));
     } // show rate notice
   } // add_notices
@@ -257,7 +257,7 @@ class GMW {
   // display message to get extra features for GMW
   static function notice_activate_extra_features() {
     $activate_url = admin_url('widgets.php?gmw_open_promo_dialog');
-    $dismiss_url = add_query_arg(array('action' => 'gmw_dismiss_notice', 'notice' => 'upgrade', 'redirect' => $_SERVER['REQUEST_URI']), admin_url('admin.php'));
+    $dismiss_url = add_query_arg(array('action' => 'gmw_dismiss_notice', 'notice' => 'upgrade', 'redirect' => urlencode($_SERVER['REQUEST_URI'])), admin_url('admin.php'));
 
     // todo detect WP version and add support for "is-dismissible"
     // todo remove style from HTML
@@ -272,7 +272,7 @@ class GMW {
   // display message to get extra features for GMW
   static function notice_rate_plugin() {
     $rate_url = 'https://wordpress.org/support/view/plugin-reviews/google-maps-widget?rate=5#postform';
-    $dismiss_url = add_query_arg(array('action' => 'gmw_dismiss_notice', 'notice' => 'rate', 'redirect' => $_SERVER['REQUEST_URI']), admin_url('admin.php'));
+    $dismiss_url = add_query_arg(array('action' => 'gmw_dismiss_notice', 'notice' => 'rate', 'redirect' => urlencode($_SERVER['REQUEST_URI'])), admin_url('admin.php'));
 
     // todo detect WP version and add support for "is-dismissible"
     // todo remove style from HTML

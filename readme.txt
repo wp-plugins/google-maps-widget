@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.3
 Tested up to: 4.2
-Stable tag: 2.40
+Stable tag: 2.45
 
 Displays a single-image super-fast loading Google map in a widget. A larger map with all the usual features is available on click in a lightbox.
 
@@ -78,6 +78,7 @@ http://www.youtube.com/watch?v=y1siX9ha7Pw&hd=1
 * Dutch - Arno
 * Ukrainian - Victor Shutovskiy
 * Serbian - Ogi Djuraskovic from <a href="http://firstsiteguide.com/">FirstSiteGuide</a>
+* Russian - Ivanka from <a href="http://www.coupofy.com/">Coupofy</a>
 
 == Installation ==
 
@@ -120,6 +121,11 @@ If you can't figure it out open a thread in the support forums.
 6. Widget options - info & support
 
 == Changelog ==
+= 2.45 =
+* 2015/06/15
+* fixed a bug on notice dismiss action
+* added Russian translation - thanks Ivanka!
+
 = 2.40 =
 * 2015/05/25
 * few small bugs fixed
