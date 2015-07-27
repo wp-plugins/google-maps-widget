@@ -21,7 +21,7 @@ class GoogleMapsWidget extends WP_Widget {
   function GoogleMapsWidget() {
     $widget_ops = array('classname' => 'google-maps-widget', 'description' => __('Displays a map image thumbnail with a larger map available in a lightbox.', 'google-maps-widget'));
     $control_ops = array('width' => 450, 'height' => 350);
-    $this->WP_Widget('GoogleMapsWidget', __('Google Maps Widget', 'google-maps-widget'), $widget_ops, $control_ops);
+    parent::__construct('GoogleMapsWidget', __('Google Maps Widget', 'google-maps-widget'), $widget_ops, $control_ops);
   } // GoogleMapsWidget
 
 
@@ -235,7 +235,7 @@ class GoogleMapsWidget extends WP_Widget {
       $id = str_replace('googlemapswidget-', '', $this->id);
 
       if (!$id || !is_numeric($id)) {
-        echo __('Please save the widget so that the shortcode can be generated.', 'google-maps-widget');
+        echo '<p>' . __('Please save the widget so that the shortcode can be generated.', 'google-maps-widget') . '</p>';
       } else {
         echo '<p><code>[gmw id="' . $id . '"]</code><br></p>';
         echo '<p>' . __('Use the above shortcode to display this Google Maps Widget instance in any page or post. <br>Please note that your theme might style the widget in the post as if it is placed in a sidebar. In that case use the <code>span.gmw-shortcode-widget</code> class to target the shortcode and make  necessary changes via CSS.', 'google-maps-widget') . '</p>';
