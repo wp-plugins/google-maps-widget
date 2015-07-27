@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.3
 Tested up to: 4.2
-Stable tag: 2.50
+Stable tag: 2.51
 
 Displays a single-image super-fast loading Google map in a widget. A larger map with all the usual features is available on click in a lightbox.
 
@@ -121,7 +121,7 @@ If you can't figure it out open a thread in the support forums.
 6. Widget options - info & support
 
 == Changelog ==
-= 2.50 =
+= 2.51 =
 * 2015/07/27
 * updated PHP4 style class constructor to PHP5 one
 * lowered cron for tracking to once every 14 days
