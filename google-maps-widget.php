@@ -336,7 +336,7 @@ class GMW {
     $options = get_option(GMW_OPTIONS);
 
     if (isset($options['activated']) && $options['activated'] === true) {
-      return 0;
+      return true;
     } else {
       return false;
     }
